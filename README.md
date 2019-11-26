@@ -2,6 +2,18 @@
 
 ## Groundwork
 
+### Helpful link
+
+- **git** tutorial : https://nolboo.kim/blog/2013/10/06/github-for-beginner/
+
+- **github** 
+
+  - create repo : https://help.github.com/en/github/getting-started-with-github/create-a-repo
+
+  - fork : https://help.github.com/en/github/getting-started-with-github/fork-a-repo
+
+- **Markdown** Cheatsheet : https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+
 ### 1. Create repo
 
 - https://github.com 에 가입하고 이 레포지토리를 fork 한다. 그리고 다음 명령어를 참고하여 자신의 컴퓨터에 fork 한 레포지토리를 clone 한다. 
@@ -48,7 +60,8 @@
   # vim, tmux, gdb 세팅
   git clone https://github.com/ccss17/dotfiles-cli
   cd dotfiles-cli
-  ./setup.sh 
+  ./install.sh 
+  ./install_gdb.sh
   # 실행 후 비밀번호를 물어보면 비밀번호 입력 
   # "Do you want to change your default shell to zsh? [Y/n]" 가 뜨면
   # 프롬프트에 Y 입력 후 비밀 번호 입력 그리고 쉘이 뜨면 exit 입력 
@@ -93,17 +106,3 @@
 4. 과제는 협동해서 해도 됩니다.
 
 5. 10일 간 부여되는 10개의 과제 중 7개 이상을 PASS 하면 **GBC Security** PASS 를 할 수 있습니다.
-
----
-
-### Helpful link
-
-- **git** tutorial : https://nolboo.kim/blog/2013/10/06/github-for-beginner/
-
-- **github** 
-
-  - create repo : https://help.github.com/en/github/getting-started-with-github/create-a-repo
-
-  - fork : https://help.github.com/en/github/getting-started-with-github/fork-a-repo
-
-- **Markdown** Cheatsheet : https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
