@@ -12,6 +12,8 @@
 
   - fork : https://help.github.com/en/github/getting-started-with-github/fork-a-repo
 
+  - pull requests : https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request
+
 - **Markdown** Cheatsheet : https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
 
 ### 1. Create repo

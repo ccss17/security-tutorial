@@ -130,19 +130,17 @@
 
 ### 과제 가이드 
 
-1. 자신의 **security** 디렉토리에 HW-1 디렉토리를 만든다. 
+1. [HW-1.md](HW-1/HW-1.md) 파일의 지시를 따르는 것이 과제이다. (발표를 하며 설명을 할 수 있어야 합니다)
 
-2. [HW-1.md](HW-1.md) 을 다운받아서 HW-1 디렉토리에 저장한다. 
+2. 과제 파일은 (HW-1) 디렉토리에 만들어야 한다. 
 
-3. HW-1.md 파일의 지시를 따르는 것이 과제이다. 
-
-4. 다 했으면 다음 명령어를 참고해서 커밋 후 푸쉬한다.
-
-5. 다음날 발표할 수 있을 정도로 과제를 해와야 한다. 
+3. 과제 파일이 완성되면 다음 명령어를 참고하여 완성된 과제를 푸쉬한다. 
 
 ```shell
 cd /path/to/security
 git add .
-git commit -m "complete HW1"
+git commit -m "complete HW-1"
 git push -u origin master
 ```
+
+4. 마지막으로 `pull requests` 를 한다. 
