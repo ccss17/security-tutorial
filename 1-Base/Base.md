@@ -84,6 +84,10 @@
 
 5. 컴퓨터 보안 이슈 알 수 있는 곳 & 컴퓨터 보안 배울 수 있는 곳 
 
+  - https://github.com/sbilly/awesome-security
+
+  - https://www.blackhat.com/
+  
   - https://googleprojectzero.blogspot.com/
 
   - https://bugs.chromium.org/hosting/
@@ -111,6 +115,8 @@
   - https://hackaday.com
   
   - https://www.hacking-tutorial.com
+  
+  - https://www.defcon.org/
 
 6. 돈을 위해 뭐든 이루어내는 사람 
 
@@ -121,8 +127,6 @@
 ---
 
 ## 과제 
-
-> 간단하게 라는 게 어느정도 수준인지 정해줘야 함. 그래서 과제 완성 예시를 보여줘야 안 애매함.
 
 ### 과제 가이드 
 
