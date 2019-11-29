@@ -38,22 +38,22 @@
 
 #### Create server account
 
-1. `CCSSS` 라는 아이디를 만들고 싶다고 하면 다음의 명령어들을 입력
+1. `GHOSTER` 라는 아이디를 만들고 싶다고 하면 다음의 명령어들을 입력
 
   ```shell
   # 유저 생성 
-  $ sudo useradd -m -d /home/CCSSS -s $(which bash) CCSSS
+  $ sudo useradd -m -d /home/GHOSTER -s $(which bash) GHOSTER
   # 비밀번호 지정 
-  sudo passwd CCSSS 
+  sudo passwd GHOSTER 
   # sudo 명령어를 쓸 수 있는 권한 부여 
-  sudo visudo # vim 이 열리면 CCSSS ALL=(ALL:ALL) ALL 을 추가한다. 
+  sudo visudo # vim 이 열리면 GHOSTER ALL=(ALL:ALL) ALL 을 추가한다. 
   ```
 
 2. 로그아웃 후 만들어진 계정으로 재접속
 
   ```shell
   exit
-  ssh CCSSS@ghostogether.club
+  ssh GHOSTER@ghostogether.club
   ```
 
 3. vim, tmux, gdb 세팅
@@ -62,11 +62,11 @@
   # vim, tmux, gdb 세팅
   git clone https://github.com/ccss17/dotfiles-cli
   cd dotfiles-cli
-  ./install.sh 
+  ./install.sh # 다음 프롬프트가 출력되면 'y' 입력 후 비밀번호 입력 
+  # Do you want to change your default shell to zsh? [Y/n]
+  # Changing the shell...
+  # Password:
   ./install_gdb.sh
-  # 실행 후 비밀번호를 물어보면 비밀번호 입력 
-  # "Do you want to change your default shell to zsh? [Y/n]" 가 뜨면
-  # 프롬프트에 Y 입력 후 비밀 번호 입력 그리고 쉘이 뜨면 exit 입력 
   ```
 
   - 모두 다 완료된 후 세팅 된 환경을 적용하기 위해서 재접속

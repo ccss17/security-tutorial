@@ -19,5 +19,3 @@
      - Backdoor, DDoS, 도청 및 감시, Virus, Ransomware, Worm, Trojan(트로이목마), KeyLogger, RootKit 등등등
 
 4. 아무거나 쓰세요
-
-xxxxxxxxxxxxxxxxx
