@@ -1,5 +1,33 @@
 # GBC (Ghost Base Camp) Security 
 
+This is a repository containing the contents of GBC's 4th course, Security Course, which is being held for beginners at HGU computer security club, GHOST.
+
+한동대학교 컴퓨터보안 동아리 **GHOST** 에서 신입기수를 대상으로 진행하는 **GBC** 의 `4` 번째 과정인 **보안** 과정을 진행하기 위한 내용을 담은 레포지토리입니다. 
+
+## Contents
+
+- Day 1 : [Base](1-Base/Base.md)
+
+- Day 2 : [Computer Principle 1](2-Computer1/Principle1.md)
+
+- Day 3 : [Computer Principle 2 + Reversing 1](3-Computer2+Reversing1/Principle2+Reversing1.md)
+
+- Day 4 : [Reversing 2](4-Reversing2/Reversing2.md)
+
+- Day 5 : [Reversing 3](5-Reversing3/Reversing3.md)
+
+- Day 6 : [Exploit 1](6-Exploit1/Exploit1.md)
+
+- Day 7 : [Exploit 2](7-Exploit2/Exploit2.md)
+
+- Day 8 : [Exploit 3](8-Exploit3/Exploit3.md)
+
+- Day 9 : [Exploit 4](9-Exploit4/Exploit4.md)
+
+- Day 10 : [Pentest + Wrap-up](10-Pentesting/Pentesting.md)
+
+---
+
 ## Groundwork
 
 ### Helpful link
@@ -70,30 +98,6 @@
   ```
 
   - 모두 다 완료된 후 세팅 된 환경을 적용하기 위해서 재접속
-
----
-
-## Contents
-
-1. [Base](1-Base/Base.md)
-
-2. [Computer Principle 1](2-Computer1/Principle1.md)
-
-3. [Computer Principle 2 + Reversing 1](3-Computer2+Reversing1/Principle2+Reversing1.md)
-
-4. [Reversing 2](4-Reversing2/Reversing2.md)
-
-5. [Reversing 3](5-Reversing3/Reversing3.md)
-
-6. [Exploit 1](6-Exploit1/Exploit1.md)
-
-7. [Exploit 2](7-Exploit2/Exploit2.md)
-
-8. [Exploit 3](8-Exploit3/Exploit3.md)
-
-9. [Exploit 4](9-Exploit4/Exploit4.md)
-
-10. [Pentest + Wrap-up](10-Pentesting/Pentesting.md)
 
 ---
 
