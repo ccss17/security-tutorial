@@ -103,12 +103,16 @@ This is a repository containing the contents of GBC's 4th course, Security Cours
 
 ## Rule
 
-1. 3번 결석하면 **Fail** 입니다. 
+GBC 참여자들은 **PASS** 와 **FAIL** 에 관련된 내용이니 [GBC 보안 룰](RULE.md)을 꼭 확인해주세요. 
 
-2. 2번 지각하면 1번 결석이 됩니다. 
+---
 
-3. 과제 제출은 본인의 **security-tutorial** 레포지토리에 **markdown** 형식의 문서(.md 파일) 로 **commit**하고 **push** 한 후 공지한 시간까지 **pull requests** 하는 것 입니다. 
+## TODO
 
-4. 과제는 협동해서 해도 됩니다.
+- 괴델의 불완전성의 정리의 증명과정 
 
-5. 10일 간 부여되는 10개의 과제 중 7개 이상을 PASS 하면 **GBC Security** PASS 를 할 수 있습니다.
+- 앨런 튜링의 정지문제 증명과정 
+
+- 16진법, 8진법, 2진법 표기법 
+
+- **2-Computer/Principle1.md** CPU 레지스터 부분에 레지스터, RAM, HDD or SSD 의 계층구조 사진 추가 .
