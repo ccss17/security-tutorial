@@ -48,81 +48,81 @@
 
 3. [취약점?](Vulnerability.md)
 
-  - [Zero-day](https://namu.wiki/w/제로%20데이%20공격)
-
-  - [CVE](https://cve.mitre.org/about/index.html)
-
-  - [CWE](https://cwe.mitre.org/about/index.html)
-
-  - [CVE 와 CWE 의 차이점?](https://danielmiessler.com/blog/difference-cve-cwe/)
-
-  - [OWASP](https://ko.wikipedia.org/wiki/OWASP)
-
-  - [제로데이 취약점 패치 보안 발표 이후 시간 차 공격](ob-presentation.pdf)
+    - [Zero-day](https://namu.wiki/w/제로%20데이%20공격)
+  
+    - [CVE](https://cve.mitre.org/about/index.html)
+  
+    - [CWE](https://cwe.mitre.org/about/index.html)
+  
+    - [CVE 와 CWE 의 차이점?](https://danielmiessler.com/blog/difference-cve-cwe/)
+  
+    - [OWASP](https://ko.wikipedia.org/wiki/OWASP)
+  
+    - [제로데이 취약점 패치 보안 발표 이후 시간 차 공격](ob-presentation.pdf)
 
 4. Malware
 
-  - [Logic Bomb](https://teknokidblog.wordpress.com/2017/04/13/making-your-own-logic-bomb-virus/)
-
-  - [Fork Bomb](https://www.geeksforgeeks.org/fork-bomb/)
-
-  - Key Logger
-
-  - Rootkit
-
-  - Bootkit
-
-  - RansomWare
-
-  - Trojans
-
-  - Screen scrappers
-
-  - Backdoor
-
-  - Spyware
+    - [Logic Bomb](https://teknokidblog.wordpress.com/2017/04/13/making-your-own-logic-bomb-virus/)
+  
+    - [Fork Bomb](https://www.geeksforgeeks.org/fork-bomb/)
+  
+    - Key Logger
+  
+    - Rootkit
+  
+    - Bootkit
+  
+    - RansomWare
+  
+    - Trojans
+  
+    - Screen scrappers
+  
+    - Backdoor
+  
+    - Spyware
 
 5. 컴퓨터 보안 이슈 알 수 있는 곳 & 컴퓨터 보안 배울 수 있는 곳 
 
-  - https://github.com/sbilly/awesome-security
-
-  - https://www.blackhat.com/
+    - https://github.com/sbilly/awesome-security
   
-  - https://googleprojectzero.blogspot.com/
-
-  - https://bugs.chromium.org/hosting/
-
-  - https://news.ycombinator.com/news
-
-  - https://cve.mitre.org
-
-  - https://cwe.mitre.org
-
-  - https://www.owasp.org/index.php/Main_Page
-
-  - https://twitter.com/owasp
-
-  - https://www.blackhatworld.com
-
-  - https://www.exploit-db.com
+    - https://www.blackhat.com/
+    
+    - https://googleprojectzero.blogspot.com/
   
-  - https://medium.com/bugbountywriteup
+    - https://bugs.chromium.org/hosting/
   
-  - https://medium.com/bugbountywriteup/tagged/hacking
+    - https://news.ycombinator.com/news
   
-  - https://www.hitb.org
+    - https://cve.mitre.org
   
-  - https://hackaday.com
+    - https://cwe.mitre.org
   
-  - https://www.hacking-tutorial.com
+    - https://www.owasp.org/index.php/Main_Page
   
-  - https://www.defcon.org/
+    - https://twitter.com/owasp
+  
+    - https://www.blackhatworld.com
+  
+    - https://www.exploit-db.com
+    
+    - https://medium.com/bugbountywriteup
+    
+    - https://medium.com/bugbountywriteup/tagged/hacking
+    
+    - https://www.hitb.org
+    
+    - https://hackaday.com
+    
+    - https://www.hacking-tutorial.com
+    
+    - https://www.defcon.org/
 
 6. 돈을 위해 뭐든 이루어내는 사람 
 
-  - https://www.youtube.com/watch?v=RNt2t2__3SY
-
-  - 돈을 위해서 별의별 마법같은 기술도 현실로 이루어내는 타짜들 처럼 해커들도 돈을 위해서 상상 속에서만 존재할 것 같은 해킹 기술을 현실로 구현 해버린다는 말입니다. 
+    - https://www.youtube.com/watch?v=RNt2t2__3SY
+  
+    - 돈을 위해서 별의별 마법같은 기술도 현실로 이루어내는 타짜들 처럼 해커들도 돈을 위해서 상상 속에서만 존재할 것 같은 해킹 기술을 현실로 구현 해버린다는 말입니다. 
 
 ---
 

@@ -10,11 +10,11 @@ This is a repository containing the contents of GBC's 4th course, Security Cours
 
 - Day 2 : [Computer Principle 1](2-Computer1/Principle1.md)
 
-- Day 3 : [Computer Principle 2 + Reversing 1](3-Computer2+Reversing1/Principle2+Reversing1.md)
+- Day 3 : [Computer Principle 2](3-Computer2/Principle2.md)
 
-- Day 4 : [Reversing 2](4-Reversing2/Reversing2.md)
+- Day 4 : [Reversing 1](4-Reversing1/Reversing1.md)
 
-- Day 5 : [Reversing 3](5-Reversing3/Reversing3.md)
+- Day 5 : [Reversing 2](5-Reversing2/Reversing2.md)
 
 - Day 6 : [Exploit 1](6-Exploit1/Exploit1.md)
 
@@ -94,7 +94,7 @@ This is a repository containing the contents of GBC's 4th course, Security Cours
   # Do you want to change your default shell to zsh? [Y/n]
   # Changing the shell...
   # Password:
-  ./install_gdb.sh
+  ./install_pwndbg.sh
   ```
 
   - 모두 다 완료된 후 세팅 된 환경을 적용하기 위해서 재접속

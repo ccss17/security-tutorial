@@ -1,5 +1,17 @@
 # 리버싱 (3)
 
+## radare2 사용법
+
+`gdb` 로 동적 분석을 편하게 할 수 있다면 `radare2` 로 정적 분석을 편하게 할 수 있다. 동적 분석이란 프로그램을 실행 중에 분석하는 것이고 정적 분석이란 프로그램을 실행하지 않고 분석하는 것이다. 다음 튜토리얼을 따라하면서 `r2` 의 사용법을 익힌다. 
+
+- https://moveax.me/radare-basics/
+
+다음 링크는 `r2` 의 레퍼런스 격의 문서들이다. 명령어들을 참고하는 용도로 사용하면 된다. 
+
+- https://radare.gitbooks.io/radare2book/content/ 
+
+- https://github.com/Maijin/Workshop2015/blob/master/slides.pdf
+
 ## 간단한 암호화 복호화
 
 ### XOR 암호화
@@ -194,18 +206,20 @@ https://underwatch.tistory.com/31
 
 ## 실전
 
-오늘은 지금까지 배우고 연습했던 컴퓨터 공학 지식 + 리버싱 도구 + 리버싱 테크닉을 활용해서 실제 리버싱 경쟁 사이트로 가서 리버싱 문제를 해결해보겠습니다. 
+지금까지 배우고 연습했던 컴퓨터 공학 지식 / 리버싱 도구 / 리버싱 테크닉을 활용해서 실제 리버싱 경쟁 사이트로 가서 리버싱 문제를 해결해봅시다. 
 
 1. http://reversing.kr/ : 회원가입 및 로그인을 한다. 
 
-2. 다음의 명령어를 참고해서 Easy ELF 리버싱 문제를 다운 받는다. PHPSESSID 에 대입되는 쿠키값은 각자 다를 것이다. 
+2. 다음의 명령어를 참고해서 Easy ELF 리버싱 문제를 다운 받는다. PHPSESSID 에 대입되는 쿠키값은 각자 다르다. 
+
+    - 크롬 쿠키값 확인 법 : https://dololak.tistory.com/581
 
 ```shell
 curl http://reversing.kr/download.php\?n\=11  -o easyelf --cookie "PHPSESSID=0347e0d4kofpnmajka34qd1p10"
 chmod +x easyelf
 ```
 
-3. 45분 동안 풀어보고 해설하겠음. 
+3. `easyelf` 를 스스로 리버싱하여 풀어봅시다. 
 
 ## easyelf write-up
 
