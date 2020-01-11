@@ -64,18 +64,18 @@ This is a repository containing the contents of GBC's 4th course, Security Cours
 
 #### Create server account
 
-1. `GHOSTER` 라는 아이디를 만들고 싶다고 하면 다음의 명령어들을 입력
+1. 본인의 계정을 만들어야 합니다. 만약 `GHOSTER` 라는 아이디를 만들고 싶다고 하면 다음의 명령어들을 입력하면 됩니다
 
   ```shell
   # 유저 생성 
-  $ sudo useradd -m -d /home/GHOSTER -s $(which bash) GHOSTER
+  sudo useradd -m -d /home/GHOSTER -s $(which bash) GHOSTER
   # 비밀번호 지정 
   sudo passwd GHOSTER 
   # sudo 명령어를 쓸 수 있는 권한 부여 
   sudo visudo # vim 이 열리면 GHOSTER ALL=(ALL:ALL) ALL 을 추가한다. 
   ```
 
-2. 로그아웃 후 만들어진 계정으로 재접속
+2. 로그아웃 후 만들어진 계정으로 재접속합니다. `gbc` 가 아니라 **자신의 계정**으로 접속해야 합니다. 
 
   ```shell
   exit
@@ -95,7 +95,7 @@ This is a repository containing the contents of GBC's 4th course, Security Cours
   ./install_pwndbg.sh
   ```
 
-  - 모두 다 완료된 후 세팅 된 환경을 적용하기 위해서 재접속
+  - 끝났습니다. 세팅 된 환경을 적용하기 위해서는 단순히 재접속하면 됩니다.
 
 ## Rule
 
