@@ -28,9 +28,7 @@ This is a repository containing the contents of GBC's 4th course, Security Cours
 
 ---
 
-## Groundwork
-
-### Helpful link
+## Helpful link
 
 - **git** tutorial : https://nolboo.kim/blog/2013/10/06/github-for-beginner/
 
@@ -43,6 +41,10 @@ This is a repository containing the contents of GBC's 4th course, Security Cours
   - pull requests : https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request
 
 - **Markdown** Cheatsheet : https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+
+---
+
+## Groundwork
 
 ### 1. Create repo
 
