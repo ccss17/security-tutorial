@@ -50,7 +50,7 @@ This is a repository containing the contents of GBC's 4th course, Security Cours
     $ git clone https://github.com/{GITHUB_ID}/security-tutorial
     ```
 
-### 2. Server acount configuration 
+### 2. Server account configuration 
 
 #### Connect server
 
