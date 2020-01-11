@@ -26,8 +26,6 @@ This is a repository containing the contents of GBC's 4th course, Security Cours
 
 - Day 10 : [Pentest + Wrap-up](10-Pentesting/Pentesting.md)
 
----
-
 ## Helpful link
 
 - **git** tutorial : https://nolboo.kim/blog/2013/10/06/github-for-beginner/
@@ -41,8 +39,6 @@ This is a repository containing the contents of GBC's 4th course, Security Cours
   - pull requests : https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request
 
 - **Markdown** Cheatsheet : https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
-
----
 
 ## Groundwork
 
@@ -101,13 +97,9 @@ This is a repository containing the contents of GBC's 4th course, Security Cours
 
   - 모두 다 완료된 후 세팅 된 환경을 적용하기 위해서 재접속
 
----
-
 ## Rule
 
 GBC 참여자들은 **PASS** 와 **FAIL** 에 관련된 내용이니 [GBC 보안 룰](RULE.md)을 꼭 확인해주세요. 
-
----
 
 ## TODO
 
