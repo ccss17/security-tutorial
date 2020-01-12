@@ -64,7 +64,7 @@ This is a repository containing the contents of GBC's 4th course, Security Cours
 
 #### Create server account
 
-1. 본인의 계정을 만들어야 합니다. 만약 `GHOSTER` 라는 아이디를 만들고 싶다고 하면 다음의 명령어들을 입력하면 됩니다
+1. 본인의 계정을 만들어야 합니다. 만약 `GHOSTER` 라는 아이디를 만들고 싶다고 하면 다음의 명령어들을 입력하면 됩니다. __다음 스크립트의 `GHOSTER` 를 본인의 아이디로 모두 치환하여 입력하세요.__
 
   ```shell
   # 유저 생성 
@@ -82,7 +82,7 @@ This is a repository containing the contents of GBC's 4th course, Security Cours
   ssh GHOSTER@ghostogether.club
   ```
 
-3. vim, tmux, gdb 세팅
+3. vim, tmux, gdb 세팅을 하기 위해 다음 명령어들을 입력하세요. 
 
   ```shell
   # vim, tmux, gdb 세팅
