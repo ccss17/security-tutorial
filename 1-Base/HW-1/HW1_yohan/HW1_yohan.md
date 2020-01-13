@@ -41,7 +41,7 @@
 
 - #### **CVE와 CWE 비교**
 
-     ![image-relation](./relation.JPG)
+      ![image-relation](./relation.JPG)
 
 ## 3. 해킹의 실제 사례들
 
