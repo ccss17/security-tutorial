@@ -43,17 +43,18 @@
 
 ## 여러줄의 소스코드를 설명해야 할 때는
 
-...c
+```c
 #include <stdio.h>
 {
     printf("Test");
 }
-...
+```
 
 ## 파이썬 소스코드 설명하고 싶다면
 
-...python
+```python
 def square(x);
     return x*x
 
 printf
+```
