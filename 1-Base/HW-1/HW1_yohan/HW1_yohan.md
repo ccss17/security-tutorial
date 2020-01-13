@@ -29,7 +29,7 @@
 
   - CWE-311 : 민감한 데이터에 대한 암호화 누락
 
-    ![image-compare](./compare.jpg)
+    ![image-compare](./compare.JPG)
 
 - #### **CVE와 CWE 비교**
 
@@ -61,8 +61,11 @@ void main() {
 
 ```
 
-------------------
+------------------ 
+Go to Google: [Google](https://www.google.com/)
+Go to Naver: [NAVER](https://www.naver.com/)
+Go to Hisnet: [Hisnet](https://hisnet.handong.edu/)
+------------------ 
 
-syntax: [Google](https://www.google.com/)
 
 
