@@ -15,4 +15,6 @@
     - > 해당 Win32k 권한 상승 취약점은 Chrome 취약점과 함께 실제 FruityArmor, SandCat 공격 그룹에서 사이버 공격에 사용되었던 것으로 알려져 있기 때문에 Windows 운영 체제 사용자는 반드시 2019년 3월에 배포된 정기 보안 업데이트를 통해 최신 패치를 적용해야 한다.
 
     - CVE ID 예시 
+    -------------
+
         ![image-CVE](https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F2370933D54CAF55936)
