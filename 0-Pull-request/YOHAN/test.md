@@ -27,7 +27,7 @@
 
 # 이미지 삽입 연습입니다
 
-![image-blackpink_jennie] (https://pds.joins.com/news/component/htmlphoto_mmdata/201812/21/bb3efb31-b03d-4a19-8003-7d798c120475.jpg)
+![image-blackpink_jennie](https://pds.joins.com/news/component/htmlphoto_mmdata/201812/21/bb3efb31-b03d-4a19-8003-7d798c120475.jpg)
 
 만약 로컬에 저장 되어 있으면 주소 쓸 때 "(blackpinkjennie.jpg)" 이런식으로 대체 해도 된다
 
