@@ -29,7 +29,7 @@
 
   - CWE-311 : 민감한 데이터에 대한 암호화 누락
 
-    ![image-compare](compare.jpg)
+    ![image-compare](./compare.jpg)
 
 - #### **CVE와 CWE 비교**
 
