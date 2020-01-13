@@ -33,7 +33,7 @@
 
 - #### **CVE와 CWE 비교**
 
-  - CVE의 V 는 취약점(Vulnerabilities) 를 의미하고 CWE의 W 는 보안약점(weakness)을 의미한다. CVE는 취약점 리스트이고 CWE는 보안약점 리스트이다
+  - CVE의 V 는 취약점(Vulnerabilities) 를 의미하고 CWE의 W 는 보안약점(Weakness)을 의미한다. CVE는 취약점 리스트이고 CWE는 보안약점 리스트이다
 
   - 취약점과 보안 약점의 차이는 mitre 홈페이지에 있는 문장을 직역하면 취약점은 해커가 시스템이나 네트워크에 액세스하기 위해 직접 사용할 수 있는 소프트웨어의 실수 (mistake)이고 보안 약점은 소프트웨어 취약점(vulnerabilities)으로 이어질 수 있는 오류 (error)이다.  
 
@@ -66,6 +66,10 @@ void main() {
 }
 
 ```
+
+```c
+code block 2
+```
 1. GBC
 2. 보안
 3. 쉬엄쉬엄
@@ -82,9 +86,8 @@ void main() {
 - Go to Sugang: [Sugang](http://sugang.handong.edu/)
 
 - Go to Ghost: [Ghost](http://ghostogether.club/)
-> adminID : ghost2
-PW : g21400802
-
+>> adminID : ghost2
+>> PW : g21400802
 ------------------ 
 
 
