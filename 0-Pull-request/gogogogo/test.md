@@ -11,4 +11,4 @@
  1. ㅣㅏㅁㄴㄹ어ㅏㅁ
     1. 
 
-![image-이수민](http://images.sportskhan.net/article/2020/01/01/l_2020010102000025100002541.jpg)
+![image-이수민]
