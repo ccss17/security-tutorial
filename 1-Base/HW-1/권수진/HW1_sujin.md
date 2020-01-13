@@ -45,7 +45,7 @@
 
   두번째 발표한 개인정보 유출사건은 2013년 8월에 발생한 사건으로, 사용자 이름, 이메일주소, 전화번호, 생년월일, 해쉬값으로 암호화된 비밀번호가 포함되어 있었다. 이에 대해 야휴 측은 보안질문과 답변도 포함되었을 수 있다고 밝혔다. 그러나 아직까지 공격자가 어떠한 방식으로 시스템에 접근한지 확인하지 못했다. 이번에 밝혀진 두 차례의 사건은 역사상 가장 큰 규모의 개인정보 유출사건이 되었다.  
 
-  ![image-yahoo](https://www.google.com/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwinh8LSwIDnAhWMPXAKHYBWDrkQjRx6BAgBEAQ&url=http%3A%2F%2Fwww.ohmynews.com%2FNWS_Web%2FView%2Fat_pg.aspx%3FCNTN_CD%3DA0002270859&psig=AOvVaw0sf0bXphTZKarbnBL-G4rC&ust=1579002116642616)
+  ![image-yahoo](http://ojsfile.ohmynews.com/STD_IMG_FILE/2016/1215/IE002069992_STD.jpg)
 
 
 ---
