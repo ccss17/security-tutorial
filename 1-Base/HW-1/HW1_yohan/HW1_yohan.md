@@ -29,6 +29,8 @@
 
   - CWE-311 : 민감한 데이터에 대한 암호화 누락
 
+    ![image-compare](compare.jpg)
+
 - #### **CVE와 CWE 비교**
 
   - CVE의 V 는 취약점(Vulnerabilities) 를 의미하고 CWE의 W 는 보안약점(weakness)을 의미한다. CVE는 취약점 리스트이고 CWE는 보안약점 리스트이다
@@ -47,3 +49,18 @@
 ## 4. 아무거나 쓰세요
 
 - #### 마크다운 너무 재밌다
+> #### 마크다운 너무 재밌다
+>> #### 마크다운 너무 재밌다
+>>> #### 마크다운 너무 재밌다
+
+```c
+#include <stdio.h>
+void main() {
+    printf("This is a GBC security course");
+}
+
+------------------
+
+syntax: [Google](https://www.google.com/)
+
+
