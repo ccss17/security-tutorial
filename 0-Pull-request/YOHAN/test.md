@@ -27,9 +27,9 @@
 
 # 이미지 삽입 연습입니다
 
-![image-blackpink_jennie] (https://pds.joins.com/news/component/htmlphoto_mmdata/201812/21/bb3efb31-b03d-4a19-8003-7d798c120475.jpg)
+![image-IU](https://www.google.com/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwiv7JCIhoDnAhWLEqYKHUT4BDAQjRx6BAgBEAQ&url=https%3A%2F%2Fwww.huffingtonpost.kr%2Fentry%2Fstory_kr_5daa74a8e4b0f34e3a75c39e&psig=AOvVaw2VpT6yKmC1A5bUqviMTaZ0&ust=1578985671336098)
 
-만약 로컬에 저장 되어 있으면 주소 쓸 때 "(blackpinkjennie.jpg)" 이런식으로 대체 해도 된다
+만약 로컬에 저장 되어 있으면 주소 쓸 때 "(IU.jpg)" 이런식으로 대체 해도 된다
 
 # 소스코드 설명해야 할 때
 
