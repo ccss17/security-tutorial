@@ -16,5 +16,4 @@
 
     - CVE ID 예시 
     -------------
-
-        ![image-CVE](https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F2370933D54CAF55936)
+       ![image-CVE](https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F2370933D54CAF55936)
