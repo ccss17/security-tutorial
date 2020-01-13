@@ -39,7 +39,7 @@
 
      ![image-compare](./compare.JPG)
 
-- #### **CVE와 CWE 비교**
+- #### **CVE와 CWE의 관계**
 
      ![image-relation](./relation.JPG)
 
@@ -66,6 +66,11 @@ void main() {
 }
 
 ```
+1. GBC
+2. 보안
+3. 쉬엄쉬엄
+4. 했으면
+5. 좋겠어요
 
 ------------------ 
 - Go to Google: [Google](https://www.google.com/)
@@ -73,6 +78,13 @@ void main() {
 - Go to Naver: [NAVER](https://www.naver.com/)
 
 - Go to Hisnet: [Hisnet](https://hisnet.handong.edu/)
+
+- Go to Sugang: [Sugang](http://sugang.handong.edu/)
+
+- Go to Ghost: [Ghost](http://ghostogether.club/)
+> adminID : ghost2
+PW : g21400802
+
 ------------------ 
 
 
