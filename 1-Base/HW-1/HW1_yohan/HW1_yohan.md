@@ -87,9 +87,10 @@ code block 2
 
 - Go to Ghost: [Ghost](http://ghostogether.club/)
 
+  > adminID : ghost2  
+  > PW : g21400802
+
 - 그냥 링크 달기 : <https://www.youtube.com/> 
-> adminID : ghost2  
-> PW : g21400802
 ------------------ 
 
 #### 표만들기
