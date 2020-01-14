@@ -85,61 +85,51 @@
 
   - Q. 컴퓨터는 정지 문제를 해결 할 수 있을까?
 
-- 귀류법으로 증명 (앨런 튜링이 증명)
+- 앨런 튜링의 귀류법 증명
     
-  - 귀류법 : 어떤 명제가 참임을 증명하려 할 때, 그 명제의 결론을 부정함으로써 
-    
-  - 가정 또는 공리등이 모순됨을 보며 간접적으로 그 결론이 성립한다는 것을 증명하는 방법
+  - 귀류법 : 어떤 명제가 참임을 증명하려 할 때, 그 명제의 결론을 부정함으로써 가정 또는 공리등이 모순됨을 보며 간접적으로 그 결론이 성립한다는 것을 증명하는 방법.
 
-  - 대전제 : 정지 문제를 판별하는 알고리즘이 존재한다. 
+  - 대전제 : 정지 문제를 판별하는 알고리즘이 `halting` 이 존재한다. 이 `halting` 함수는 임의의 프로그램과 그 프로그램에 전달될 인자를 인자로 받는다. 그리고 `halting` 함수는 인자로 전달된 프로그램이 정상적으로 종료되면 **true** 를 반환하고 영원히 종료되지 않으면 **false** 를 반환한다. 
 
-  - 정지 문제를 판별하는 알고리즘 : halting ( A, B)
+  - 정지 문제를 판별하는 알고리즘 `halting(function, arg)` 함수 
 
-    - A : 임의의 프로그램.
+    - `function` : 임의의 프로그램.
 
-    - B : 임의의 입력 값.
+    - `arg` : 임의의 프로그램에 전달될 인자. 
 
-	- 프로그램이 정상적으로 종료가 된다 -> true반환
+	- `function` 이 정상적으로 종료가 된다면 **true** 를 반환
 
-	- 프로그램이 정상적으로 종료가 되지 않는다 -> false반환
+	- `function` 이 무한 루프에 빠진다면 **false** 를 반환
+
+  - 반례(Counter example) : 다음은 check 함수의 코드이다. 
 
       ```c
-          Function check (A) {
-              
-              If (halting(A, A) == false)
-                  
-                  Return true;
-              eles
-          
-                  Infinite loop;
-          }
-    
-          Check (check);
+      int check (function) {
+        if (halting(function, function) == false)
+            return true;
+        else
+            // Infinite loop
+      }
       ```
 
-    - Function check  	
-                    
-      - A라는 입력 값을 받고 있음(여기서 A는 check이기도함)
+    - `check` 함수 설명 : `check` 함수는 `function` 라는 입력 값을 받아서 내부적으로 `halting(function, function)` 를 호출하고 있다. (`function` 는 프로그램이지만 일련의 텍스트로 표현할 수 있기 때문에 인자로 전달될 수 있다) 그리고 전달된 `function` 이라는 인자를 `halting` 알고리즘에 전달하여 무한루프에 빠지는지, 정상적으로 종료되는지 체크하고 있다. 이때 `halting` 이 `true` 를 반환하면 `else` 문으로 넘어가는데 그곳에는 영원히 끝나지 않는 무한 루프 코드가 존재한다. 
 
-      - 내부적으로 halting (A,A)를 호출하고 있음 (A는 프로그램이지만, 컴퓨터 내부적으로는 0과 1로구성이되었므로 입력 값이 될 수 있음)
-                    
-      - A라는 프로그램에 자기 자신이 입력 값으로 들어가 무한 루프가 빠진다면 
-        
-      - halting이 false를 반환하여 check 함수는 true를 반환 할 것이고, 만약 정상적으로 종료할 경우 check 함수는 무한루프에 빠질 것이다. 
+    ```c
+    check(check);
+    ```
+    - 증명 : 위와 같이 이 `check` 함수의 인자에 `check` 함수 자신을 전달한다. 무한 루프에 빠진다면 `halting` 이 `false` 를 반환하여 `check` 함수는 `true` 를 반환 할 것이고, 만약 정상적으로 종료할 경우 `check` 함수는 무한루프에 빠질 것이다. 
 
-    - Check (check) 
+      - 가정 1. `check(check)` 가 정상적으로 종료되었다. `halting(check, check)` 가 `false` 를 반환한다. 즉 `halting(check, check)` 은 무한루프를 돈다. 하지만 `check(check)` 은 정상적으로 종료해야 한다. 따라서 참일 수가 없다.
 
-      - 가정 1. Check (check)가 정상적으로 종료되었다. halting(check, check)가 거짓이다. 즉 halting(check, check)은 무한루프를 돈다. 하지만 Check (check)은 정상적으로 종료해야 함.-> 참일 수가 없음
-
-      - 가정 2. Check (check)가 무한 루프에 빠졌다. halting(check, check)이 잘 종료 되었다. 즉, true를 반환한다. 하지만 Check (check)가 무한루프라고 가정 했기 때문에 모순이 발생 ->	거짓일 수가 없다.
+      - 가정 2. `check(check)` 가 무한 루프에 빠졌다. `halting(check, check)` 이 잘 종료 되어 `true` 를 반환한다. 하지만 `check(check)` 는 무한루프에 빠진다. 따라서 `false`를 반환할 수가 없다.
 
 - 결론
   
-  - halting(check, check)는 참도 거짓도 될 수 없다는 모순이 발생
+  - `halting(check, check)` 는 참도 거짓도 될 수 없다는 모순이 발생
 
-  - 따라서 Halting은 존재할 수 없음
+  - 따라서 `halting` 알고리즘은 존재할 수 없다. 
 
-#####  정지 문제를 해결할 알고리즘이 존재한다는 대전제가 붕괴.__
+  - 정지 문제를 해결할 알고리즘이 존재한다는 대전제가 붕괴된다. 
 
 ---
 
