@@ -6,23 +6,23 @@ This is a repository containing the contents of GBC's 4th course, Security Cours
 
 ## Contents
 
-- Day 1 : [Base](1-Base/readme.md)
+- Day 1 : [Base](01-Base/readme.md)
 
-- Day 2 : [Computer Principle 1](2-Computer1/readme.md)
+- Day 2 : [Computer Principle 1](02-Computer1/readme.md)
 
-- Day 3 : [Computer Principle 2](3-Computer2/readme.md)
+- Day 3 : [Computer Principle 2](03-Computer2/readme.md)
 
-- Day 4 : [Reversing 1](4-Reversing1/readme.md)
+- Day 4 : [Reversing 1](04-Reversing1/readme.md)
 
-- Day 5 : [Reversing 2](5-Reversing2/readme.md)
+- Day 5 : [Reversing 2](05-Reversing2/readme.md)
 
-- Day 6 : [Exploit 1](6-Exploit1/readme.md)
+- Day 6 : [Exploit 1](06-Exploit1/readme.md)
 
-- Day 7 : [Exploit 2](7-Exploit2/readme.md)
+- Day 7 : [Exploit 2](07-Exploit2/readme.md)
 
-- Day 8 : [Exploit 3](8-Exploit3/readme.md)
+- Day 8 : [Exploit 3](08-Exploit3/readme.md)
 
-- Day 9 : [Exploit 4](9-Exploit4/readme.md)
+- Day 9 : [Exploit 4](09-Exploit4/readme.md)
 
 - Day 10 : [Pentest + Wrap-up](10-Pentesting/readme.md)
 
