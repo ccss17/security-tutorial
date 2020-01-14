@@ -119,15 +119,13 @@
     ```
     - 증명 : 위와 같이 이 `check` 함수의 인자에 `check` 함수 자신을 전달한다. 무한 루프에 빠진다면 `halting` 이 `false` 를 반환하여 `check` 함수는 `true` 를 반환 할 것이고, 만약 정상적으로 종료할 경우 `check` 함수는 무한루프에 빠질 것이다. 
 
-      - 가정 1. `check(check)` 가 정상적으로 종료되었다. `halting(check, check)` 가 `false` 를 반환한다. 즉 `halting(check, check)` 은 무한루프를 돈다. 하지만 `check(check)` 은 정상적으로 종료해야 한다. 따라서 참일 수가 없다.
+      - 가정 1. `check(check)` 가 정상적으로 종료되었다. `halting(check, check)` 가 `true` 를 반환한다. 그러면 `else` 문으로 넘어가 무한루프를 돈다. 하지만 `check(check)` 은 정상적으로 종료하여야 한다고 했기 때문에 모순이다. 
 
-      - 가정 2. `check(check)` 가 무한 루프에 빠졌다. `halting(check, check)` 이 잘 종료 되어 `true` 를 반환한다. 하지만 `check(check)` 는 무한루프에 빠진다. 따라서 `false`를 반환할 수가 없다.
+      - 가정 2. `check(check)` 가 무한 루프에 빠진다. 그러면 `halting(check, check)` 이 `false` 를 반환하여 `check` 함수가 `true` 를 반환하며 정상적으로 끝난다. 하지만 `check(check)` 는 무한루프에 빠져야 한다고 하였기 때문에 모순이다. 
 
 - 결론
   
-  - `halting(check, check)` 는 참도 거짓도 될 수 없다는 모순이 발생
-
-  - 따라서 `halting` 알고리즘은 존재할 수 없다. 
+  - `halting(check, check)` 이 참도 거짓도 될 수 없다는 모순이 발생한다. 따라서 `halting` 알고리즘은 존재할 수 없다. 
 
   - 정지 문제를 해결할 알고리즘이 존재한다는 대전제가 붕괴된다. 
 
