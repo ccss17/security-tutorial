@@ -34,6 +34,18 @@
 
   ![image-CVE 번호 예시](https://t1.daumcdn.net/cfile/tistory/99FE8D3F5C10779722)
   
+### 최근 발견된 보안 취약점
+
+- 윈도울 커널 메모리 정보 노출 취약점, IBM Tivoli 모니터링 포탈 제품 취약점 등이 있습니다
+
+- Ex)
+
+  - CVE-2018-8595 : window GDI 메모리 정보 노출 취약점
+  
+  - CVE-2018-8621 : windows 커널 메모리 정보 노출 취약점
+  
+  - CVE-2017-1182 : IBM Tivoli Monitoring Portal v6에서 발생하는 임의 명령 실행 
+  
 ---
 
 ## CWE 찾아보기
