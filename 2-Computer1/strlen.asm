@@ -6,7 +6,7 @@ global _start
 strlen:
     mov rax,0                  
 .looplabel:
-    cmp byte [rdi],0           
+    cmp byte [rdi],0  ; esi의 주소값과 0을 비교      
     je  .end                    
     inc rdi                     
     inc rax                    
