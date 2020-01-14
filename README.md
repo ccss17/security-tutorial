@@ -6,25 +6,25 @@ This is a repository containing the contents of GBC's 4th course, Security Cours
 
 ## Contents
 
-- Day 1 : [Base](1-Base/Base.md)
+- Day 1 : [Base](1-Base/readme.md)
 
-- Day 2 : [Computer Principle 1](2-Computer1/Principle1.md)
+- Day 2 : [Computer Principle 1](2-Computer1/readme.md)
 
-- Day 3 : [Computer Principle 2](3-Computer2/Principle2.md)
+- Day 3 : [Computer Principle 2](3-Computer2/readme.md)
 
-- Day 4 : [Reversing 1](4-Reversing1/Reversing1.md)
+- Day 4 : [Reversing 1](4-Reversing1/readme.md)
 
-- Day 5 : [Reversing 2](5-Reversing2/Reversing2.md)
+- Day 5 : [Reversing 2](5-Reversing2/readme.md)
 
-- Day 6 : [Exploit 1](6-Exploit1/Exploit1.md)
+- Day 6 : [Exploit 1](6-Exploit1/readme.md)
 
-- Day 7 : [Exploit 2](7-Exploit2/Exploit2.md)
+- Day 7 : [Exploit 2](7-Exploit2/readme.md)
 
-- Day 8 : [Exploit 3](8-Exploit3/Exploit3.md)
+- Day 8 : [Exploit 3](8-Exploit3/readme.md)
 
-- Day 9 : [Exploit 4](9-Exploit4/Exploit4.md)
+- Day 9 : [Exploit 4](9-Exploit4/readme.md)
 
-- Day 10 : [Pentest + Wrap-up](10-Pentesting/Pentesting.md)
+- Day 10 : [Pentest + Wrap-up](10-Pentesting/readme.md)
 
 ## Helpful link
 
@@ -37,6 +37,8 @@ This is a repository containing the contents of GBC's 4th course, Security Cours
   - fork : https://help.github.com/en/github/getting-started-with-github/fork-a-repo
 
   - pull requests : https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request
+
+  - 깃 사용법 및 풀리퀘스트 튜토리얼 한글버전 : https://wayhome25.github.io/git/2017/07/08/git-first-pull-request-story/
 
 - **Markdown** Cheatsheet : https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
 
