@@ -49,7 +49,7 @@
 
   > 64비트 환경에서는 rax, rbx, rcx, rdx, rbp, rsp, rsi, rdi 에다가 8개의 레지스터(r8 ~ r15)를 추가로 가진다
 
-  ![image-memory](register12.jpg)
+   ![image-memory](register12.jpg)
 
 
 
@@ -85,13 +85,13 @@
 
 ### 결과(VS)
 
-![image-code_result1](vs_code_result1.jpg)
+ ![image-code_result1](vs_code_result1.jpg)
 
-![image-code_result2](vs_code_result2.jpg)
+ ![image-code_result2](vs_code_result2.jpg)
 
-![image-code_result3](vs_code_result3.jpg)
+ ![image-code_result3](vs_code_result3.jpg)
 
-![image-code_result4](vs_code_result4.jpg)
+ ![image-code_result4](vs_code_result4.jpg)
 
 > 역시 큰 차이가 나진 않았지만 일관적으로 시간차이가 나는 것을 확인할 수가 있었다. 또 다른 컴파일러(Dev C++)로 같은 코드를 돌려봤다
 
