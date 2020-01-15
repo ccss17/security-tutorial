@@ -30,7 +30,7 @@ shr qword[qNum], cl
 
 사용자가 프로그램을 실행하면 HDD 또는 SSD 에 저장되어 있던 프로그램의 바이너리가 RAM 으로 복사된다. 
 
-![CPU/RAM/Disk](https://www.doc.ic.ac.uk/~eedwards/compsys/memory/memory.gif)
+![CPU/RAM/Disk](https://www.researchgate.net/profile/Niels_Nes/publication/4234735/figure/fig1/AS:394707659182081@1471117047077/I-O-RAM-vs-RAM-CPU-compression.png)
     
 RAM 에 복사된 프로그램을 프로세스라고 부르는데 CPU 는 RAM 에서 이 프로세스를 읽으면서 명령을 수행한다. 
 
