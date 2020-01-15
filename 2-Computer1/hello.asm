@@ -11,4 +11,4 @@ _start:
     syscall
     section   .data
 message:
-    db        "Hello, World", 10
+    db        "Hello, World", 10 
