@@ -26,6 +26,8 @@ message:
 
 출저: https://cccding.tistory.com/7 (리눅스 64비트에서 어셈블리로 프로그래밍 할때 각함수의 이름과 레지스터 사용법)
 
+
+
 #### 64bit체제 에서는 어떻게 인자 전달을 하는가?
 
 그리고 64비트 체제에서는 앞에 r을 붙여 rax,rbx,rcx,rdx,rsi,rdi,rbp,rsp로 사용한다.
@@ -43,6 +45,8 @@ message:
 **L> RAX, RBX, RCX, RDX, RSI, RDI, RBP,RSP**
 
 ##### .text섹션에는 실행할 코드, .data 섹션에는 초기값이 있는 전역 변수, 혹은 스태틱 변수 등이 들어간다.
+
+
 
 ### strlen.asm
 
@@ -67,7 +71,7 @@ _start: #여기에서 시작
     mov   rdi, msg #rdi=msg 주소값           
     call  strlen #strlen함수를 호출 한다
     add   al, '0' #al+'0'을 붙이고              
-    mov  [len],al #           
+    mov  [len],al # al을 [len]에 넣어준다.         
     mov   rax, 1  # 사용하는 시스템 호출이 write라는 것을 뜻함         
     mov   rdi, 1  # 값을 출력할 파일의 descriptor, 1은 표준 출력        
     mov   rsi, len   # rsi= len 즉, 프린트 해야하는 것의 주소값    
@@ -105,4 +109,10 @@ ret관련 설명
 https://py0zz1.tistory.com/58
 
 https://includestdlib.tistory.com/43
+
+
+
+과제2 풀때
+
+http://6.s081.scripts.mit.edu/sp18/x86-64-architecture-guide.html
 
