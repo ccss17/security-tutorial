@@ -20,7 +20,7 @@ strlen:                   ; 함수이름
 _start:
     mov   rdi, msg   ; rdi에 msg 문자열을 복사         
     call  strlen     ; strlen 함수 호출
-    add   al, '0'    ; al = al + '0'      / al값이 리턴된 값이고 al에 '0'을 추가하고 
+    add   al, '0'    ; al = al + '0'      / al(char 나 bool값으로 리턴된 값)에 '0'을 추가
     mov  [len],al    ; len의 주소값에 있는 값을 al로 바꾼다 / al의 크기를 len에 저장 
     mov   rax, 1     ; 사용하는 시스템 호출이 write라는 것을 뜻함      
     mov   rdi, 1     ; rdi(값을 출력할 파일의 descriptor)가 1이다 / 표준 출력을 의미     
