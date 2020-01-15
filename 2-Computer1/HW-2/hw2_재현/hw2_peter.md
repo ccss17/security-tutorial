@@ -1,7 +1,6 @@
 ### 코드 분석
 
 
-  ![image-helloworld.jpg](helloworld.jpg)
 \- hello.asm 분석
 
 - rax, rdi, rsi, rdx 값이 있어야 출력할 수 있다
