@@ -49,7 +49,7 @@
 
   > 64비트 환경에서는 rax, rbx, rcx, rdx, rbp, rsp, rsi, rdi 에다가 8개의 레지스터(r8 ~ r15)를 추가로 가진다
 
-  ![image-memory](register2.jpg)
+  ![image-memory](register12.jpg)
 
 
 
@@ -62,10 +62,12 @@
 
 - C 코드에서 레지스터형 변수를 지정할 수 있다는 점과 시간 측정이 가능하다는 점을 이용해 대규모 반복문을 돌리고  시간을 측정해본다
   + Case 1
+
   ![image-code1](code1.jpg)
   > 반복문을 10억번 돌리고 int형으로 반복문을 돌렸을때(RAM의 데이터 영역 사용)
 
   + Case 2
+
   ![image-code2](code2.jpg)
   > 반복문을 10억번 돌리고 register int형으로 반복문을 돌렸을때(레지스터의 데이터 영역 사용)
 
@@ -84,16 +86,22 @@
 ### 결과(VS)
 
 ![image-code_result1](vs_code_result1.jpg)
+
 ![image-code_result2](vs_code_result2.jpg)
+
 ![image-code_result3](vs_code_result3.jpg)
+
 ![image-code_result4](vs_code_result4.jpg)
 
 > 역시 큰 차이가 나진 않았지만 일관적으로 시간차이가 나는 것을 확인할 수가 있었다. 또 다른 컴파일러(Dev C++)로 같은 코드를 돌려봤다
 
 ### 결과(Dev C++)
 ![image-code_result5](dev_code_result1.jpg)
+
 ![image-code_result6](dev_code_result2.jpg)
+
 ![image-code_result7](dev_code_result3.jpg)
+
 ![image-code_result8](dev_code_result4.jpg)
 
 > Dev C++ 또한 큰 차이가 나진 않았지만 일관적으로 시간차이가 나는 것을 확인할 수가 있었다. 
