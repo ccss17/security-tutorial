@@ -4,6 +4,8 @@ This is a repository containing the contents of GBC's 4th course, Security Cours
 
 한동대학교 컴퓨터보안 동아리 **GHOST** 에서 신입기수를 대상으로 진행하는 **GBC** 의 `4` 번째 과정인 **보안** 과정을 진행하기 위한 내용을 담은 레포지토리입니다. 
 
+*보안 과정은 다음과 같이 **10일** 과정으로 구성되며 독자가 **C 언어** 를 잘 알고 있다고 가정합니다.*
+
 ## Contents
 
 - Day 1 : [Base](01-Base/readme.md)

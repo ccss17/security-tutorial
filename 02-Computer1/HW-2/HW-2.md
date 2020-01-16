@@ -14,7 +14,7 @@
 
 2. hello.asm 을 업그레이드 하세요.
 
-    - 기존의 hello.asm 실행시 `Hello, World` 출력 되었다 하지만 업그레이드 버전은 다음과 같은 내용을 출력할 수 있어야 한다. 
+    - 기존의 hello.asm 실행시 `Hello, World` 출력 되었는데 업그레이드 버전은 다음과 같은 내용을 출력할 수 있어야 한다. 
   
       ```shell
       Hello, World

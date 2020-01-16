@@ -201,7 +201,7 @@ int main()
 
 위의 그림과 같이 CPU 는 RAM 에서 프로그램을 읽고 실행하기 위하여 임시 저장소인 레지스터를 사용한다.
 
-HDD 또는 SSD 를 도서관이라고 비유해보자. 그러면 도서관에서 빌려서 가방에 들어있는 책을 RAM 이라고 할 수 있다. 그러면 책을 읽으려고 가방에서 책상으로 꺼내놓은 책들은 레지스터라고 할 수 있다. 하지만 책상의 크기가 작아서 책을 많이 올려놓을 수 없듯이 레지스터에도 데이터를 많이는 저장하지 못한다. 그러나 접근 속도는 책상(레지스터)이 제일 빠르고 그것보다 좀 더 느린 것이 가방(RAM), 가장 느린 것은 도서관(HDD or SSD)이 된다.
+HDD 또는 SSD 를 도서관이라고 비유해보자. 그러면 도서관에서 빌려서 가방에 들어있는 책을 RAM 이라고 할 수 있다. 그리고 책을 읽으려고 가방에서 책을 책상으로 꺼내놓았는데 바로 이 책상 위 공간을 레지스터라고 할 수 있다. 하지만 책상의 크기가 작아서 책을 많이 올려놓을 수 없듯이 레지스터에도 데이터를 많이는 저장하지 못한다. 그러나 접근 속도는 책상(레지스터)이 제일 빠르고 그것보다 좀 더 느린 것이 가방(RAM), 가장 느린 것은 도서관(HDD 또는 SSD)이 된다.
 
 ### `RAM` 에 저장하는 변수와 `register` 에 저장하는 변수의 속도 차이 실험 
 
@@ -234,11 +234,11 @@ HDD 또는 SSD 를 도서관이라고 비유해보자. 그러면 도서관에서
   int performance_test(int loop_count, void (*target_func)(int)){
       clock_t start = clock();
       target_func(loop_count);
-      double msecs = ((double)clock() - start);
-      if (digits_count(msecs) >= 6) 
-          printf("(%d loops)\t%.1f secs\n", loop_count, msecs / CLOCKS_PER_SEC);
+      double microsecs = ((double)clock() - start);
+      if (digits_count(microsecs) >= 6) 
+          printf("(%d loops)\t%.1f secs\n", loop_count, microsecs / CLOCKS_PER_SEC);
       else 
-          printf("(%d loops)\t%.1f msec\n", loop_count, msecs / 1000.0f);
+          printf("(%d loops)\t%.1f msec\n", loop_count, microsecs / 1000.0f);
   }
 
   int main() {
@@ -272,7 +272,7 @@ HDD 또는 SSD 를 도서관이라고 비유해보자. 그러면 도서관에서
 
 ![register](res/register.PNG)
 
-원래 레지스터들은 ax, bx, cx, dx 등으로 불리웠는데 32 비트 메모리를 사용하기 시작하면서 16 비트 레지스터에서 확장extend 했다는 의미로 e 를 붙혀서 eax, ebx, ecx, edx 로 바꿔서 불렀다. 비슷하게 64 비트 메모리 시스템의 레지스터는 rax, rbx, rcx, rdx 라는 식으로 부른다.
+옛날 옛적 16 비트 메모리 시스템을 사용할 때 레지스터들은 ax, bx, cx, dx 등으로 불리웠는데 32 비트 메모리를 사용하기 시작하면서 16 비트 레지스터에서 확장extend 했다는 의미로 e 를 붙혀서 eax, ebx, ecx, edx 로 바꿔서 불렀다. 비슷하게 64 비트 메모리 시스템의 레지스터는 rax, rbx, rcx, rdx 라는 식으로 부른다.
 
 ![register-usage](res/register-usage.PNG)
 
@@ -321,9 +321,9 @@ FLAG 레지스터는 위와 같이 CPU 의 여러가지 상태를 나타낸다.
 
 컴퓨터가 만들어지기 얼마 지나지 않았을 때 폰 노이만의 제자가 기계어로 코딩하는 것이 너무 힘들어서 어셈블리어를 만들자 폰 노이만이 기계어로 코딩하는 게 뭐가 힘들어서 컴퓨터 성능을 낭비하냐고 꾸짖었다고 한다. 하지만 현실은 그 어셈블리어로 코딩하는 것도 힘들어서 C 언어가 개발되었고 C 언어도 힘들어서 Python 이 개발되었다.
 
-어쨌든 컴퓨터는 위에서 설명한 레지스터를 사용하여 여러 연산을 함으로써 프로그램의 기능을 수행한다. 수백가지의 프로그래밍 언어가 있지만 모든 프로그래밍 언어는 컴파일러에 의해 기계어와 1:1 대응되는 기계어로 번역되어 실행가능한 바이너리 파일로 컴파일된다. 
+어쨌든 컴퓨터는 위에서 설명한 레지스터를 사용하여 여러 연산을 함으로써 프로그램의 기능을 수행한다. 수백가지의 프로그래밍 언어가 있지만 모든 프로그래밍 언어는 컴파일러에 의해 기계어와 1:1 대응되는 어셈블리어로 번역되어 실행가능한 바이너리 파일로 컴파일된다. 
 
-x86_64 의 어셈블리어 표현 방식에는 크게 Intel 방식 AT&T 방식이 있는데 좀 더 대중적인 Intel 방식의 어셈블리어를 알아보자. 
+x86_64 의 어셈블리어 표현 방식에는 크게 Intel 방식 AT&T 방식이 있는데 지금은 좀 더 대중적인 Intel 방식의 어셈블리어를 알아보자. 
 
 ## 데이터 저장
 
@@ -339,16 +339,16 @@ x86_64 의 어셈블리어 표현 방식에는 크게 Intel 방식 AT&T 방식�
 - `mov <dest> datatype[location]` : mov 명령어로 주소값에 있는 값을 저장할 수도 있다.
 
   ```assembly
-  mov eax, dword [0x400567] ; 0x400567 에서 dword(double word 의 준말) 만큼 eax 에 저장
-  mov eax, qword [rbp + rsi + 5] ; rbp + rsi + 5 의 주소값에 있는 값을 qword(쿼드러플 워드) 만큼 eax 에 저장
-  mov [rbp + rsi + 5], eax ; rbp + rsi + 5 의 주소값에 있는 값을 eax 로 바꾼다
+  mov eax, dword [0x400567] ; 0x400567 의 메모리 주소에 있는 값을 dword(double word 의 준말) 만큼 eax 에 저장
+  mov eax, qword [rbp + rsi + 5] ; rbp + rsi + 5 의 메모리 주소에 있는 값을 qword(쿼드러플 워드) 만큼 eax 에 저장
+  mov [rbp + rsi + 5], eax ; rbp + rsi + 5 의 메모리 주소에 있는 값을 eax 레지스터에 저장되어 있는 값으로 바꾼다
   ```
 
 - `lea <dest> datatype[location]` : mov 처럼 [ ] 를 사용하는데 메모리에 접근하는 것이 아니라 단순히 산술연산만을 수행한다.
 
   ```assembly
   lea eax, dword [rbp + rsi + 5] ; 단순히 rbp + rsi + 5 의 값을 eax 에 저장
-  mov eax, dword [rbp + rsi + 5] ; mov 는 rbp + rsi + 5 의 주소에 있는 값을 저장
+  mov eax, dword [rbp + rsi + 5] ; mov 는 rbp + rsi + 5 의 메모리 주소에 있는 값을 저장
   ```
 
 ## 산술 연산
