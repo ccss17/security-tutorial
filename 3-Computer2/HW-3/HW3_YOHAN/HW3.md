@@ -63,42 +63,36 @@
 - C 코드에서 레지스터형 변수를 지정할 수 있다는 점과 시간 측정이 가능하다는 점을 이용해 대규모 반복문을 돌리고  시간을 측정해본다
   + Case 1
 
-  ![image-code1](code1.jpg)
+  ![image-code1](case1.jpg)
   > 반복문을 10억번 돌리고 int형으로 반복문을 돌렸을때(RAM의 데이터 영역 사용)
 
   + Case 2
 
-  ![image-code2](code2.jpg)
+  ![image-code2](case2.jpg)
   > 반복문을 10억번 돌리고 register int형으로 반복문을 돌렸을때(레지스터의 데이터 영역 사용)
 
   + Case 3
 
-    ![image-code2](code3.jpg)
+    ![image-code2](case3.jpg)
    > 반복문을 100억번 돌리고 register int형으로 반복문을 돌렸을때(레지스터의 데이터 영역 사용)
   + Case 4
 
-    ![image-code2](code4.jpg)
+    ![image-code2](case4.jpg)
    > 반복문을 100억번 돌리고 int형으로 반복문을 돌렸을때(RAM의 데이터 영역 사용)
 ### 결과(GCC)
-![image-code_result0](coderesult.jpg)
-  > 예상과 달리 큰 차이가 나진 않았지만 일관적으로 시간차이가 나는 것을 확인할 수가 있었다. 혹시 몰라 다른 컴파일러(Visual Studio)로 같은 코드를 돌려봤다.
+![image-code_result0](GCCRESULT.jpg)
+  > 예상대로 큰 차이가 났다. 혹시 몰라 다른 컴파일러(Visual Studio)로 같은 코드를 돌려봤다.
 
 ### 결과(VS)
 
- ![image-code_result12](c_result.jpg)
+ ![image-code_result12](VSRESULT.jpg)
 
-> 역시 큰 차이가 나진 않았지만 일관적으로 시간차이가 나는 것을 확인할 수가 있었다. 또 다른 컴파일러(Dev C++)로 같은 코드를 돌려봤다
+> gcc로 컴파일한것과 달리 비주얼 스튜디어로 컴파일 했을땐 큰 차이가 나진 않았지만 일관적으로 시간차이가 나는 것을 확인할 수가 있었다. 또 다른 컴파일러(Dev C++)로 같은 코드를 돌려봤다
 
 ### 결과(Dev C++)
-![image-code_result5](dev_code_result1.jpg)
+![image-code_result5](DEVRESULT.jpg)
 
-![image-code_result6](dev_code_result2.jpg)
-
-![image-code_result7](dev_code_result3.jpg)
-
-![image-code_result8](dev_code_result4.jpg)
-
-> Dev C++ 또한 큰 차이가 나진 않았지만 일관적으로 시간차이가 나는 것을 확인할 수가 있었다. 
+> Dev C++ 역시 큰 차이가 나는 것을 확인할 수 있었다.
 
 ### 결론 
 > 컴파일러 별로 컴파일 하는 속도도 다르고 레지스터 변수를 썼을 때 차이가 나는 비율도 다르지만 실험했던 모든 경우에 레지스터 변수를 썼을 때 걸린 시간은 더 짧았던 것을 확인할 수 있었다. 컴파일러 별로 컴파일 하는 속도가 다른건 이미 알고 있었지만 레지스터 변수를 썼을때 컴파일러 별로 시간차이가 나는 비율이 일정하지 않은것은 컴파일러마다 레지스터형 변수를 할당하는 레지스터가 다르기 때문이라고 한다. 또한 CPU의 플랫폼(인텔, AMD)의 영향도 많이 받는다고 한다. 
@@ -145,7 +139,10 @@
 
  - [fstp 참고자료](https://forum.cheatengine.org/viewtopic.php?t=553800&sid=81ac05546d5eb4c909702de88f8f011c)  
 
- # 결론
+ ### 결론 
+  > 함수 인자 전달 시에 rdi, rsi, rdx, rcx, r8, r9로 전달되는 것은 확인하진 못했지만 그 외에 정수 반환값이 rax(rdx)로 저장되고 실수 반환값이 xmm0(xmm1로 저장되는 것과) 함수가 스택을 통해 정보가 넘어가고 다시 메모리로 돌아온다는 것을 어셈블리어를 통해 자세하게 확인할 수 있었다.
+
+ # 전체 결론
 
  - 레지스터가 메모리보다 데이터 처리 속도가 더 빠르다는 것이 코드로도 확인이 된다
 
