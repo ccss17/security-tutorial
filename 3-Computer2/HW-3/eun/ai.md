@@ -32,10 +32,10 @@ H(x)=wb+b는 기본형이고, 각 상황에 적합한 여러 형태의 응용식
 
 ![image-2](2.png)
 ![image-3](3.png)
-![image-4](3.png)
-![image-5](3.png)
-![image-6](3.png)
-![image-7](3.png)
+![image-4](4.png)
+![image-5](5.png)
+![image-6](6.png)
+![image-7](7.png)
 - 요약: 신경망을 구현하면 기계 스스로 학습하여 최적의 알고리즘을 만들어 나가는 것
 
 ## 딥러닝
