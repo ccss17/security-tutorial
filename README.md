@@ -114,3 +114,5 @@ GBC 참여자들은 **PASS** 와 **FAIL** 에 관련된 내용이니 [GBC 보안
 - `call` 부터 함수 인트로 아웃트로 시각적으로 설명 
 
 - vanilla-gdb, pwndbg, tmux 시각적으로 설명 
+
+- Git 설치 Git 초기설정 - git config --global user.name "" git config --global user.email "" Git pull requests 메뉴얼 Git init/status/add/commit/push/remote 의 가장 기초적인 사용법 

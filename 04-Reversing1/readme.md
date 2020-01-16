@@ -38,7 +38,7 @@ https://github.com/tylerha97/awesome-reversing : 여기에서 더 많은 리버�
 
 다른 리버싱 툴에 대해서는 Apple 의 LLVM 슈트에서 제공하는 [`lldb`](https://lldb.llvm.org/use/tutorial.html) 도 살펴보시길 바랍니다. 최근에는 [`rr`](https://rr-project.org/) 이라는 리버싱 툴도 각광받고 있습니다. 
 
-###### 참고 - awesome 레포지토리에 대해서
+### 참고 - awesome 레포지토리에 대해서
 
 > 다양한 IT 분야의 프로그래머들은 자신의 분야에 대한 개쩌는(awesome) 정보들을 한 군데로 수집하기 위해서 awesome-??? 레포지토리들을 제작하기 시작했는데 그 awesome-??? 레포지토리를 한 군데로 모은 것이 [sindresorhus](https://github.com/sindresorhus) 라는 프로그래머의 [awesome 레포지토리](https://github.com/sindresorhus/awesome) 이다. 이 레포지토리는 스타를 11만 1362개(19/7/10 기준) 를 받아서 Github 단일 레포지토리 중에서 [스타 랭킹이 전체 8위](https://gitstar-ranking.com)를 기록했다. 그리고 이 sindresorhus 라는 프로그래머는 총 합산 스타가 402,004 (19/7/10 기준)으로써 전체 Github 유저 중 1위이다. 그 40만개의 스타 중에서 1/4 인 11만개를 awesome 레포지토리가 차지하고 있다. 
 
@@ -70,7 +70,7 @@ https://github.com/tylerha97/awesome-reversing : 여기에서 더 많은 리버�
 
 ## gdb 사용법 (2)
 
-#### gdb 명령어 (2)
+### gdb 명령어 (2)
 
 - `print <var or funct>` or `p <var or func>` : 변수 또는 함수의 정보를 볼 수 있음 
 
@@ -96,7 +96,7 @@ https://github.com/tylerha97/awesome-reversing : 여기에서 더 많은 리버�
 
   - `command | ./program` : 과 같은 효과임.
 
-#### gdb 명령어 (3) - 메모리 보기 
+### gdb 명령어 (3) - 메모리 보기 
 
 - `x/x $esp` : esp 주소값에 있는 값을 하나 본다. 
 
@@ -116,7 +116,7 @@ https://github.com/tylerha97/awesome-reversing : 여기에서 더 많은 리버�
 
 - `x/i 0x80808080` : 0x80808080 메모리에 있는 값을 instruction 형식으로(어셈블리어) 로 본다. 
 
-#### gdb 명령어 (4) - 메모리 쓰기  
+### gdb 명령어 (4) - 메모리 쓰기  
 
 - `set $esp = 0x4444` : esp 레지스터의 값을 0x4444 로 쓴다. 
 
@@ -126,7 +126,7 @@ https://github.com/tylerha97/awesome-reversing : 여기에서 더 많은 리버�
 
 - `set *0xffffce00 = 0x41414141` : 0xffffce00 메모리 주소에 있는 값을 0x41414141 으로 바꾼다. 
 
-#### gdb 명령어 (4) - pwndbg 전용 명령어 
+### gdb 명령어 (5) - pwndbg 전용 명령어 
 
 일반 `gdb` 에서는 실행할 수 없고 `pwndbg` 을 설치해야만 실행할 수 있는 명령어들입니다. 
 
@@ -138,7 +138,7 @@ https://github.com/tylerha97/awesome-reversing : 여기에서 더 많은 리버�
 
 - `set context-output <tty>` : `context` 화면을 다른 tty 세션으로 리다이렉트 시켜서 볼 수 있게 해줌. 보통 `tmux` 와 같이 사용된다. 
 
-### gdb 연습 (2) - 어셈블리어  프로그램 
+## gdb 연습 (2) - 어셈블리어  프로그램 
 
 이번에는 여러분이 과제로 자신의 이름을 출력하는 어셈블리어 프로그램을 `gdb` 로 디버깅해봅시다.
 
@@ -173,7 +173,7 @@ section   .data
 
 그리고 지금까지 배웠던 다양한 `gdb` 명령어들을 실행해보자. 
 
-### gdb 실습  
+## gdb 실습  
 
 먼저 다음의 명령어를 참고해서 리버싱 문제를 내려받자.
 
@@ -190,7 +190,7 @@ $ ls
 
 - `crackme0x00a`, `crackme0x00b`, `crackme0x01`, `crackme0x02`, `crackme0x03` 을 풀어봅시다. (과제가 아니니까 조금 풀어보다가 못풀겠다 싶으면 그냥 아래의 설명을 읽으세요.)
 
-#### 리버싱 원칙 
+### 리버싱 원칙 
 
 1. "Correct" 가 출력되는 로직과 "Incorrect" 가 출력되는 로직이 있다는 것을 확인하고 "Correct" 가 출력될 수 있는 분기점을 확인한다.
 
@@ -200,7 +200,7 @@ $ ls
 
 2. 어떻게 하면 프로그램 실행흐름이 그 분기로 넘어갈 수 있는지 조사한 후 프로그램의 실행 흐름을 조작한다. 분기가 어떻게 결정되는지 이해하면 분기를 조작할 수 있다(&rarr;해킹 할 수 있다). 
 
-#### crackme0x00a ~ crackme0x03 까지 설명
+### crackme0x00a ~ crackme0x03 까지 설명
 
 - **0x00a** : 설명할 필요가 없음 
 
