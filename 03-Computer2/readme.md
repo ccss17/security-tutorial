@@ -1,6 +1,6 @@
-# 컴퓨터를 밑바닥부터 이해해보자 (2) + 리버싱 (1)
+# 컴퓨터를 밑바닥부터 이해해보자 (2) 
 
-## 컴퓨터의 구조와 작동 원리를 간단하게 살펴봅시다 (2)
+# 간단하게 살펴보는 컴퓨터의 구조와 작동 원리 (2)
 
 ### 비트 연산
 
@@ -30,8 +30,6 @@ shr qword[qNum], cl
 
 사용자가 프로그램을 실행하면 HDD 또는 SSD 에 저장되어 있던 프로그램의 바이너리가 RAM 으로 복사된다. 
 
-![CPU/RAM/Disk](https://www.researchgate.net/profile/Niels_Nes/publication/4234735/figure/fig1/AS:394707659182081@1471117047077/I-O-RAM-vs-RAM-CPU-compression.png)
-    
 RAM 에 복사된 프로그램을 프로세스라고 부르는데 CPU 는 RAM 에서 이 프로세스를 읽으면서 명령을 수행한다. 
 
 ![CPU execute](http://math.hws.edu/javanotes/c1/overview-fig1.PNG)
@@ -155,97 +153,227 @@ pop a[2]
 
 그러면 스택은 각각의 6개의 명령어마다 위의 그림과 같이 변하고 배열 a 는 {37, 19, 7} 이 된다. push 로 값이 스택에 저장된 후 pop 으로 스택의 가장 위에 있는 값이 제거 되면서 저장되는 것이다. 
 
-`push <op>`
+- `push <op>`
 
-push 명령어는 전달된 값을 스택에 저장한다. push 는 내부적으로 rsp 레지스터를 사용해서 스택의 최상위 주소를 알아내고 그 주소에 값을 저장하게 된다. 그런데 스택에 (64 비트 메모리 시스템에서는!) 8 바이트 값이 저장되니까 스택이 8 만큼 커졌다. 그래서 rsp 에서 8 을 빼준다. 스택의 최상위 주소를 8 만큼 높혀줘야 하기 때문이다.  
+  - push 명령어는 전달된 값을 스택에 저장한다. push 는 내부적으로 rsp 레지스터를 사용해서 스택의 최상위 주소를 알아내고 그 주소에 값을 저장하게 된다. 그런데 스택에 (64 비트 메모리 시스템에서는!) 8 바이트 값이 저장되니까 스택이 8 만큼 커졌다. 그래서 rsp 에서 8 을 빼준다. 스택의 최상위 주소를 8 만큼 높혀줘야 하기 때문이다.  
 
-그럼 높혀줘야 하는데 8 을 왜 뺄까? [메모리 레이아웃](https://notes.shichao.io/tlpi/figure_6-1.png) 에서도 확인할 수 있듯이 스택은 높은 주소에서 낮은 주소로 자라기 때문이다. 그래서 스택의 밑바닥을 가르키는 rbp 의 값이 스택의 최상위 주소값을 가르키는 rsp 보다 항상 같거나 크다.
+  - 그럼 높혀줘야 하는데 8 을 왜 뺄까? [메모리 레이아웃](https://notes.shichao.io/tlpi/figure_6-1.png) 에서도 확인할 수 있듯이 스택은 높은 주소에서 낮은 주소로 자라기 때문이다. 그래서 스택의 밑바닥을 가르키는 rbp 의 값이 스택의 최상위 주소값을 가르키는 rsp 보다 항상 같거나 크다.
 
-```assembly
-push rax            ; rax 의 값을 스택에 저장한다. 
-push qword [qVal]   ; qVal 의 값을 스택에 저장한다. 
-```
+    ```assembly
+    push rax            ; rax 의 값을 스택에 저장한다. 
+    push qword [qVal]   ; qVal 의 값을 스택에 저장한다. 
+    ```
 
-`pop <op>`
+- `pop <op>`
 
-pop 명령어는 스택의 가장 위에 있는 값을 `<op>` 에 저장하고 스택을 8 만큼 줄여준다. 스택의 가장 위는 rsp 가 가르키고 있으니 결국 rsp 에 있는 값이 가르키는 값을 `<op>` 에 저장한다는 말이다. 그리고 스택을 줄여주어야 하니 rsp 에 8 을 더해준다. 
+  - pop 명령어는 스택의 가장 위에 있는 값을 `<op>` 에 저장하고 스택을 8 만큼 줄여준다. 스택의 가장 위는 rsp 가 가르키고 있으니 결국 rsp 에 있는 값이 가르키는 값을 `<op>` 에 저장한다는 말이다. 그리고 스택을 줄여주어야 하니 rsp 에 8 을 더해준다. 
 
-```assembly
-pop rax            
-pop qword [qVal]   
-```
+    ```assembly
+    pop rax            
+    pop qword [qVal]   
+    ```
 
-#### 함수 호출
 
-CPU 가 함수를 호출해서 프로그램의 흐름을 바꿀 때 call 명령어를 쓰고 원래 있던 곳으로 되돌아 갈 때 ret 명령어를 사용한다. 
+### test 명령어
 
-```c
-int add(int a, int b) { return a + b; }
-void main(){
-    int a = add(1, 2);
-    printf("%d\n", a);
-}
-```
+`test <op1> <op2>`
 
-C 프로그램은 내부적으로 call 을 사용해서 add 함수로 뛰고 add 함수가 끝나면 ret 명령어로 다시 main 함수로 되돌아오게 된다. 
+`test` 명령어는 `<op1>` 과 `<op2>` 의 AND 연산 결과가 0 일 때 FLAG 레지스터의 Zero Flag, 즉 ZF 를 True 로 세팅한다. 그리고 `je` 명령어는 ZF 가 True 로 세팅되어 있을 때 점프한다. 그래서 `je` 명령어는 jump-if-zero 와도 같은 말이다. 
 
-`call <location>`
+`cmp` 명령어는 두 값을 비교한다고 이해했는데 실제로는 `cmp <op1> <op2>` 는 <op1> 에서 <op2> 를 빼서 결과값이 0 이면 FLAG 레지스터의 ZF 를 True 로 세팅한다. 그래서 이후에 `je` 명령어가 FLAG 레지스터의 ZF 플래그가 True 로 세팅되어 있으면 점프하게 되고 세팅되어 있지 않으면 점프하지 않는다.
+
+반대로 `jne` 을 jump-if-not-zero 와도 같다고 이해하면 된다. 
 
 ```assembly
-call printf
-call 0x400421
+test eax, eax
+je <locatoin>
 ```
 
-call 이 하는 일은 call 명령어 다음 명령어의 주소값을 스택에 push 하고 `<location>` 으로 점프하는 것이다. 
+그래서 위와 같은 어셈블리어가 있을 때 eax 가 0 이 아니라면 eax 와 eax 의 AND 연산 결과는  0 이 아니다. 따라서 FLAG 레지스터의 ZF 플래그가 세팅되지 않을 것이고 `je` 는 점프하지 않는다. 한 마디로 eax 가 0 일 때 점프하라는 의미이다. 
 
-`ret`
+### sete 명령어
 
-ret 명령어(return) 는 call 명령어가 스택에 저장해놓은 리턴 주소값을 pop 해서 rip 레지스터에 저장한다. 한 마디로 PC 를 바꿔서 되돌아간다는 말이다. 
+`sete <reg>`
 
-#### 함수 인자 전달
-    
-함수에 인자를 전달할 때 차례대로 rdi, rsi, rdx, rcx, r8, r9 가 사용되고 인자가 7개 이상일 경우 7번째 인자부터는 어쩔 수 없이 레지스터보다 좀 더 느린 메모리를 사용한다. 함수의 반환값은 rax 레지스터에 저장된다.
+sete 명령어는 ZF (Zero Flag) 가 세팅되어 있다면 `<reg>` 를 1 로 만들고 그렇지 않으면 0 으로 만든다. 
+
+#### 나머지 어셈블리어들은?
+
+http://www.jegerlehner.ch/intel/IntelCodeTable.pdf
+
+이렇게 핵심 어셈블리어를 이해해보았기 때문에 나머지 어셈블리어도 스스로 충분히 이해할 수 있을 것이다. 모르는 어셈블리어가 나오면 구글에 검색해보아도 되고 위의 레퍼런스를 참고해도 된다. 
+
+---
+
+## gdb 사용법 (1)
+
+**GNU Debugger** 라고도 하는 `gdb` 란 대중적으로 많이 사용되는 디버깅 툴이다. 프로그램의 작동의 정확성과 논리적 오류를 검증하기 위한 과정을 일컫는 디버깅으로 소스코드로 프로그램을 정적으로 분석하는 것에서 더 나아가서 런타임상에서 프로그램을 동적으로 분석할 수 있다. 디버깅 툴은 `radare2`, `lldb`, `rr-project`, `ida`, `ollydbg` 등등이 있지만 이번에는 `gdb` 로 프로그램을 디버깅하는 가장 기초적인 방식을 알아보자. 
+
+#### gdb 명령어 (1) - 기초 명령어 
+
+- `gdb <program>` : gdb 디버깅 시작 
+
+- `run` or `r` : 프로그램 시작 
+
+- `break <location>` or `b` : 브레이크포인트 지정 
+
+  - `break main` or `b main`
+
+  - `break 0x408571` or `b 0x408571`
+
+- `info breakpoints` or `i b` : 브레이크포인트 상태보기 
+
+- `delete breakpoints <location>` or `d br <location>` : 브레이크포인트 삭제 
+
+- `nexti` or `ni` : 하나의 명령어씩 실행. 단, 서브루틴으로 들어가지 않음 
+
+- `stepi` or `si` : 하나의 명령어씩 실행. 단, 서브루틴으로 들어감 
+
+- `next` or `n` : 소스코드 한 줄을 실행. 단, 서브루틴으로 들어가지 않음 
+
+- `step` or `s` : 소스코드 한 줄을 실행. 단, 서브루틴으로 들어감
+
+- `continue` or `c` : 브레이크 포인트를 무시하고 프로그램이 끝날 때가지 실행
+
+- `x/<n-bytes>x <location>` : 해당 주소로부터 메모리를 n byte 를 본다. 
+
+  - `x/10x <location>` : 해당 주소로부터 메모리를 10 byte 를 본다. 
+
+- `disas <function>` : 함수의 어셈블리어를 본다. 
+
+### gdb 연습 (1) - 간단한 C 프로그램 
+
+#### 프로그램 준비 및 컴파일 
+
+다음과 같은 간단한 C 프로그램을 작성하고 `test.c` 라고 저장합니다. 
 
 ```c
 #include <stdio.h>
 
-int add(int n1, int n2, int n3, int n4, int n5, int n6, int n7) {
-    int result = n1 + n2 + n3 + n4 + n5 + n6 + n7;
-    return result;
+void hello(void)
+{
+    puts("Hello World!");
 }
 
-void main() {
-    int result;
-    result = add(1, 2, 3, 4, 5, 6, 7);
-    printf("%d\n", result);
+int main(void)
+{
+    int a = 8;
+    int b = 1024;
+    printf("a + b = %d\n", a + b);
+    hello();
+    return 0;
 }
 ```
 
-위의 `add` 함수의 경우 rdi = 1, rsi = 2, rdx = 3, rcx = 4, r8 = 5, r9 = 6 이 저장되서 전달되고 7 은 메모리에 저장된 채로 전달된다. 그리고 call 명령어가 다음 명령어를 스택에 저장하고 add 함수로 건너 뛴다. add 함수가 끝나면 ret 명령어가 call 이 스택에 저장해놓은 리턴 주소값을 rip 에 저장한다. 
+그리고 컴파일을 하고 실행해봅니다. 
+
+```shell
+gcc test.c -o test
+./test
+```
+
+#### gdb 로 디버깅하기 
+
+이제 `gdb` 로 디버깅을 해봅시다. 다음 명령어로 디버깅을 실습해보죠. 그리고 다른 명령어들도 스스로 실행해보고 어떻게 작동하는지 이해해봅시다. 
+
+```shell
+$ gdb test
+pwndbg> i file      # info files : 프로그램의 정보를 보는 명령 
+pwndbg> i func      # info functions : 프로그램의 함수들을 보는 명령 
+pwndbg> b main      # break main : main 함수에 브레이크포인트를 걸어서 main 함수가 시작될 때 프로그램이 멈춘다. 
+pwndbg> i b         # info breakpoints : 현재 설정된 브레이크포인트를 본다.
+pwndbg> d br 1      # delete breakpoint 1 : 1 번 브레이크포인트를 삭제
+pwndbg> b main      # 다시 main 함수에 브레이크포인트 설정 
+pwndbg> r           # run : 프로그램을 실행 
+pwndbg> disas main  # main 함수의 어셈블리를 본다 
+pwndbg> ni          # nexti : 하나의 명령어 씩 실행. 단, 서브루틴으로 들어가지 않음. 
+pwndbg> ni          # ni 를 계속 실행하면서 레지스터와 메모리가 변하는 상황을 관찰해본다. 
+pwndbg> si          # stepi : 하나의 명령어 씩 실행. 단, 서브루틴으로 들어감.
+pwndbg> si          # si 를 실행하면 call 된 함수의 루틴으로 계속해서 들어간다. 
+pwndbg> c           # continue : 다음 브레이크포인트까지 프로그램을 진행시킴. 브레이크포인트가 없으면 프로그램이 끝날 때까지 진행시킴. 
+```
+
+#### pwndbg 의 context 화면 분석 
+
+`pwndbg` 환경에서 `gdb` 로 프로그램을 디버깅하기 시작하면 다음과 같은 화면을 볼 수 있습니다. **RESIGSTERS** 섹션은 현재 레지스터에 저장된 값들을 보여주고, **DISASM** 은 실행될 어셈블리어들을 보여주고, **STACK** 은 스택 메모리 영역을 보여주고, **BACKTRACE** 는 함수 호출 관계를 보여줍니다. 
+
+![gdb](res/gdb.png)
+
+---
+
+## 함수 호출의 컴퓨터 내부적인 원리 
+
+CPU 가 함수를 호출해서 프로그램의 흐름을 바꿀 때 `call` 명령어를 쓰고 원래 있던 곳으로 되돌아 갈 때 `ret` 명령어를 사용한다. 다음과 같은 간단한 C 프로그램을 생각하자. 
+
+  ```c
+  int add(int a, int b) { return a + b; }
+  void main(){
+      int a = add(1, 2);
+      printf("%d\n", a);
+  }
+  ```
+  
+C 프로그램은 내부적으로 call 을 사용해서 add 함수로 뛰고 add 함수가 끝나면 ret 명령어로 다시 main 함수로 되돌아오게 된다. 
+
+- `call <location>` : `call` 명령어는 `call` 명령어 다음 명령어의 주소값을 스택에 `push` 하고 `<location>` 으로 점프한다. 
+
+  ```assembly
+  call printf
+  call 0x400421
+  ```
+
+- `ret` : ret 명령어(return) 는 call 명령어가 스택에 저장해놓은 리턴 주소값을 pop 해서 rip 레지스터에 저장한다. 한 마디로 PC(Program Counter) 를 바꿔서 이전에 실행되던 함수로 되돌아간다는 말이다. 
+
+### 함수 인자 전달
+    
+- 함수에 인자를 전달할 때 차례대로 rdi, rsi, rdx, rcx, r8, r9 가 사용되고 인자가 7개 이상일 경우 7번째 인자부터는 어쩔 수 없이 레지스터보다 좀 더 느린 메모리를 사용한다. 함수의 반환값은 rax 레지스터에 저장된다.
+
+  ```c
+  #include <stdio.h>
+  
+  int add(int n1, int n2, int n3, int n4, int n5, int n6, int n7) {
+      int result = n1 + n2 + n3 + n4 + n5 + n6 + n7;
+      return result;
+  }
+  
+  void main() {
+      int result;
+      result = add(1, 2, 3, 4, 5, 6, 7);
+      printf("%d\n", result);
+  }
+  ```
+
+- 위의 `add` 함수의 경우 rdi = 1, rsi = 2, rdx = 3, rcx = 4, r8 = 5, r9 = 6 이 저장되서 전달되고 7 은 메모리에 저장된 채로 전달된다. 그리고 call 명령어가 다음 명령어를 스택에 저장하고 add 함수로 건너 뛴다. add 함수가 끝나면 ret 명령어가 call 이 스택에 저장해놓은 리턴 주소값을 rip 에 저장한다. 
 
 ![함수호출시스택](res/stack-return.PNG)
 
-함수가 호출 될 때 이전 함수의 스택 베이스 주소를 복원하기 위해서 rbp 를 push 해서 스택에 저장해둔다. 위와 같은 경우 main 함수가 add 함수를 호출하고 있는데 add 함수가 스택을 사용하기 전에 main 함수에서 사용하던 스택 베이스 주소, 즉 rbp 에 있던 값을 스택에 저장해서 main 함수의 스택을 복원해야 할 때를 대비한다. 
+##### 함수의 시작(스택 메모리 공간 생성하기)
 
-```assembly
-push rbp        ; 이전에 있던 함수의 rbp 를 스택에 저장
-mov rbp, rsp    ; 스택의 베이스 주소를 스택의 탑 주소와 같게 만듦. 이 시점에서 스택의 크기는 최소 단위 8 바이트가 됨
-sub rsp, 0x60   ; 스택의 크기를 0x60 만큼 늘려줌 
-```
+- 함수가 호출 될 때 이전 함수의 스택 베이스 주소를 복원하기 위해서 rbp 를 push 해서 스택에 저장해둔다. 위와 같은 경우 main 함수가 add 함수를 호출하고 있는데 add 함수가 스택을 사용하기 전에 main 함수에서 사용하던 스택 베이스 주소, 즉 rbp 에 있던 값을 스택에 저장해서 main 함수의 스택을 복원해야 할 때를 대비한다. 
 
-그래서 일반적인 함수는 위와 같은 어셈블리 코드로 시작된다. 
+  ```assembly
+  push rbp        ; 이전에 있던 함수의 rbp 를 스택에 저장
+  mov rbp, rsp    ; 스택의 베이스 주소를 스택의 탑 주소와 같게 만듦. 이 시점에서 스택의 크기는 최소 단위 8 바이트가 됨
+  sub rsp, 0x60   ; 스택의 크기를 0x60 만큼 늘려줌 
+  ```
 
-```assembly
-leave
-ret
-```
+- 그래서 일반적인 함수는 위와 같은 어셈블리 코드로 시작된다. 
 
-함수가 일을 다 마치고 원래의 함수로 되돌아 가야 할 때는 위와 같은 어셈블리 코드로 늘려 놓은 스택을 되돌린 후 이전 함수의 rbp 를 복원한다. 늘려진 스택을 줄이고 원래 함수의 스택 베이스 주소를 복원하는 용도로 leave 명령어가 사용된다. leave 명령어는 다음의 코드와 같은 기능을 한다.
+#### 함수의 끝 (스택 메모리 공간 정리하기)
 
-```assembly
-mov rsp, rbp    ; rsp 에 rbp 를 대입해서 늘어난 스택을 다시 크기가 최소 단위인 8 바이트 스택으로 만든다. 
-pop rbp         ; pop 명령으로 그곳에 남아있던 원래의 함수의 스택 베이스 주소를 rbp 에 복원시킨다. 
-```
+- 함수가 일을 다 마치고 원래의 함수로 되돌아 가야 할 때는 위와 같은 어셈블리 코드로 늘려 놓은 스택을 되돌린 후 이전 함수의 rbp 를 복원한다. 이를 이해 다음과 같은 명령어를 사용한다.
+
+  ```assembly
+  leave
+  ret
+  ```
+
+- 늘려진 스택을 줄이고 원래 함수의 스택 베이스 주소를 복원하는 용도로 leave 명령어가 사용된다. leave 명령어는 다음의 코드와 같은 기능을 한다.
+
+  ```assembly
+  mov rsp, rbp    ; rsp 에 rbp 를 대입해서 늘어난 스택을 다시 크기가 최소 단위인 8 바이트 스택으로 만든다. 
+  pop rbp         ; pop 명령으로 그곳에 남아있던 원래의 함수의 스택 베이스 주소를 rbp 에 복원시킨다. 
+  ```
 
 #### 32 비트 시스템에서의 함수 인자 전달
 
@@ -288,36 +416,6 @@ $ file test
 ```
 
 `-m32` 옵션을 붙혀주면 32 비트용 프로그램으로 컴파일 되는데 
-
-### test 명령어
-
-`test <op1> <op2>`
-
-`test` 명령어는 `<op1>` 과 `<op2>` 의 AND 연산 결과가 0 일 때 FLAG 레지스터의 Zero Flag, 즉 ZF 를 True 로 세팅한다. 그리고 `je` 명령어는 ZF 가 True 로 세팅되어 있을 때 점프한다. 그래서 `je` 명령어는 jump-if-zero 와도 같은 말이다. 
-
-`cmp` 명령어는 두 값을 비교한다고 이해했는데 실제로는 `cmp <op1> <op2>` 는 <op1> 에서 <op2> 를 빼서 결과값이 0 이면 FLAG 레지스터의 ZF 를 True 로 세팅한다. 그래서 이후에 `je` 명령어가 FLAG 레지스터의 ZF 플래그가 True 로 세팅되어 있으면 점프하게 되고 세팅되어 있지 않으면 점프하지 않는다.
-
-반대로 `jne` 을 jump-if-not-zero 와도 같다고 이해하면 된다. 
-
-```assembly
-test eax, eax
-je <locatoin>
-```
-
-그래서 위와 같은 어셈블리어가 있을 때 eax 가 0 이 아니라면 eax 와 eax 의 AND 연산 결과는  0 이 아니다. 따라서 FLAG 레지스터의 ZF 플래그가 세팅되지 않을 것이고 `je` 는 점프하지 않는다. 한 마디로 eax 가 0 일 때 점프하라는 의미이다. 
-
-### sete 명령어
-
-`sete <reg>`
-
-sete 명령어는 ZF (Zero Flag) 가 세팅되어 있다면 `<reg>` 를 1 로 만들고 그렇지 않으면 0 으로 만든다. 
-
-#### 나머지 어셈블리어들은?
-
-http://www.jegerlehner.ch/intel/IntelCodeTable.pdf
-
-이렇게 핵심 어셈블리어를 이해해보았기 때문에 나머지 어셈블리어도 스스로 충분히 이해할 수 있을 것이다. 모르는 어셈블리어가 나오면 구글에 검색해보아도 되고 위의 레퍼런스를 참고해도 된다. 
-
 ---
 
 ## 과제 
