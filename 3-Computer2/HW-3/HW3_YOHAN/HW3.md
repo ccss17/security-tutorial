@@ -84,8 +84,7 @@
   > 예상대로 큰 차이가 났다. 혹시 몰라 다른 컴파일러(Visual Studio)로 같은 코드를 돌려봤다.
 
 ### 결과(VS)
-
- ![image-code_result12](VSRESULT.jpg)
+![image-code_result12](VSRESULT.jpg)
 
 > gcc로 컴파일한것과 달리 비주얼 스튜디어로 컴파일 했을땐 큰 차이가 나진 않았지만 일관적으로 시간차이가 나는 것을 확인할 수가 있었다. 또 다른 컴파일러(Dev C++)로 같은 코드를 돌려봤다
 
