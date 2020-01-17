@@ -22,9 +22,9 @@
 
 3. cmp에서 비교하는 값 두개를 확인한다. 
 
-![image-5_1](process5.jpg)
+![image-51](p5.jpg)
 
-![image-5_22](answer555.jpg)
+![image-52](a5.jpg)
 
 
 
