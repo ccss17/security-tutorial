@@ -1,4 +1,56 @@
-# 리버싱 (3)
+# 리버싱 (2)
+
+## crackme0x04 ~ crackme0x05 까지 설명
+
+### **crackme0x04** 
+
+1. `scanf` 의 파라미터가 ("%s", 0xffffd4c0) 임.
+
+2. `check` 라는 함수를 부르는데 파라미터가 (0xffffd4c0, 0xffffd4c0, 0xf7fcf410, 0x1) 임. `si` 명령어로 `test` 함수로 들어감
+
+3. `strlen` 함수를 0xffffd4c0 를 대상으로 호출하고 반환값을 [ebp - 0xc] 와 비교함.
+
+    - 0xffffd4c0 는 입력한 문자열임.
+
+    - [ebp - 0xc] 는 0 임. 
+
+4. 만약 0 이 0xffffd4c0 에 저장된 문자열의 길이보다 같거나 크면 `jae` 가 실행됨.
+
+5. 여기서부터 `check` 함수에 대한 정적분석이 `gdb` 만으로는 한계가 있어서 `radare2` 로 정적분석을 함. 
+
+6. `check` 함수에서 `sscanf` 함수를 호출하는데 파라미터가 ("입력한 문자열의 첫번째 문자", "%d", 0xffffd494) 임. 
+
+    - `sscanf` 함수는 첫번째 파라미터의 문자열을 입력으로 하는 `scanf` 와 동일했음. `scanf` 가 입력을 키보드로부터 받는다면 `sscanf` 는 입력을 첫번째 파라미터로 받음. 
+
+    - `%d` 포맷 스트링으로 입력을 받기 때문에 정수형이 아닌 데이터가 전달되면 입력이 무시됨. 
+
+7. 입력받은 문자열의 첫번째 문자를 0xf 과 비교함. 그런데 정수형으로만 입력을 받기 때문에 0 부터 9 까지의 입력으로는 0xf 와 같게 만드는 것은 불가능하다. 
+
+8. 그런데 루프를 한 번 더 돌아보니까 두번째 문자를 첫번째 문자와 더해주더라. 그러고나서 0xf 와 비교하더라. 
+
+### **crackme0x05** 
+
+1. `scanf` 가 ("%s", 0xffffd4c0) 로 호출된다. 
+
+2. `check` 함수 내부에서 또 다시 `sscanf` 가 ('입력받은 문자열의 첫번째 문자', '%d', 0xffffd494) 로 호출된다. 
+
+3. [ebp - 8] 과 0x10 을 비교하는데 마찬가지로 입력받은 첫번째 문자는 0 부터 9 까지의 범위이기에 0x10 과 같아지는 것이 불가능하다. 그러므로 루프를 한 번 더 돌아본다. 
+
+    - `x/x $ebp - 8` : 메모리 값 확인 
+
+4. 마찬가지로 이전에 있던 문자를 더해서 0x10 과 비교한다. 하지만 `parell` 이라는 함수를 한 번 더 거쳐간다. 
+
+    - `parell` 함수 내부에서 첫번째 문자와 두번째 문자로 숫자를 만들어서 AND 연산을 한 후 0 이 되었는지 확인해서 0 이 아니면 "Incorrect" 로직으로 흘러갔다. 
+
+### 더 많은 write-up 
+
+- [https://moveax.me/crackme0x04/](https://moveax.me/crackme0x04/)
+
+- [https://moveax.me/crackme0x05/](https://moveax.me/crackme0x05/)
+
+- [27기 hayeong 님](hayeong.md)
+
+- [27기 pyojunCode 님](pyojunCode.md)
 
 ## radare2 사용법
 
@@ -11,6 +63,20 @@
 - https://radare.gitbooks.io/radare2book/content/ 
 
 - https://github.com/Maijin/Workshop2015/blob/master/slides.pdf
+
+### 기본 명령어 
+
+- `afl` : 함수 검색 
+
+- `s main` : `main` 으로 이동 
+
+- `s sym.check` : `check` 으로 이동 
+
+- `VV` : 그래프 
+
+- `pdd` : 함수 디스어셈블. **r2dec-js** 플러그인 설치 시 슈도 코드 생성 
+
+- TODO
 
 ## 간단한 암호화 복호화
 
@@ -182,27 +248,6 @@ print('XOR:', ''.join(data_list))
 XOR: ÛÁÅØÄÍÐÇÚÍÆËÚÑØÜÜÍÛÜ
 XOR: simple xor encrypt test
 ```
-
-### XOR 암호화 예시 
-
-https://underwatch.tistory.com/31
-
-#### 원본 데이터
-
-![원본](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=http%3A%2F%2Fcfile6.uf.tistory.com%2Fimage%2F2171A94A579F58A3316403)
-
-#### AND 연산
-
-![AND](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=http%3A%2F%2Fcfile9.uf.tistory.com%2Fimage%2F23522449579F58D313FF59)
-
-#### OR 연산
-
-![OR](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=http%3A%2F%2Fcfile8.uf.tistory.com%2Fimage%2F26280748579F5931086955)
-
-#### XOR 연산
-
-![XOR](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=http%3A%2F%2Fcfile28.uf.tistory.com%2Fimage%2F21196E48579F595917A8A1)
-
 
 ## 실전
 
