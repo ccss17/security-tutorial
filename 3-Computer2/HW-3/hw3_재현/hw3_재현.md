@@ -30,6 +30,18 @@
 
   -> 고정된 작동 규칙표를 따라 테이프에 기록된 임의의 기계를 그대로 흉내낼 수 있다!(보편 만능 기계)
 
+- 튜링 기계의 상태 모식도
+
+![image-상태모식도](상태모식도.PNG)
+
+- 모식도는 일련의 계산 궤적을 나태내는 것이 아니라 순간을 포착해서 보여준다
+
+![imange-상태](https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/State_diagram_3_state_busy_beaver_2B.svg/750px-State_diagram_3_state_busy_beaver_2B.svg.png)
+
+- 각각의 원은 표의 상태를 지시, 명령은 화살표로 표현한다
+
+- 화살표 위의 표식은 특정한 변화를 야기하는 읽히는 기호를 결정하고 슬래쉬 뒤의 동작은 따라오는 행동을 의미한다
+
 ### 보편 만능 기계, 현대 컴퓨터의 시초
 
 ![image-최초의 연산 컴퓨터](https://www.scienceall.com/nas/image/201006/20100625_q3RNEGzn.jpg)
