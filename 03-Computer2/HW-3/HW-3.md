@@ -93,5 +93,3 @@
       - [27기 jiniljeil 님](jiniljeil.md)
 
       - [27기 pyojunCode 님](pyojunCode.md)
-
-2. 아무거나 쓰세요 

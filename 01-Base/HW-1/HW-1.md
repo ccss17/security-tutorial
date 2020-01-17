@@ -17,5 +17,3 @@
     - 악성코드 (아무 악성코드의 소스코드를 가져옵시다)
   
       - Backdoor, DDoS, 도청 및 감시, Virus, Ransomware, Worm, Trojan(트로이목마), KeyLogger, RootKit 등등등
-
-4. 아무거나 쓰세요
