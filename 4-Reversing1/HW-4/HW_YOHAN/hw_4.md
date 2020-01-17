@@ -10,8 +10,6 @@
 
 4. 답으로 확인 되었다
 
-
-
 ![image-4_2](answer4.jpg)
 
 # crack0x05 풀이 과정
@@ -22,9 +20,9 @@
 
 3. cmp에서 비교하는 값 두개를 확인한다. 
 
-![image-51](p5.jpg)
+![image-51](p555.jpg)
 
-![image-52](a5.jpg)
+![image-52](a555.jpg)
 
 
 
