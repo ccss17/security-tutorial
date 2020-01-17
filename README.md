@@ -10,23 +10,103 @@ This is a repository containing the contents of GBC's 4th course, Security Cours
 
 - Day 1 : [Base](01-Base/readme.md)
 
+  - 기술적 특이점(Technological Singularity)
+
+  - 약인공지능과 강인공지능(Weak AI and Strong AI)
+
+  - 보안에 관한 기본 용어(Basic terminology about security)
+
 - Day 2 : [Computer Principle 1](02-Computer1/readme.md)
+
+  - 괴델의 불완전성 정리(Godel's Incompleteness Theorem)
+
+  - 튜링 머신(Turing Machine)
+
+  - 폰 노이만 구조(Von Neumann architecture)
+
+  - 데이터 저장방식(How data is stored on computer)
+
+  - CPU 레지스터(CPU register)
+
+  - 어셈블리어 1 (Assembly Language 1)
 
 - Day 3 : [Computer Principle 2](03-Computer2/readme.md)
 
+  - 어셈블리어 2 (Assembly Language 2)
+
+  - 가상 메모리 시스템 (Virtual Memory System)
+
+  - 스택 메모리 영역 (Stack Memory)
+
+  - `gdb` 사용법 1 (`gdb` usage 1)
+
+  - 함수 호출의 컴퓨터 내부적 원리 (Computer internal principle of function calls)
+
 - Day 4 : [Reversing 1](04-Reversing1/readme.md)
+
+  - 리버싱의 정의 (Definition of reversing)
+
+  - 리버싱 툴 (Reversing tools)
+
+  - `gdb` 사용법 2 (`gdb` usage 2)
+
+  - `crackme0x00a` ~ `crackme0x03` 연습 및 설명 
+
+  - **(HW)** `crackme0x004`, `crackme0x05` 실습 
 
 - Day 5 : [Reversing 2](05-Reversing2/readme.md)
 
+  - `crackme0x004`, `crackme0x05` 설명 
+
+  - `radare2` 사용법 (`radare2` usage)
+
+  - xor 암호화 (xor encryption)
+
+  - reversing.kr 문제 `easyelf` 풀어보기 
+
+  - **(HW)** `bomb` 실습 
+
 - Day 6 : [Exploit 1](06-Exploit1/readme.md)
+
+  - 리눅스 특수 권한(Linux special permission)
+
+  - 버퍼오버플로우를 통한 프로그램 흐름 조작 (Program flow manipulation through buffer overflow)
+
+  - `bof1` 설명 
+
+  - `bof2` ~ `bof4` 연습 및 설명 
+
+  - **(HW)** `bof5` 실습 
 
 - Day 7 : [Exploit 2](07-Exploit2/readme.md)
 
+  - 쉘코드 (shellcode)
+
+  - `bof6` ~ `bof8` 연습 
+
 - Day 8 : [Exploit 3](08-Exploit3/readme.md)
+
+  - `bof7` 상세 설명 
+
+  - `NX bit` 와 `DEP`
+
+  - `RTL`
+
+  - `bof9` 연습 및 설명 
 
 - Day 9 : [Exploit 4](09-Exploit4/readme.md)
 
+  - `ASLR`
+
+  - `bof10`, `bof11` 연습 및 설명 
+
 - Day 10 : [Pentest + Wrap-up](10-Pentesting/readme.md)
+
+  - 침투테스트 예시 (Example of pentest)
+
+  - 블루투스 취약점 - 블루본 (Bluetooth vulnerability - Blueborne)
+
+  - CPU 취약점 - 멜트다운 (CPU vulnerability - Meltdown)
 
 ## Helpful link
 
