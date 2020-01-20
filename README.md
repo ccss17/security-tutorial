@@ -108,7 +108,27 @@ This is a repository containing the contents of GBC's 4th course, Security Cours
 
   - CPU 취약점 - 멜트다운 (CPU vulnerability - Meltdown)
 
-## Helpful link
+## 사전작업 
+
+### Reversing 환경 세팅 **(for Day2 ~ Day5)**
+
+- TODO (중앙서버방식에서 각자 로컬컴퓨터 가상머신에서 하는 방식으로 변경.. 서버비용출혈때문에) 
+
+### Exploit 환경 세팅 **(for Day6 ~ Day9)**
+
+- TODO
+
+### GBC 참여자들만 해당 (과제제출용 레포지토리 Fork) 
+
+### 1. Create repo
+
+- https://github.com 에 가입하고 이 레포지토리를 fork 한다. 그리고 다음 명령어를 참고하여 자신의 컴퓨터에 fork 한 레포지토리를 clone 한다. 
+
+    ```shell
+    $ git clone https://github.com/{GITHUB_ID}/security-tutorial
+    ```
+
+##### Helpful link
 
 - **git** tutorial : https://nolboo.kim/blog/2013/10/06/github-for-beginner/
 
@@ -123,16 +143,6 @@ This is a repository containing the contents of GBC's 4th course, Security Cours
   - 깃 사용법 및 풀리퀘스트 튜토리얼 한글버전 : https://wayhome25.github.io/git/2017/07/08/git-first-pull-request-story/
 
 - **Markdown** Cheatsheet : https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
-
-## Groundwork
-
-### 1. Create repo
-
-- https://github.com 에 가입하고 이 레포지토리를 fork 한다. 그리고 다음 명령어를 참고하여 자신의 컴퓨터에 fork 한 레포지토리를 clone 한다. 
-
-    ```shell
-    $ git clone https://github.com/{GITHUB_ID}/security-tutorial
-    ```
 
 ### 2. Server account configuration 
 
