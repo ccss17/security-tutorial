@@ -91,10 +91,22 @@ https://github.com/tylerha97/awesome-reversing : 여기에서 더 많은 리버�
 - `r <args>` : gdb 안에서 프로그램을 실행할 때 `<args>` 를 main 함수의 인자로 전달함
 
   - `./program <args>` 와 같은 효과라는 것임. 
+  
+  - 다음 명령어는 `./program $(python -c "print 'x'*140 + '\x78\x56\x34\x12'")` 과 같습니다.
+  
+    ```shell
+    pwndbg> r `python -c "print 'x'*140 + '\x78\x56\x34\x12`
+    ```
 
 - `r <<< $(command)` : gdb 안에서 프로그램에 `command` 의 결과를 입력으로 전달함 
 
   - `command | ./program` : 과 같은 효과임.
+  
+  - 다음 명령어는 `python -c "print 'x'*140 + '\x78\x56\x34\x12'" | ./program` 과 같습니다.
+  
+    ```shell
+    pwndbg> r <<< $(python -c "print 'x'*140 + '\x78\x56\x34\x12'")
+    ```
 
 ### gdb 명령어 (3) - 메모리 보기 
 
