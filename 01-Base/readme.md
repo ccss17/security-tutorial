@@ -66,21 +66,23 @@
   
     - [Fork Bomb](https://www.geeksforgeeks.org/fork-bomb/)
   
-    - Key Logger
+    - [Key Logger](https://en.wikipedia.org/wiki/Keystroke_logging)
+
+      - 윈도우 키로거 : https://www.raymond.cc/blog/free-and-simple-keylogger-to-monitor-keystrokes-in-windows/2/
   
-    - Rootkit
+    - [Rootkit](https://en.wikipedia.org/wiki/Rootkit)
   
-    - Bootkit
+    - [Bootkit](https://blog.malwarebytes.com/detections/bootkit/)
   
-    - RansomWare
+    - [RansomWare](https://en.wikipedia.org/wiki/Ransomware)
   
-    - Trojans
+    - [Trojans](https://www.kaspersky.com/resource-center/threats/trojans)
   
-    - Screen scrappers
+    - [Screen scrappers](https://en.wikipedia.org/wiki/Data_scraping#Screen_scraping)
   
-    - Backdoor
+    - [Backdoor](https://en.wikipedia.org/wiki/Backdoor_(computing))
   
-    - Spyware
+    - [Spyware](https://en.wikipedia.org/wiki/Spyware)
 
 5. 컴퓨터 보안 이슈 알 수 있는 곳 & 컴퓨터 보안 배울 수 있는 곳 
 
@@ -117,6 +119,8 @@
     - https://www.hacking-tutorial.com
     
     - https://www.defcon.org/
+
+    - https://github.com/mzet-/ctf-writeups
 
 6. 돈을 위해 뭐든 이루어내는 사람 
 

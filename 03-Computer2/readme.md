@@ -73,10 +73,11 @@ C 언어에서 비트 쉬프트 << 과 >>, ~ 은 내부적으로 shl, shr, not �
     
   - 가상 메모리를 사용하게 되면 메모리 주소값을 일관되게 사용할 수 있고 만약 RAM 이 부족하면 HDD 또는 SSD 를 사용할 수 있게 된다.
     
-  - `적절히 쪼개진다(Paging 기법)` 는 것이 구체적으로 어떻게 되는 것인지 설명하려면 한 학기가 필요할테니 그만두고 OS 시간 때 배우시길 바랍니다.
+  - `적절히 쪼개진다(Paging 기법)` 는 것이 구체적으로 어떻게 되는 것인지 설명하려면 한 학기가 필요할테니 운영체제 강의를 들으시며 배우시길 바랍니다.
 
 #### 가상 메모리 영역과 물리 메모리 영역 확인해보기 
 
+[check_virtual_memory_structure.c](https://github.com/ccss17/test_virt_memory/blob/master/check_virtual_memory_structure.c)
 ```c
 // https://github.com/ccss17/test_virt_memory
 #include <stdio.h>
@@ -162,6 +163,7 @@ sudo ./check_virtual_memory_structure HELLO WOLRD
 
 ![addr-test](https://user-images.githubusercontent.com/16812446/72771265-b8418b00-3c43-11ea-841a-f10632c2521a.png)
 
+가상 메모리 주소값은 `Text`, `Data`, `BSS`, `Heap`, `Stack` 순으로 저장되지만 실제 물리 메모리 주소값은 이 `5` 가지 메모리 섹션 순으로 저장되지는 않은 모습을 확인할 수 있다. 
 
 ---
 

@@ -60,6 +60,8 @@ https://github.com/tylerha97/awesome-reversing : 여기에서 더 많은 리버�
 
   - `strace` : 프로그램이 사용하는 syscall 출력. 
 
+  - `ldd` : TODO
+
 - 리눅스 리버싱 툴 : https://en.wikibooks.org/wiki/X86_Disassembly/Analysis_Tools
 
   - `xxd` : 헥스 뷰
@@ -92,20 +94,20 @@ https://github.com/tylerha97/awesome-reversing : 여기에서 더 많은 리버�
 
   - `./program <args>` 와 같은 효과라는 것임. 
   
-  - 다음 명령어는 `./program $(python -c "print 'x'*140 + '\x78\x56\x34\x12'")` 과 같습니다.
+  - **Example** : 명령어 `./program $(python -c "print 'x'*140 + '\x78\x56\x34\x12'")` 를 `gdb` 안에서 실행하는 형태
   
     ```shell
-    pwndbg> r `python -c "print 'x'*140 + '\x78\x56\x34\x12`
+    (gdb) r `python -c "print 'x'*140 + '\x78\x56\x34\x12`
     ```
 
 - `r <<< $(command)` : gdb 안에서 프로그램에 `command` 의 결과를 입력으로 전달함 
 
   - `command | ./program` : 과 같은 효과임.
   
-  - 다음 명령어는 `python -c "print 'x'*140 + '\x78\x56\x34\x12'" | ./program` 과 같습니다.
+  - **Example** : 명령어 `python -c "print 'x'*140 + '\x78\x56\x34\x12'" | ./program` 를 `gdb` 안에서 실행하는 형태 
   
     ```shell
-    pwndbg> r <<< $(python -c "print 'x'*140 + '\x78\x56\x34\x12'")
+    (gdb) r <<< $(python -c "print 'x'*140 + '\x78\x56\x34\x12'")
     ```
 
 ### gdb 명령어 (3) - 메모리 보기 
