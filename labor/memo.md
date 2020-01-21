@@ -1,5 +1,3 @@
-
-
 함수 포인터 https://dojang.io/mod/page/view.php?id=593
 
 RTL

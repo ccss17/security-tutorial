@@ -167,7 +167,8 @@ section   .data
 
 위와 같은 어셈블리어 프로그램을 짜고 `hello_sujin` 으로 컴파일 했다고 하자. 그러면 `gdb hello_sujin` 으로 디버깅을 시작할 수 있다.
 
-![gdb2](res/gdb2.png)
+![gdb2](https://user-images.githubusercontent.com/16812446/72771351-fd65bd00-3c43-11ea-9739-72a734119639.png)
+
 
 하지만 위와 같이 어셈블리어 파일은 `main` 함수가 없어서 `i file` 명령어로 엔트리 포인트를 확인하고 브레이크 포인트를 걸어주어야 한다. 그리고 `r` 명령어로 실행해보자.
 

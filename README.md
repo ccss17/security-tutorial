@@ -206,3 +206,5 @@ GBC 참여자들은 **PASS** 와 **FAIL** 에 관련된 내용이니 [GBC 보안
 - vanilla-gdb, pwndbg, tmux 시각적으로 설명 
 
 - Git 설치 Git 초기설정 - git config --global user.name "" git config --global user.email "" Git pull requests 메뉴얼 Git init/status/add/commit/push/remote 의 가장 기초적인 사용법 
+
+- 환경세팅을 가상머신 이미지로 만들어서 편하게 세팅할 수 있도록, Docker 로 만드는건 훨씬더 편하겠지 

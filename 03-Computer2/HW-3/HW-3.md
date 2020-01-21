@@ -86,10 +86,10 @@
 
     - 이 숙제의 예시 
 
-      - [27기 Kong 님](Kong.md)
+      - [고스트 27기 Kong 님](Kong.md)
 
-      - [27기 hayeong 님](hayeong.md)
+      - [고스트 27기 hayeong 님](hayeong.md)
 
-      - [27기 jiniljeil 님](jiniljeil.md)
+      - [고스트 27기 jiniljeil 님](jiniljeil.md)
 
-      - [27기 pyojunCode 님](pyojunCode.md)
+      - [고스트 27기 pyojunCode 님](pyojunCode.md)
