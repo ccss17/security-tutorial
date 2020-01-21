@@ -34,7 +34,8 @@ C 언어에서 비트 쉬프트 << 과 >>, ~ 은 내부적으로 shl, shr, not �
 
   - 비트 이동 연산자는 다음 그림과 같이 동작한다. 
 
-  ![Shift](res/shift.PNG)
+  ![shift](https://user-images.githubusercontent.com/16812446/72771257-abbd3280-3c43-11ea-9b13-dc195ca35009.PNG)
+
 
 ## 메모리 관리
 
@@ -72,10 +73,11 @@ C 언어에서 비트 쉬프트 << 과 >>, ~ 은 내부적으로 shl, shr, not �
     
   - 가상 메모리를 사용하게 되면 메모리 주소값을 일관되게 사용할 수 있고 만약 RAM 이 부족하면 HDD 또는 SSD 를 사용할 수 있게 된다.
     
-  - `적절히 쪼개진다(Paging 기법)` 는 것이 구체적으로 어떻게 되는 것인지 설명하려면 한 학기가 필요할테니 그만두고 OS 시간 때 배우시길 바랍니다.
+  - `적절히 쪼개진다(Paging 기법)` 는 것이 구체적으로 어떻게 되는 것인지 설명하려면 한 학기가 필요할테니 운영체제 강의를 들으시며 배우시길 바랍니다.
 
 #### 가상 메모리 영역과 물리 메모리 영역 확인해보기 
 
+[check_virtual_memory_structure.c](https://github.com/ccss17/test_virt_memory/blob/master/check_virtual_memory_structure.c)
 ```c
 // https://github.com/ccss17/test_virt_memory
 #include <stdio.h>
@@ -159,7 +161,9 @@ sudo ./check_virtual_memory_structure HELLO WOLRD
 
 이러한 명령어로 실습을 해볼 수 있고 실행 결과는 다음과 같다. 
 
-![addr-test](res/addr-test.png)
+![addr-test](https://user-images.githubusercontent.com/16812446/72771265-b8418b00-3c43-11ea-841a-f10632c2521a.png)
+
+가상 메모리 주소값은 `Text`, `Data`, `BSS`, `Heap`, `Stack` 순으로 저장되지만 실제 물리 메모리 주소값은 이 `5` 가지 메모리 섹션 순으로 저장되지는 않은 모습을 확인할 수 있다. 
 
 ---
 
@@ -181,7 +185,8 @@ pop a[2]
 
 그리고 그 배열에 대하여 위와 같은 6개 명령어를 실행시켰다. 
 
-![pushpop](res/pushpop.PNG)
+![pushpop](https://user-images.githubusercontent.com/16812446/72771274-c2fc2000-3c43-11ea-8161-bc6040289e33.PNG)
+
 
 그러면 스택은 각각의 6개의 명령어마다 위의 그림과 같이 변하고 배열 a 는 `{37, 19, 7}` 이 된다. `push` 로 값이 스택에 저장된 후 `pop` 으로 스택의 가장 위에 있는 값이 제거 되면서 저장되는 것이다. 
 
@@ -333,7 +338,7 @@ pwndbg> c           # continue : 다음 브레이크포인트까지 프로그램
 
 `pwndbg` 환경에서 `gdb` 로 프로그램을 디버깅하기 시작하면 다음과 같은 화면을 볼 수 있습니다. 
 
-![gdb](res/gdb.png)
+![gdb](https://user-images.githubusercontent.com/16812446/72771285-cee7e200-3c43-11ea-867a-46b44f415bbd.png)
 
 - **RESIGSTERS** 섹션은 현재 레지스터에 저장된 값들을 보여준다. 
 
@@ -389,7 +394,8 @@ C 프로그램은 내부적으로 call 을 사용해서 add 함수로 뛰고 add
 
 - 위의 `add` 함수의 경우 rdi = 1, rsi = 2, rdx = 3, rcx = 4, r8 = 5, r9 = 6 이 저장되서 전달되고 7 은 메모리에 저장된 채로 전달된다. 그리고 call 명령어가 다음 명령어를 스택에 저장하고 add 함수로 건너 뛴다. add 함수가 끝나면 ret 명령어가 call 이 스택에 저장해놓은 리턴 주소값을 rip 에 저장한다. 
 
-![함수호출시스택](res/stack-return.PNG)
+![stack-return](https://user-images.githubusercontent.com/16812446/72771299-d9a27700-3c43-11ea-87c1-0d3f322b6163.PNG)
+
 
 #### 함수의 시작(스택 메모리 공간 생성하기)
 

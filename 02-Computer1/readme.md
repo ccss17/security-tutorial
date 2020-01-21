@@ -158,17 +158,19 @@
 
 [https://www.geeksforgeeks.org/little-and-big-endian-mystery/](https://www.geeksforgeeks.org/little-and-big-endian-mystery)
 
-![datatype](res/datatype.PNG)
+![datatype](https://user-images.githubusercontent.com/16812446/72770971-cd69ea00-3c42-11ea-9098-7a65e5b416cd.PNG)
 
 이건 이미 알고 있을만한 C 언어의 데이터 타입이다. 하지만 하드웨어의 관점에서 호칭되는 데이터 타입은 다음과 같다.
 
-![cpudatatype](res/cpudatatype.PNG)
+![cpudatatype](https://user-images.githubusercontent.com/16812446/72770996-df4b8d00-3c42-11ea-9c50-fc5b67a43010.PNG)
 
 이 데이터 타입에 실질적으로 데이터를 저장하는 방식은 아키텍쳐 마다 두 가지 방식으로 나뉜다. 데이터를 정순서로 저장하는 빅 엔디언 방식, 데이터를 역순서로 저장하는 리틀 엔디언 방식이 그것이다. 만약 4 바이트 자료형에 0x01234567 의 값을 저장한다면 각각 다음의 그림처럼 저장된다.
 
-![littleVSbig](res/lb.GIF)
-  
+![lb](https://user-images.githubusercontent.com/16812446/72771017-e96d8b80-3c42-11ea-8b6d-9b117ef51ad9.GIF)
+
 요즘 컴퓨터들은 CPU 연산 방식 특성상 데이터를 역순서로 저장해야 연산을 좀 더 빠르게 할 수 있기 때문에 리틀 엔디안 방식을 주로 채용한다. 다음과 같은 간단한 C 프로그램으로 나의 컴퓨터가 리틀 엔디언인지 빅 엔디언인지 확인할 수 있다.
+
+[check_little_or_big.c](check_little_or_big.c)
 
 ```c
 // https://www.geeksforgeeks.org/little-and-big-endian-mystery/
@@ -205,57 +207,12 @@ HDD 또는 SSD 를 도서관이라고 비유해보자. 그러면 도서관에서
 
 ### `RAM` 에 저장하는 변수와 `register` 에 저장하는 변수의 속도 차이 실험 
 
-- 다음의 간단한 C 프로그램으로 `RAM` 과 `register` 와의 속도 차이를 실감해보자. 
+- 이 프로그램 [reg_vs_ram.c](reg_vs_ram.c) 으로 `RAM` 과 `register` 와의 속도 차이를 실감해보자. 
 
-  ```c
-  #include <stdio.h>
-  #include <time.h>
-
-  #define MILLION 1000 * 1000
-  #define BILLION 1000 * 1000 * 1000
-
-  void loop_with_reg(int count){
-      register int i;
-      for (i = 0; i < count; i++);
-  }
-
-  void loop_with_ram(int count){
-      int i;
-      for (i = 0; i < count; i++);
-  }
-
-  int digits_count(int n){
-      int r;
-      for(r = 0; n != 0; r++)
-          n /= 10;
-      return r;
-  }
-
-  int performance_test(int loop_count, void (*target_func)(int)){
-      clock_t start = clock();
-      target_func(loop_count);
-      double microsecs = ((double)clock() - start);
-      if (digits_count(microsecs) >= 6) 
-          printf("(%d loops)\t%.1f secs\n", loop_count, microsecs / CLOCKS_PER_SEC);
-      else 
-          printf("(%d loops)\t%.1f msec\n", loop_count, microsecs / 1000.0f);
-  }
-
-  int main() {
-      printf("Performance test ram variables\n");
-      performance_test(MILLION * 10, loop_with_ram);
-      performance_test(BILLION, loop_with_ram);
-      printf("Performance test registers variables\n");
-      performance_test(MILLION * 10, loop_with_reg);
-      performance_test(BILLION, loop_with_reg);
-      return 0;
-  }
-  ```
-  
 - **Arch Linux x86_64** 환경에서 **gcc 9.2.0** 컴파일러로 컴파일 후 실행 결과 다음과 같은 확연한 속도 차이를 볼 수 있었다. 한번 본인의 컴퓨터에서 실행해보길 바란다.
 
   ```shell
-  $ gcc ram-vs-reg.c && ./a.out
+  $ gcc reg_vs_ram.c && ./a.out
   Performance test ram variables
   (10000000 loops)        18.6 msec
   (1000000000 loops)      2.1 secs
@@ -270,11 +227,11 @@ HDD 또는 SSD 를 도서관이라고 비유해보자. 그러면 도서관에서
 
 범용 레지스터는 말 그대로 "여러가지로(범) 널리 쓰이는(용)" 레지스터이다.
 
-![register](res/register.PNG)
+![register](https://user-images.githubusercontent.com/16812446/72771046-ff7b4c00-3c42-11ea-9691-7f6ac3cd07fa.PNG)
 
 옛날 옛적 16 비트 메모리 시스템을 사용할 때 레지스터들은 ax, bx, cx, dx 등으로 불리웠는데 32 비트 메모리를 사용하기 시작하면서 16 비트 레지스터에서 확장extend 했다는 의미로 e 를 붙혀서 eax, ebx, ecx, edx 로 바꿔서 불렀다. 비슷하게 64 비트 메모리 시스템의 레지스터는 rax, rbx, rcx, rdx 라는 식으로 부른다.
 
-![register-usage](res/register-usage.PNG)
+![register-usage](https://user-images.githubusercontent.com/16812445/72771060-0b670e00-3c43-11ea-9572-9edda3134559.PNG)
 
 그렇다고 64 비트 메모리 시스템에서 eax 나 ax, al 을 사용하지 않는 것이 아니다. 위의 그림과 같이 64 비트 메모리 시스템에서 32 비트 메모리에만 접근하고 싶을 때 eax 를 사용하고 16 비트 메모리에만 접근하고 싶을 때는 ax, 8 비트 메모리만 다루고 싶을 땐 al 을 사용한다.
 사실상 al, ax, eax, rax 가 모두 같은 레지스터를 다루는 것이다.
@@ -291,9 +248,11 @@ rsp 와 rbp 은 원래 sp, bp 로써 각각 stack pointer, base pointer 라는 �
 
 ### FLAG 레지스터
 
-![flag-register-1](res/flag-register-1.PNG)
 
-![flag-register-2](res/flag-register-2.PNG)
+![flag-register-1](https://user-images.githubusercontent.com/16812446/72771080-19b52a00-3c43-11ea-9a71-91ff62ced806.PNG)
+
+![flag-register-2](https://user-images.githubusercontent.com/16812446/72771094-22a5fb80-3c43-11ea-8a7b-badba2efed1d.PNG)
+
 
 FLAG 레지스터는 위와 같이 CPU 의 여러가지 상태를 나타낸다.
 
@@ -371,7 +330,7 @@ CPU 가 +, - 연산을 할 때 내부적으로 이 어셈블리어를 사용한�
 
 ## 논리 연산
 
-![truth-table](res/truth-table.PNG)
+![truth-table](https://user-images.githubusercontent.com/16812446/72771110-30f41780-3c43-11ea-9776-fb067a2cf1ed.PNG)
 
 and, or, xor 의 논리 연산은 복습하는 차원에서 위의 표를 한 번씩 살펴보고 넘어가자. `&, |, ^` 연산을 할 때 내부적으로 이 어셈블리어를 사용한다.
 
@@ -416,7 +375,7 @@ C 언어에서 goto 문을 사용할 때 라벨을 사용하는데 `loopStart:` 
   
   - 조건 문기 명령어들은 cmp 명령어의 결과에 따라 다음과 같이 정의된다. je 는 jump-if-equal 이라는 뜻으로 `<op1>` == `<op2>` 이면 `<label>` 로 프로그램의 흐름을 변경한다는 말이다. jne 는 jump-if-not-equal 이라는 뜻이다. 나머지도 직관적으로 이해할 수 있다.
 
-    ![조건분기](res/conditional-jmp.PNG)
+    ![conditional-jmp](https://user-images.githubusercontent.com/16812446/72771126-3e110680-3c43-11ea-8922-aebb4244c2d7.PNG)
 
 ## system call
 
@@ -424,6 +383,7 @@ https://ko.wikipedia.org/wiki/%EC%8B%9C%EC%8A%A4%ED%85%9C_%ED%98%B8%EC%B6%9C
 
 하지만 이런 어셈블리어들만 가지고는 쓸만한 프로그램을 만들 수 없다. 그래서 하드웨어와 커널에서 제공하는 서비스를 호출할 수 있어야 하는데 시스템 콜이 그것이 가능하게 해준다. 시스템 콜은 유저 레벨 프로그램이 커널 레벨 서비스를 사용하고 싶을 때 커널에게 요청하기 위한 도구이다. 시스템 콜은 프로세스 제어, 파일 조작, 장치 관리, 통신 등등에 사용된다. 다음 C 프로그램을 보자.
 
+[simple_write.c](simple_write.c)
 ```c
 #include <unistd.h>
 
@@ -435,7 +395,7 @@ void main(void) {
 
 실행하면 Hello! 문자열이 출력된다.
 
-![시스템 콜](res/syscall.PNG)
+![syscall](https://user-images.githubusercontent.com/16812446/72771141-49fcc880-3c43-11ea-9a92-2b31d8c64965.PNG)
 
 printf 계열의 출력 함수는 내부적으로 write 함수를 사용하고 write 함수는 내부적으로 위와 같이 레지스터를 초기화 한 후 syscall 을 호출한다.
 
