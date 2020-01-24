@@ -38,10 +38,6 @@ https://github.com/tylerha97/awesome-reversing : 여기에서 더 많은 리버�
 
 다른 리버싱 툴에 대해서는 Apple 의 LLVM 슈트에서 제공하는 [`lldb`](https://lldb.llvm.org/use/tutorial.html) 도 살펴보시길 바랍니다. 최근에는 [`rr`](https://rr-project.org/) 이라는 리버싱 툴도 각광받고 있습니다. 
 
-### 참고 - awesome 레포지토리에 대해서
-
-> 다양한 IT 분야의 프로그래머들은 자신의 분야에 대한 개쩌는(awesome) 정보들을 한 군데로 수집하기 위해서 awesome-??? 레포지토리들을 제작하기 시작했는데 그 awesome-??? 레포지토리를 한 군데로 모은 것이 [sindresorhus](https://github.com/sindresorhus) 라는 프로그래머의 [awesome 레포지토리](https://github.com/sindresorhus/awesome) 이다. 이 레포지토리는 스타를 11만 1362개(19/7/10 기준) 를 받아서 Github 단일 레포지토리 중에서 [스타 랭킹이 전체 8위](https://gitstar-ranking.com)를 기록했다. 그리고 이 sindresorhus 라는 프로그래머는 총 합산 스타가 402,004 (19/7/10 기준)으로써 전체 Github 유저 중 1위이다. 그 40만개의 스타 중에서 1/4 인 11만개를 awesome 레포지토리가 차지하고 있다. 
-
 ### elf 툴 
 
 - GNU 바이너리 유틸리티 : GNU 유틸리티는 Linux 에 기본으로 탑재되어 있으니 설치하지 않아도 쓸 수 있는 툴들이니만큼 대중적이고 중요한 명령어들이다. 
