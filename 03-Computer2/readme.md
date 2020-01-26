@@ -1,8 +1,6 @@
-# 컴퓨터를 밑바닥부터 이해해보자 (2) 
+# 어셈블리어 (2)
 
-# 간단하게 살펴보는 컴퓨터의 구조와 작동 원리 (2)
-
-## 비트 연산
+## 비트 연산 (`shl`, `shr`)
 
 C 언어에서 비트 쉬프트 << 과 >>, ~ 은 내부적으로 shl, shr, not 어셈블리어를 사용한다. 
 
@@ -78,6 +76,7 @@ C 언어에서 비트 쉬프트 << 과 >>, ~ 은 내부적으로 shl, shr, not �
 #### 가상 메모리 영역과 물리 메모리 영역 확인해보기 
 
 [check_virtual_memory_structure.c](https://github.com/ccss17/test_virt_memory/blob/master/check_virtual_memory_structure.c)
+
 ```c
 // https://github.com/ccss17/test_virt_memory
 #include <stdio.h>
@@ -188,22 +187,22 @@ pop a[2]
 ![pushpop](https://user-images.githubusercontent.com/16812446/72771274-c2fc2000-3c43-11ea-8161-bc6040289e33.PNG)
 
 
-그러면 스택은 각각의 6개의 명령어마다 위의 그림과 같이 변하고 배열 a 는 `{37, 19, 7}` 이 된다. `push` 로 값이 스택에 저장된 후 `pop` 으로 스택의 가장 위에 있는 값이 제거 되면서 저장되는 것이다. 
+그러면 스택 메모리는 각각의 `6` 개의 명령어마다 위의 그림과 같이 변하고 배열 `a` 는 `{37, 19, 7}` 이 된다. `push` 로 값이 스택에 저장된 후 `pop` 으로 스택의 가장 위에 있는 값이 제거 되면서 저장되는 것이다. 
 
-- `push <op>` : push 명령어는 전달된 값을 스택에 저장한다.
+- `push <op>` : 전달된 값을 스택의 가장 위(`rsp`) 저장한다.
 
-  - `push` 는 내부적으로 `rsp` 레지스터를 사용해서 스택의 최상위 주소를 알아내고 그 주소에 값을 저장하게 된다. 그런데 64 비트 메모리 시스템의 스택에에서는 8 바이트 값이 저장되니까 스택이 8 만큼 커진다. 그래서 `rsp` 에 저장된 값이 `8` 을 감소된다. 
+  - `push` 는 내부적으로 `rsp` 레지스터를 사용해서 스택의 최상위 주소를 알아내고 그 주소에 값을 저장한다. 그런데 `64` 비트 메모리 시스템의 스택에에서는 `8` 바이트 값이 저장되니까 스택이 `8` 만큼 커진다. 그래서 `rsp` 에 저장된 값이 `8` 을 감소된다. 
 
-  - `8` 을 더하는 게 아니라 왜 뺄까? [메모리 레이아웃](https://notes.shichao.io/tlpi/figure_6-1.png) 에서도 확인할 수 있듯이 스택은 높은 주소에서 낮은 주소로 자라기 때문이다. 
+  - `rsp` 에 `8` 을 더하는 게 아니라 왜 뺄까? [메모리 레이아웃](https://notes.shichao.io/tlpi/figure_6-1.png) 에서도 확인할 수 있듯이 스택은 높은 주소에서 낮은 주소로 확장되기 때문이다. 
 
     ```assembly
     push rax            ; rax 의 값을 스택에 저장하고 rsp 값에 8 을 뺀다. 
     push qword [qVal]   ; qVal 의 메모리 주소에 있는 값을 스택에 저장하고 rsp 값에 8 을 뺀다.
     ```
 
-- `pop <op>` : 스택의 가장 위에 있는 값을 `<op>` 에 저장하고 스택을 `8` 만큼 줄여준다.
+- `pop <op>` : 스택의 가장 위(`rsp`)에 있는 값을 `<op>` 에 저장하고 스택을 `8` 만큼 줄여준다.
 
-  - 스택의 가장 위는 `rsp` 가 가르키고 있으니 결국 `rsp` 에 있는 값이 가르키는 값을 `<op>` 에 저장한다는 말이다. 그리고 스택을 줄여주어야 하니 `rsp` 에 `8` 을 더해준다. 
+  - 스택의 가장 위는 `rsp` 가 가르키고 있으니 결국 `rsp` 의 주소값에 있는 값을 `<op>` 에 저장한다는 말이다. 그리고 스택을 줄여주어야 하니 `rsp` 에 `8` 을 더한다. 
 
     ```assembly
     pop rax            ; rsp 가 가르키고 있는 스택의 최상위 주소의 데이터를 rax 에 저장하고 rsp 값에 8 을 더한다.
@@ -237,6 +236,8 @@ pop a[2]
 
   - **NOP** 코드는 다음에 배울 **쉘코드**를 생성할 때 유용하게 사용된다. 
 
+  - **NOP** 코드는 바이너리로 `0x90` 이다. *예외적으로 **NOP** 코드만큼은 바이너리 값(0x90)을 암기할 필요가 있다.*
+
 ### 나머지 어셈블리어들은?
 
 http://www.jegerlehner.ch/intel/IntelCodeTable.pdf
@@ -251,42 +252,43 @@ http://www.jegerlehner.ch/intel/IntelCodeTable.pdf
 
 ### gdb 명령어 (1) - 기초 명령어 
 
-- `gdb <program>` : gdb 디버깅 시작 
+- `$ gdb <program>` : gdb 디버깅 시작 
 
-- `run` or `r` : 프로그램 시작 
+- `(gdb) run` or `r` : 프로그램 시작 
 
-- `break <location>` or `b` : 브레이크포인트 지정 
+- `(gdb) break <location>` or `b` : 브레이크포인트 지정 
 
-  - `break main` or `b main`
+  - `(gdb) break main` or `b main`
 
-  - `break 0x408571` or `b 0x408571`
+  - `(gdb) break 0x408571` or `b 0x408571`
 
-- `info breakpoints` or `i b` : 브레이크포인트 상태보기 
+- `(gdb) info breakpoints` or `i b` : 브레이크포인트 상태보기 
 
-- `delete breakpoints <location>` or `d br <location>` : 브레이크포인트 삭제 
+- `(gdb) delete breakpoints <location>` or `d br <location>` : 브레이크포인트 삭제 
 
-- `nexti` or `ni` : 하나의 명령어씩 실행. 단, 서브루틴으로 들어가지 않음 
+- `(gdb) nexti` or `ni` : 하나의 명령어씩 실행. 단, 서브루틴으로 들어가지 않음 
 
-- `stepi` or `si` : 하나의 명령어씩 실행. 단, 서브루틴으로 들어감 
+- `(gdb) stepi` or `si` : 하나의 명령어씩 실행. 단, 서브루틴으로 들어감 
 
-- `next` or `n` : 소스코드 한 줄을 실행. 단, 서브루틴으로 들어가지 않음 
+- `(gdb) next` or `n` : 소스코드 한 줄을 실행. 단, 서브루틴으로 들어가지 않음 
 
-- `step` or `s` : 소스코드 한 줄을 실행. 단, 서브루틴으로 들어감
+- `(gdb) step` or `s` : 소스코드 한 줄을 실행. 단, 서브루틴으로 들어감
 
-- `continue` or `c` : 브레이크 포인트를 무시하고 프로그램이 끝날 때가지 실행
+- `(gdb) continue` or `c` : 브레이크 포인트를 무시하고 프로그램이 끝날 때가지 실행
 
-- `x/<n-bytes>x <location>` : 해당 주소로부터 메모리를 n byte 를 본다. 
+- `(gdb) x/<n-bytes>x <location>` : 해당 주소로부터 메모리를 n byte 를 본다. 
 
-  - `x/10x <location>` : 해당 주소로부터 메모리를 10 byte 를 본다. 
+  - `(gdb) x/10x <location>` : 해당 주소로부터 메모리를 10 byte 를 본다. 
 
-- `disas <function>` : 함수의 어셈블리어를 본다. 
+- `(gdb) disas <function>` : 함수의 어셈블리어를 본다. 
 
 ## gdb 연습 (1) - 간단한 C 프로그램 
 
 ### 프로그램 준비 및 컴파일 
 
-다음과 같은 간단한 C 프로그램을 작성하고 `test.c` 라고 저장합니다. 
+먼저 다음의 [add.c](add.c) 프로그램을 저장합니다.
 
+[add.c](add.c)
 ```c
 #include <stdio.h>
 
@@ -300,7 +302,7 @@ int main(void)
 {
     int a = 8;
     int b = 1024;
-    int result = hello(a, b);
+    int result = add(a, b);
     printf("a + b = %d\n", result);
     return 0;
 }
@@ -309,8 +311,8 @@ int main(void)
 그리고 컴파일을 하고 실행해봅니다. 
 
 ```shell
-gcc test.c -o test
-./test
+gcc add.c -o add
+./add
 ```
 
 ### gdb 로 디버깅하기 
@@ -319,19 +321,19 @@ gcc test.c -o test
 
 ```shell
 $ gdb test
-pwndbg> i file      # info files : 프로그램의 정보를 보는 명령 
-pwndbg> i func      # info functions : 프로그램의 함수들을 보는 명령 
-pwndbg> b main      # break main : main 함수에 브레이크포인트를 걸어서 main 함수가 시작될 때 프로그램이 멈춘다. 
-pwndbg> i b         # info breakpoints : 현재 설정된 브레이크포인트를 본다.
-pwndbg> d br 1      # delete breakpoint 1 : 1 번 브레이크포인트를 삭제
-pwndbg> b main      # 다시 main 함수에 브레이크포인트 설정 
-pwndbg> r           # run : 프로그램을 실행 
-pwndbg> disas main  # main 함수의 어셈블리를 본다 
-pwndbg> ni          # nexti : 하나의 명령어 씩 실행. 단, 서브루틴으로 들어가지 않음. 
-pwndbg> ni          # ni 를 계속 실행하면서 레지스터와 메모리가 변하는 상황을 관찰해본다. 
-pwndbg> si          # stepi : 하나의 명령어 씩 실행. 단, 서브루틴으로 들어감.
-pwndbg> si          # si 를 실행하면 call 된 함수의 루틴으로 계속해서 들어간다. 
-pwndbg> c           # continue : 다음 브레이크포인트까지 프로그램을 진행시킴. 브레이크포인트가 없으면 프로그램이 끝날 때까지 진행시킴. 
+(gdb) i file      # info files : 프로그램의 정보를 보는 명령 
+(gdb) i func      # info functions : 프로그램의 함수들을 보는 명령 
+(gdb) b main      # break main : main 함수에 브레이크포인트를 걸어서 main 함수가 시작될 때 프로그램이 멈춘다. 
+(gdb) i b         # info breakpoints : 현재 설정된 브레이크포인트를 본다.
+(gdb) d br 1      # delete breakpoint 1 : 1 번 브레이크포인트를 삭제
+(gdb) b main      # 다시 main 함수에 브레이크포인트 설정 
+(gdb) r           # run : 프로그램을 실행 
+(gdb) disas main  # main 함수의 어셈블리를 본다 
+(gdb) ni          # nexti : 하나의 명령어 씩 실행. 단, 서브루틴으로 들어가지 않음. 
+(gdb) ni          # ni 를 계속 실행하면서 레지스터와 메모리가 변하는 상황을 관찰해본다. 
+(gdb) si          # stepi : 하나의 명령어 씩 실행. 단, 서브루틴으로 들어감.
+(gdb) si          # si 를 실행하면 call 된 함수의 루틴으로 계속해서 들어간다. 
+(gdb) c           # continue : 다음 브레이크포인트까지 프로그램을 진행시킴. 브레이크포인트가 없으면 프로그램이 끝날 때까지 진행시킴. 
 ```
 
 ### pwndbg 의 context 화면 분석 
@@ -352,49 +354,185 @@ pwndbg> c           # continue : 다음 브레이크포인트까지 프로그램
 
 ## 함수 호출의 컴퓨터 내부적인 원리 
 
-CPU 가 함수를 호출해서 프로그램의 흐름을 바꿀 때 `call` 명령어를 쓰고 원래 있던 곳으로 되돌아 갈 때 `ret` 명령어를 사용한다. 다음과 같은 간단한 C 프로그램을 생각하자. 
+CPU 가 함수를 호출해서 프로그램의 흐름을 바꿀 때 `call` 명령어를 쓰고 원래 있던 곳으로 되돌아 갈 때 `ret` 명령어를 사용한다.
 
-  ```c
-  int add(int a, int b) { return a + b; }
-  void main(){
-      int a = add(1, 2);
-      printf("%d\n", a);
-  }
-  ```
-  
-C 프로그램은 내부적으로 call 을 사용해서 add 함수로 뛰고 add 함수가 끝나면 ret 명령어로 다시 main 함수로 되돌아오게 된다. 
+[add.c](add.c) 를 다시 살펴보자. 그리고 이 프로그램의 `main` 함수의 어셈블리어를 해부해보자.
 
-- `call <location>` : `call` 명령어는 `call` 명령어 다음 명령어의 주소값을 스택에 `push` 하고 `<location>` 으로 점프한다. 
+### 방법 1 - `objdump` 
+
+`objdump` 로 어셈블리어를 확인할 수 있다. 
+
+```shell
+$ objdump -M intel -D add | grep \<main\> -A20
+0000000000400588 <main>:
+  400588:	55                   	push   rbp
+  400589:	48 89 e5             	mov    rbp,rsp
+  40058c:	48 83 ec 10          	sub    rsp,0x10
+  400590:	c7 45 f4 08 00 00 00 	mov    DWORD PTR [rbp-0xc],0x8
+  400597:	c7 45 f8 00 04 00 00 	mov    DWORD PTR [rbp-0x8],0x400
+  40059e:	8b 55 f8             	mov    edx,DWORD PTR [rbp-0x8]
+  4005a1:	8b 45 f4             	mov    eax,DWORD PTR [rbp-0xc]
+  4005a4:	89 d6                	mov    esi,edx
+  4005a6:	89 c7                	mov    edi,eax
+  4005a8:	e8 b9 ff ff ff       	call   400566 <add>
+  4005ad:	89 45 fc             	mov    DWORD PTR [rbp-0x4],eax
+  4005b0:	8b 45 fc             	mov    eax,DWORD PTR [rbp-0x4]
+  4005b3:	89 c6                	mov    esi,eax
+  4005b5:	bf 61 06 40 00       	mov    edi,0x400661
+  4005ba:	b8 00 00 00 00       	mov    eax,0x0
+  4005bf:	e8 7c fe ff ff       	call   400440 <printf@plt>
+  4005c4:	b8 00 00 00 00       	mov    eax,0x0
+  4005c9:	c9                   	leave
+  4005ca:	c3                   	ret
+  4005cb:	0f 1f 44 00 00       	nop    DWORD PTR [rax+rax*1+0x0]
+```
+```shell
+$ objdump -M intel -D add | grep \<add\>: -A12
+0000000000400566 <add>:
+  400566:	55                   	push   rbp
+  400567:	48 89 e5             	mov    rbp,rsp
+  40056a:	48 83 ec 10          	sub    rsp,0x10
+  40056e:	89 7d fc             	mov    DWORD PTR [rbp-0x4],edi
+  400571:	89 75 f8             	mov    DWORD PTR [rbp-0x8],esi
+  400574:	bf 54 06 40 00       	mov    edi,0x400654
+  400579:	e8 b2 fe ff ff       	call   400430 <puts@plt>
+  40057e:	8b 55 fc             	mov    edx,DWORD PTR [rbp-0x4]
+  400581:	8b 45 f8             	mov    eax,DWORD PTR [rbp-0x8]
+  400584:	01 d0                	add    eax,edx
+  400586:	c9                   	leave
+  400587:	c3                   	ret
+```
+
+### 방법 2 - `gdb` 
+
+`gdb` 로 `main` 함수를 해부할 수 있다. 
+
+```shell
+$ gdb add
+(gdb) disas main
+Dump of assembler code for function main:
+   0x0000000000400588 <+0>:	push   rbp
+   0x0000000000400589 <+1>:	mov    rbp,rsp
+   0x000000000040058c <+4>:	sub    rsp,0x10
+   0x0000000000400590 <+8>:	mov    DWORD PTR [rbp-0xc],0x8
+   0x0000000000400597 <+15>:	mov    DWORD PTR [rbp-0x8],0x400
+   0x000000000040059e <+22>:	mov    edx,DWORD PTR [rbp-0x8]
+   0x00000000004005a1 <+25>:	mov    eax,DWORD PTR [rbp-0xc]
+   0x00000000004005a4 <+28>:	mov    esi,edx
+   0x00000000004005a6 <+30>:	mov    edi,eax
+   0x00000000004005a8 <+32>:	call   0x400566 <add>
+   0x00000000004005ad <+37>:	mov    DWORD PTR [rbp-0x4],eax
+   0x00000000004005b0 <+40>:	mov    eax,DWORD PTR [rbp-0x4]
+   0x00000000004005b3 <+43>:	mov    esi,eax
+   0x00000000004005b5 <+45>:	mov    edi,0x400661
+   0x00000000004005ba <+50>:	mov    eax,0x0
+   0x00000000004005bf <+55>:	call   0x400440 <printf@plt>
+   0x00000000004005c4 <+60>:	mov    eax,0x0
+   0x00000000004005c9 <+65>:	leave
+   0x00000000004005ca <+66>:	ret
+End of assembler dump.
+(gdb) disas add
+Dump of assembler code for function add:
+   0x0000000000400566 <+0>:	push   rbp
+   0x0000000000400567 <+1>:	mov    rbp,rsp
+   0x000000000040056a <+4>:	sub    rsp,0x10
+   0x000000000040056e <+8>:	mov    DWORD PTR [rbp-0x4],edi
+   0x0000000000400571 <+11>:	mov    DWORD PTR [rbp-0x8],esi
+   0x0000000000400574 <+14>:	mov    edi,0x400654
+   0x0000000000400579 <+19>:	call   0x400430 <puts@plt>
+   0x000000000040057e <+24>:	mov    edx,DWORD PTR [rbp-0x4]
+   0x0000000000400581 <+27>:	mov    eax,DWORD PTR [rbp-0x8]
+   0x0000000000400584 <+30>:	add    eax,edx
+   0x0000000000400586 <+32>:	leave
+   0x0000000000400587 <+33>:	ret
+End of assembler dump.
+```
+
+`main` 함수에서 내부적으로 `call` 을 사용해서 `add` 함수로 뛰고 `add` 함수가 끝나면 ret 명령어로 다시 main 함수로 되돌아오게 된다. 
+
+- `call <location>` : `call` 은 "**`call` 의 다음 명령어의 주소값**"을 스택에 `push` 하고 `<location>` 으로 점프한다. 
+
+  - 스택에 저장된 "**`call` 의 다음 명령어의 주소값**" 을 *함수가 부모 함수의 실행흐름으로 되돌아갈 수 있도록 한다*고 해서 "**리턴 주소값**" 이라 부르며, **이 주소값을 어떻게 조작하느냐에 따라 프로그램의 흐름도 조작하여 해커가 원하는대로 실행시킬 수 있기 때문에 컴퓨터 해킹에서 아주 중요하게** 다뤄진다.
+
+  - 다시 말해서 원론적으로 해커가 원하는 것은 해당 프로세스의 권한으로 해커가 실행하고 싶은 어셈블리어들을 실행하는 것이다. 그렇게 하기 위하여 프로세스의 실행을 조작해야 하는데 그 프로세스의 실행 흐름의 실체가 무엇인지 이해하여야 한다. 프로세스 실행 흐름의 실체는 현재 `rip` 레지스터의(`32` 비트 시스템에서는 `eip`)(**Program Counter**) 값이 가르키고 있는 명령어이다. 
+
+  - 물리적으로(하드웨어적으로)나 소프트웨어적으로나 `rip` 를 바꿀 수 있겠지만 통상적인 해킹은 소프트웨어적인 접근만 생각하기 때문에 소프트웨어적으로 `rip` 를 바꿀 수 있는 기능을 제공하는 것은 `ret` 명령어이다. 
 
   ```assembly
   call printf
   call 0x400421
   ```
 
-- `ret` : ret 명령어(return) 는 call 명령어가 스택에 저장해놓은 리턴 주소값을 pop 해서 rip 레지스터에 저장한다. 한 마디로 PC(Program Counter) 를 바꿔서 이전에 실행되던 함수로 되돌아간다는 말이다. 
+- `ret` : 스택 맨 위(`rsp`)에 있는 값을 `pop` 해서 `rip` 레지스터에 덮어쓴다. 
 
-### 함수 인자 전달
+  - 통상적으로 `call` 명령어가 스택에 저장해놓은 **리턴 주소값**을 `pop` 해서 `rip` 레지스터에 덮어쓴다. 한 마디로 프로그램의 실행 흐름을 이전에 실행되던 부모 함수의 실행 흐름으로 바꾸어서 되돌아간다는 것이다. 
+
+  - 그런데 해커는 해당 프로세스의 권한으로 자신이 원하는 동작을 행동하기 위해서 `rip` 를 바꾸기를 원한다. 때문에 `ret` 명령어가 `rsp` 가 가르키고 있는 곳(스택의 맨 위)의 값을 `rip` 로 덮어쓴다는 것을 악용한다.
+  
+  - 즉, 일반적인 상황에서는 `call` 명령어가 스택에 저장해둬서 이전 함수의 흐름으로 되돌아갈 수 있도록 하는 표지판인 **리턴 주소값** 을 해커는 자신이 실행하기를 원하는 명령어가 있는 주소값으로 덮어쓴다.
+  
+  - 컴퓨터는 단지 표지판이 가르키는대로 이동하고 실행하고 이동하고 실행하기를 반복하기로 인간과 약속하였기 때문에 **리턴 주소값** 을 해커가 조작했다 하더라도 컴퓨터는 단순히 그 주소값으로 이동하고 실행하기를 계속한다. 
+
+### 함수 호출의 내부적 원리 
     
-- 함수에 인자를 전달할 때 차례대로 rdi, rsi, rdx, rcx, r8, r9 가 사용되고 인자가 7개 이상일 경우 7번째 인자부터는 어쩔 수 없이 레지스터보다 좀 더 느린 메모리를 사용한다. 함수의 반환값은 rax 레지스터에 저장된다.
+- `64` 비트 시스템에서의 함수 인자 전달의 내부적 원리 : 함수에 인자를 전달할 때 첫번째 인자부터 차례대로 `rdi`, `rsi`, `rdx`, `rcx`, `r8`, `r9` 가 사용된다.
 
-  ```c
-  #include <stdio.h>
+  - 인자가 `7` 개 이상일 경우 `7` 번째 인자부터는 어쩔 수 없이 레지스터보다 좀 더 느린 RAM 을  사용한다.
+
+    ![stack-return](https://user-images.githubusercontent.com/16812446/72771299-d9a27700-3c43-11ea-87c1-0d3f322b6163.PNG)
+
+  - 함수의 반환값은 `rax` 레지스터에 저장된다.
+
+  - 다음의 프로그램 [many-add.c](many-add.c) 를 다시 보자. 
+
+    ```c
+    #include <stdio.h>
+    
+    int many_add(int n1, int n2, int n3, int n4, int n5, int n6, int n7)
+    {
+        int result = n1 + n2 + n3 + n4 + n5 + n6 + n7;
+        return result;
+    }
+    
+    void main()
+    {
+        int result;
+        result = many_add(1, 2, 3, 4, 5, 6, 7);
+        printf("%d\n", result);
+    }
+    ```
   
-  int add(int n1, int n2, int n3, int n4, int n5, int n6, int n7) {
-      int result = n1 + n2 + n3 + n4 + n5 + n6 + n7;
-      return result;
-  }
+  - 위의 `add` 함수의 경우 `rdi` &larr; `1`, `rsi` &larr; `2`, `rdx` &larr; `3`, `rcx` &larr; `4`, `r8` &larr; `5`, `r9` &larr; `6` 이 저장되서 전달되고 `7` 은 메모리에 저장된 채로 전달된다. `main` 함수를 해부해보자. 
+
+    ```shell
+    $ objdump -M intel -D many-add | grep \<main\>: -A21
+    0000000000400567 <main>:
+      400567:	55                   	push   rbp
+      400568:	48 89 e5             	mov    rbp,rsp
+      40056b:	48 83 ec 10          	sub    rsp,0x10
+      40056f:	6a 07                	push   0x7
+      400571:	41 b9 06 00 00 00    	mov    r9d,0x6
+      400577:	41 b8 05 00 00 00    	mov    r8d,0x5
+      40057d:	b9 04 00 00 00       	mov    ecx,0x4
+      400582:	ba 03 00 00 00       	mov    edx,0x3
+      400587:	be 02 00 00 00       	mov    esi,0x2
+      40058c:	bf 01 00 00 00       	mov    edi,0x1
+      400591:	e8 90 ff ff ff       	call   400526 <many_add>
+      400596:	48 83 c4 08          	add    rsp,0x8
+      40059a:	89 45 fc             	mov    DWORD PTR [rbp-0x4],eax
+      40059d:	8b 45 fc             	mov    eax,DWORD PTR [rbp-0x4]
+      4005a0:	89 c6                	mov    esi,eax
+      4005a2:	bf 44 06 40 00       	mov    edi,0x400644
+      4005a7:	b8 00 00 00 00       	mov    eax,0x0
+      4005ac:	e8 4f fe ff ff       	call   400400 <printf@plt>
+      4005b1:	90                   	nop
+      4005b2:	c9                   	leave
+      4005b3:	c3                   	ret
+    ```
   
-  void main() {
-      int result;
-      result = add(1, 2, 3, 4, 5, 6, 7);
-      printf("%d\n", result);
-  }
-  ```
-
-- 위의 `add` 함수의 경우 rdi = 1, rsi = 2, rdx = 3, rcx = 4, r8 = 5, r9 = 6 이 저장되서 전달되고 7 은 메모리에 저장된 채로 전달된다. 그리고 call 명령어가 다음 명령어를 스택에 저장하고 add 함수로 건너 뛴다. add 함수가 끝나면 ret 명령어가 call 이 스택에 저장해놓은 리턴 주소값을 rip 에 저장한다. 
-
-![stack-return](https://user-images.githubusercontent.com/16812446/72771299-d9a27700-3c43-11ea-87c1-0d3f322b6163.PNG)
+  - `call many_add` 가 실행되기 전에 함수 인자가 차례로 저장되고 있는 것을 관찰하자.
+  
+  - 인자를 초기화한 후 `call` 은 다음 명령어의 주소값(`0x400596`)를 스택에 `push`하고 `add` 함수로 건너 뛴다. `add` 함수가 끝나면 `ret` 명령어가 `call` 이 스택에 저장해놓은 리턴 주소값을 `pop` 해서 `rip` 에 덮어쓴다. 
 
 
 #### 함수의 시작(스택 메모리 공간 생성하기)
