@@ -280,23 +280,15 @@ $ gdb add
 
   - https://github.com/cyrus-and/gdb-dashboard
    
-    ![](https://raw.githubusercontent.com/wiki/cyrus-and/gdb-dashboard/Screenshot.png)
-
   - https://github.com/snare/voltron
-
-    ![](https://camo.githubusercontent.com/f364ec6565b14e266e33005c9cb80e5c7f7b367d/687474703a2f2f692e696d6775722e636f6d2f396e756b7a74412e706e67)
 
 - `UI` 와 `Exploit` 기능을 균형있게 제공하는 플러그인
 
   - https://github.com/hugsy/gef
 
-    ![](https://i.imgur.com/E3EuQPs.png)
-
   - https://github.com/pwndbg/pwndbg
 
-    ![](https://raw.githubusercontent.com/pwndbg/pwndbg/dev/caps/context.png)
-
-이제부터 `pwndbg` 를 사용해서 디버깅을 해보자. *개인적으로 레이아웃은 `voltron` 으로 쓰고 명령어 체계를 `pwndbg` 로 사용하는 것을 선호한다.*
+이제부터 `pwndbg` 를 사용해서 디버깅을 해보자. (*개인적으로 레이아웃은 `voltron` 으로 쓰고 명령어 체계를 `pwndbg` 로 사용하는 것을 선호한다.*)
 
 # pwndbg 
 
@@ -353,7 +345,7 @@ $ objdump -M intel -D add | grep \<add\>: -A12
 
   - 스택에 저장된 "**`call` 의 다음 명령어의 주소값**" 을 *부모 함수의 실행흐름으로 되돌아갈 수 있는 표지판 역할*을 하기에 "**리턴 주소값**" 이라 부른다.
   
-  - **이 리턴주소값을 어떻게 조작하느냐에 따라 프로그램의 흐름도 조작하여 해커가 원하는대로 실행시킬 수 있기 때문에** 컴퓨터 해킹에서 아주 중요하게 다뤄진다.
+  - **이 리턴주소값을 어떻게 조작하느냐에 따라 프로그램의 흐름도 조작하여 해커가 원하는대로 실행시킬 수 있기 때문에** 리턴주소값은 해킹에서 중요하게 다뤄진다.
 
   - 해커가 원하는 것은 해당 프로세스의 권한으로 실행하고 싶은 어셈블리어들을 실행하는 것이다. 때문에 프로세스의 실행을 조작해야 하는데 그 프로세스의 실행 흐름의 실체는 `rip` 레지스터의(**PC**) 값이 가르키고 있는 명령어이다. 그리고 `rip` 를 바꿀 수 있는 방법 중 하나가 `ret` 명령어를 악용하는 것이다. 
 
@@ -443,7 +435,7 @@ $ objdump -M intel -D add | grep \<add\>: -A12
 
   - [many-add.c](many-add.c) 를 다시 보자. `32` 비트 시스템에서는 그냥 모든 인자들이 스택에 저장되어 `many_add` 함수로 인자가 전달될 것 같다. 정말 그렇게 되는지 확인해보자. 
   
-    - `gcc many-add.c -o many-add -m32` 로 컴파일후 `main` 함수를 해부해보자. 반드시 `-m32` 옵션을 붙혀야 한다. 
+    - `gcc many-add.c -o many-add -m32` 로 컴파일후 `main` 함수를 해부해보자. `-m32` 옵션을 붙혀야 `32` 비트 시스템용 프로그램이 된다. 
 
       ```shell
       $ objdump -M intel -D many-add | grep \<main\>: -A21
