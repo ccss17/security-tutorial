@@ -169,3 +169,29 @@ GBC 참여자들은 **PASS** 와 **FAIL** 에 관련된 내용이니 [GBC 보안
 - 환경세팅을 가상머신 이미지로 만들어서 편하게 세팅할 수 있도록, Docker 로 만드는건 훨씬더 편하겠지 
 
 - 리턴어드레스 거리 계산법 정리해놓기 
+
+- `bof` 풀 때 메모리 
+
+    ```c
+    #include <stdio.h>
+
+    #define KEY 0x61616161
+
+    void main()
+    {
+        int test = 0x61;
+        printf("%c\n", (char)test);
+        printf("%d\n", test);
+        char * test3 = "aaaa";
+        /*char * test3 = "\x61\x61\x61\x61";*/
+        printf("%s\n", test3);
+        printf("%d\n", test3);
+        printf("%p\n", test3);
+        char some = (char)*test3;
+        printf("%d\n", some);
+        short some3 = (short)(*(short*)test3);
+        printf("%d\n", some3);
+        int some2 = (int)(*(int*)test3);
+        printf("%d\n", some2);
+    }
+    ```

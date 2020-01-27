@@ -41,21 +41,21 @@ C 언어에서 비트 쉬프트 << 과 >>, ~ 은 내부적으로 shl, shr, not �
 
 ![CPU execute](http://math.hws.edu/javanotes/c1/overview-fig1.PNG)
 
-현대의 컴퓨터는 프로그램을 HDD 또는 SSD 에서 RAM 으로 로드할 때 가상 메모리 시스템으로 관리한다. 64 비트 시스템에서는 `0x0000000000000000` 부터 `0xffffffffffffffff` 까지의 가상 메모리 영역이 하나의 프로세스에 할당된다. 즉 실질적인 물리적 주소를 할당하는 것이 아니라 가상의 메모리 영역을 할당하는 것이다.
+현대의 컴퓨터는 프로그램을 HDD 또는 SSD 에서 RAM 으로 로드할 때 가상 메모리 시스템으로 관리한다. `64` 비트 시스템에서는 `0x0000000000000000` 부터 `0xffffffffffffffff` 까지의 가상 메모리 영역이 하나의 프로세스에 할당된다. 즉 실질적인 물리적 주소를 할당하는 것이 아니라 가상의 메모리 영역을 할당하는 것이다.
 
 ### 가상 메모리 시스템의 메모리 영역
 
 프로그램 바이너리가 RAM 에 로드될 때 할당되는 가상 메모리는 두 영역으로 나뉜다. 하나는 커널 영역, 하나는 사용자 영역이다. 커널영역은 커널 관련 메모리가 로드되고 시스템 콜을 통해서만 접근할 수 있다. 실제 실행될 프로그램은 사용자 영역에 5 등분되서 로드되는데 스택Stack, 힙Heap, BSS 영역, Data 영역, Text 영역이 그것이다.
 
-- 스택Stack 에는 함수의 인자, 함수의 리턴 주소값, 지역 변수가 로드된다.
+- 스택Stack : 함수의 인자, 함수의 리턴 주소값, 지역 변수가 로드된다.
 
-- 힙Heap 에는 동적 할당 메모리(malloc, new 등) 가 저장된다.
+- 힙Heap : 동적 할당 메모리(malloc, new 등) 가 저장된다.
 
 - BSS 영역 : 초기화되지 않았거나 0 으로 초기화된 전역변수, static 변수들이 저장된다.
   
 - Data 영역 : 초기화된 전역변수, static 변수들이 Data 영역에 저장된다.
 
-- Text 영역에는 실행될 어셈블리어들이 저장된다. 
+- Text 영역 : 실행될 어셈블리어들이 저장된다. 
 
   ![memory layout](https://notes.shichao.io/tlpi/figure_6-1.png)
 
@@ -77,79 +77,7 @@ C 언어에서 비트 쉬프트 << 과 >>, ~ 은 내부적으로 shl, shr, not �
 
 [check_virtual_memory_structure.c](https://github.com/ccss17/test_virt_memory/blob/master/check_virtual_memory_structure.c)
 
-```c
-// https://github.com/ccss17/test_virt_memory
-#include <stdio.h>
-#include <stdlib.h>
-#include "libkdump.h"
-
-#define R "\033[31m"
-#define G "\033[32m"
-#define B "\033[34;1m"
-#define E "\033[0m"
-
-int data = 5555;
-int bss = 0;
-int bss2;
-
-void text(){ 1+1 == 2; }
-
-int main(int argc, char * argv[]){
-    if (argc != 3) {
-        fputs(R "Please pass TWO arguments...\n" E , stderr);
-        return 1;
-    }
-    static char * data2 = "twice";
-    int stack = 78;
-    int stack2 = 23;
-    int * heap = (int *)malloc(sizeof(int));
-    int * heap2 = (int *)malloc(sizeof(int));
-    char * environment_variable = getenv("PATH");
-
-    printf("Let's check addresses of each memory section of virtual memory system.\n");
-    printf(G"Text  section " E " : " B "%p\n", text);
-    printf(G"Data  section " E " : " B "%p\n", &data2);
-    printf(G"              " E " : " B "%p\n", &data);
-    printf(G"BSS   section " E " : " B "%p\n", &bss);
-    printf(G"              " E " : " B "%p\n", &bss2);
-    printf(G"Heap  section " E " : " B "%p\n", heap);
-    printf(G"              " E " : " B "%p\n", heap2);
-    printf(G"Main arg-argc " E " : " B "%p\n", &argc);
-    printf(G"Stack section " E " : " B "%p\n", &stack);
-    printf(G"              " E " : " B "%p\n", &stack2);
-    printf(G"Main arg-argv " E " : " B "%p\n", argv);
-    printf(G"     argv[1]  " E " : " B "%p\n", argv[1]);
-    printf(G"     argv[2]  " E " : " B "%p\n", argv[2]);
-    printf(G"Env variable  " E " : " B "%p\n", environment_variable);
-    printf(R "These are Virtual Address\n\n"E);
-
-    printf("Let's check physical addresses(Real Address)!\n");
-    void * physical_text = libkdump_virt_to_phys((size_t)text);
-    if (physical_text == NULL) {
-        puts(R "If you want to see physical memory address, reexecute with root privileges!"E);
-        return 1;
-    }
-    printf(G"Text  section " E " : " B "%p\n", physical_text);
-    printf(G"Data  section " E " : " B "%p\n", libkdump_virt_to_phys((size_t)&data2));
-    printf(G"              " E " : " B "%p\n", libkdump_virt_to_phys((size_t)&data));
-    printf(G"BSS   section " E " : " B "%p\n", libkdump_virt_to_phys((size_t)&bss));
-    printf(G"              " E " : " B "%p\n", libkdump_virt_to_phys((size_t)&bss2));
-    printf(G"Heap  section " E " : " B "%p\n", libkdump_virt_to_phys((size_t)heap));
-    printf(G"              " E " : " B "%p\n", libkdump_virt_to_phys((size_t)heap2));
-    printf(G"Main arg-argc " E " : " B "%p\n", libkdump_virt_to_phys((size_t)&argc));
-    printf(G"Stack section " E " : " B "%p\n", libkdump_virt_to_phys((size_t)&stack));
-    printf(G"              " E " : " B "%p\n", libkdump_virt_to_phys((size_t)&stack2));
-    printf(G"Main argument " E " : " B "%p\n", libkdump_virt_to_phys((size_t)argv));
-    printf(G"     arg-argv " E " : " B "%p\n", libkdump_virt_to_phys((size_t)argv));
-    printf(G"     argv[1]  " E " : " B "%p\n", libkdump_virt_to_phys((size_t)argv[1]));
-    printf(G"     argv[2]  " E " : " B "%p\n", libkdump_virt_to_phys((size_t)argv[2]));
-    printf(G"Env variable  " E " : " B "%p\n", libkdump_virt_to_phys((size_t)environment_variable));
-    printf(R "These are real Physical Address\n"E);
-    return 0;
-}
-```
-
-위와 같은 간단한 C 프로그램으로 가상 메모리 영역과 물리 메모리 영역을 확인해보자. 
+위 프로그램은 텍스트 영역, 데이터 영역, BSS 영역, 힙 영역, 스택 영역의 가상 메모리 주소와 그에 따른 물리 메모리 주소를 확인해볼 수 있는 간단한 C 프로그램이다.
 
 ```shell
 git clone https://github.com/ccss17/test_virt_memory
@@ -158,11 +86,11 @@ make
 sudo ./check_virtual_memory_structure HELLO WOLRD
 ```
 
-이러한 명령어로 실습을 해볼 수 있고 실행 결과는 다음과 같다. 
+이러한 명령어로 컴파일 한 후 실행하여 실습을 해볼 수 있고 실행 결과는 다음과 같다. 
 
-![addr-test](https://user-images.githubusercontent.com/16812446/72771265-b8418b00-3c43-11ea-841a-f10632c2521a.png)
+![addr-test](https://user-images.githubusercontent.com/16812446/73173290-623f7c80-4148-11ea-8b84-1caac1f4a712.png)
 
-가상 메모리 주소값은 `Text`, `Data`, `BSS`, `Heap`, `Stack` 순으로 저장되지만 실제 물리 메모리 주소값은 이 `5` 가지 메모리 섹션 순으로 저장되지는 않은 모습을 확인할 수 있다. 
+가상 메모리 주소값은 `Text`, `Data`, `BSS`, `Heap`, `Stack` 순으로 저장되지만 실제 물리 메모리 주소값은 이 `5` 가지 메모리 섹션 순으로 저장되지는 않은 모습을 확인할 수 있다. 또한 메인 함수의 인자 개수를 나타내는 `argc` 는 스택의 맨 밑바닥에 있고 실제 인자를 가르키는 `argv` 배열은 스택보다 위에 있는 것을 알 수 있다. 따라서 메인 함수에 전달된 인자가 크면 클 수록 스택 영역 주소가 밑으로 할당될 것이다. 
 
 ---
 
@@ -246,11 +174,11 @@ http://www.jegerlehner.ch/intel/IntelCodeTable.pdf
 
 ---
 
-## gdb 사용법 (1)
+# gdb 사용법 (1)
 
 **GNU Debugger** 라고도 하는 `gdb` 란 대중적으로 많이 사용되는 디버깅 툴이다. 프로그램의 작동의 정확성과 논리적 오류를 검증하기 위한 과정을 일컫는 디버깅으로 소스코드로 프로그램을 정적으로 분석하는 것에서 더 나아가서 런타임상에서 프로그램을 동적으로 분석할 수 있다. 디버깅 툴은 `radare2`, `lldb`, `rr-project`, `ida`, `ollydbg` 등등이 있지만 이번에는 `gdb` 로 프로그램을 디버깅하는 가장 기초적인 방식을 알아보자. 
 
-### gdb 명령어 (1) - 기초 명령어 
+## gdb 명령어 (1) - 기초 명령어 
 
 - `$ gdb <program>` : gdb 디버깅 시작 
 
@@ -286,33 +214,35 @@ http://www.jegerlehner.ch/intel/IntelCodeTable.pdf
 
 ### 프로그램 준비 및 컴파일 
 
-먼저 다음의 [add.c](add.c) 프로그램을 저장합니다.
+먼저 [add.c](add.c) 을 저장합니다.
 
-[add.c](add.c)
-```c
-#include <stdio.h>
+  - [add.c](add.c) 소스코드 :
 
-int add(int n1, int n2)
-{
-    puts("Hello World!");
-    return n1 + n2;
-}
+    ```c
+    #include <stdio.h>
 
-int main(void)
-{
-    int a = 8;
-    int b = 1024;
-    int result = add(a, b);
-    printf("a + b = %d\n", result);
-    return 0;
-}
-```
+    int add(int n1, int n2)
+    {
+        puts("Hello World!");
+        return n1 + n2;
+    }
+
+    int main(void)
+    {
+        int a = 8;
+        int b = 1024;
+        int result = add(a, b);
+        printf("a + b = %d\n", result);
+        return 0;
+    }
+    ```
 
 그리고 컴파일을 하고 실행해봅니다. 
 
 ```shell
-gcc add.c -o add
-./add
+$ gcc add.c -o add
+$ ./add
+a + b = 1032
 ```
 
 ### gdb 로 디버깅하기 
@@ -320,7 +250,7 @@ gcc add.c -o add
 이제 `gdb` 로 디버깅을 해봅시다. 다음 명령어로 디버깅을 실습해보죠. 그리고 다른 명령어들도 스스로 실행해보고 어떻게 작동하는지 이해해봅시다. 
 
 ```shell
-$ gdb test
+$ gdb add
 (gdb) i file      # info files : 프로그램의 정보를 보는 명령 
 (gdb) i func      # info functions : 프로그램의 함수들을 보는 명령 
 (gdb) b main      # break main : main 함수에 브레이크포인트를 걸어서 main 함수가 시작될 때 프로그램이 멈춘다. 
@@ -336,7 +266,39 @@ $ gdb test
 (gdb) c           # continue : 다음 브레이크포인트까지 프로그램을 진행시킴. 브레이크포인트가 없으면 프로그램이 끝날 때까지 진행시킴. 
 ```
 
-### pwndbg 의 context 화면 분석 
+# gdb 플러그인  
+
+`gdb` 는 매우 유용한 디버거이지만 아무런 플러그인이 없는 바닐라 `gdb` 를 사용할 경우 디버깅이 너무 힘들어진다. 그래서 `gdb` 를 위한 [여러 오픈소스 프로젝트](https://awesomeopensource.com/projects/gdb) 가 있는데 크게 `UI` 중심, `Exploit` 중심으로 나뉜다. 
+
+- `Exploit` 중심 플러그인 : `gdb` 로 프로그램을 쉽게 해킹할 수 있는 기능을 제공한다. 
+
+  - https://github.com/jfoote/exploitable
+
+  - https://github.com/rogerhu/gdb-heap
+
+- `UI` 중심 플러그인 : 디버깅 상태를 쉽게 이해할 수 있는 레이아웃으로 보여준다. 
+
+  - https://github.com/cyrus-and/gdb-dashboard
+   
+    ![](https://raw.githubusercontent.com/wiki/cyrus-and/gdb-dashboard/Screenshot.png)
+
+  - https://github.com/snare/voltron
+
+    ![](https://camo.githubusercontent.com/f364ec6565b14e266e33005c9cb80e5c7f7b367d/687474703a2f2f692e696d6775722e636f6d2f396e756b7a74412e706e67)
+
+- `UI` 와 `Exploit` 기능을 균형있게 제공하는 플러그인
+
+  - https://github.com/hugsy/gef
+
+    ![](https://i.imgur.com/E3EuQPs.png)
+
+  - https://github.com/pwndbg/pwndbg
+
+    ![](https://raw.githubusercontent.com/pwndbg/pwndbg/dev/caps/context.png)
+
+이제부터 `pwndbg` 를 사용해서 디버깅을 해보자. *개인적으로 레이아웃은 `voltron` 으로 쓰고 명령어 체계를 `pwndbg` 로 사용하는 것을 선호한다.*
+
+# pwndbg 
 
 `pwndbg` 환경에서 `gdb` 로 프로그램을 디버깅하기 시작하면 다음과 같은 화면을 볼 수 있습니다. 
 
@@ -352,22 +314,16 @@ $ gdb test
 
 ---
 
-## 함수 호출의 컴퓨터 내부적인 원리 
+# 함수 호출의 컴퓨터 내부적인 원리 
 
-CPU 가 함수를 호출해서 프로그램의 흐름을 바꿀 때 `call` 명령어를 쓰고 원래 있던 곳으로 되돌아 갈 때 `ret` 명령어를 사용한다.
+## 서브루틴 호출(`call`, `ret` 명령어)
 
-[add.c](add.c) 를 다시 살펴보자. 그리고 이 프로그램의 `main` 함수의 어셈블리어를 해부해보자.
-
-### 방법 1 - `objdump` 
-
-`objdump` 로 어셈블리어를 확인할 수 있다. 
+[add.c](add.c) 를 다시 살펴보자. 그리고 이 프로그램의 `main` 함수의 어셈블리어를 해부해보자. `objdump` 로 어셈블리어를 확인할 수 있다. 
 
 ```shell
-$ objdump -M intel -D add | grep \<main\> -A20
+$ objdump -M intel -D add | grep \<main\> -A19
 0000000000400588 <main>:
-  400588:	55                   	push   rbp
-  400589:	48 89 e5             	mov    rbp,rsp
-  40058c:	48 83 ec 10          	sub    rsp,0x10
+  ...
   400590:	c7 45 f4 08 00 00 00 	mov    DWORD PTR [rbp-0xc],0x8
   400597:	c7 45 f8 00 04 00 00 	mov    DWORD PTR [rbp-0x8],0x400
   40059e:	8b 55 f8             	mov    edx,DWORD PTR [rbp-0x8]
@@ -376,24 +332,12 @@ $ objdump -M intel -D add | grep \<main\> -A20
   4005a6:	89 c7                	mov    edi,eax
   4005a8:	e8 b9 ff ff ff       	call   400566 <add>
   4005ad:	89 45 fc             	mov    DWORD PTR [rbp-0x4],eax
-  4005b0:	8b 45 fc             	mov    eax,DWORD PTR [rbp-0x4]
-  4005b3:	89 c6                	mov    esi,eax
-  4005b5:	bf 61 06 40 00       	mov    edi,0x400661
-  4005ba:	b8 00 00 00 00       	mov    eax,0x0
-  4005bf:	e8 7c fe ff ff       	call   400440 <printf@plt>
-  4005c4:	b8 00 00 00 00       	mov    eax,0x0
-  4005c9:	c9                   	leave
-  4005ca:	c3                   	ret
-  4005cb:	0f 1f 44 00 00       	nop    DWORD PTR [rax+rax*1+0x0]
+  ...
 ```
 ```shell
 $ objdump -M intel -D add | grep \<add\>: -A12
 0000000000400566 <add>:
-  400566:	55                   	push   rbp
-  400567:	48 89 e5             	mov    rbp,rsp
-  40056a:	48 83 ec 10          	sub    rsp,0x10
-  40056e:	89 7d fc             	mov    DWORD PTR [rbp-0x4],edi
-  400571:	89 75 f8             	mov    DWORD PTR [rbp-0x8],esi
+  ...
   400574:	bf 54 06 40 00       	mov    edi,0x400654
   400579:	e8 b2 fe ff ff       	call   400430 <puts@plt>
   40057e:	8b 55 fc             	mov    edx,DWORD PTR [rbp-0x4]
@@ -403,209 +347,130 @@ $ objdump -M intel -D add | grep \<add\>: -A12
   400587:	c3                   	ret
 ```
 
-### 방법 2 - `gdb` 
+`main` 함수에서 `call` 을 사용해서 `add` 함수로 뛰고 `add` 함수가 끝나면 `ret` 명령어로 다시 `main` 함수로 되돌아오게 된다. 
 
-`gdb` 로 `main` 함수를 해부할 수 있다. 
+- `call <location>` : "**`call` 의 다음 명령어의 주소값**"을 스택에 `push` 하고, `<location>` 의 값을 `rip` 에 덮어쓴다.
 
-```shell
-$ gdb add
-(gdb) disas main
-Dump of assembler code for function main:
-   0x0000000000400588 <+0>:	push   rbp
-   0x0000000000400589 <+1>:	mov    rbp,rsp
-   0x000000000040058c <+4>:	sub    rsp,0x10
-   0x0000000000400590 <+8>:	mov    DWORD PTR [rbp-0xc],0x8
-   0x0000000000400597 <+15>:	mov    DWORD PTR [rbp-0x8],0x400
-   0x000000000040059e <+22>:	mov    edx,DWORD PTR [rbp-0x8]
-   0x00000000004005a1 <+25>:	mov    eax,DWORD PTR [rbp-0xc]
-   0x00000000004005a4 <+28>:	mov    esi,edx
-   0x00000000004005a6 <+30>:	mov    edi,eax
-   0x00000000004005a8 <+32>:	call   0x400566 <add>
-   0x00000000004005ad <+37>:	mov    DWORD PTR [rbp-0x4],eax
-   0x00000000004005b0 <+40>:	mov    eax,DWORD PTR [rbp-0x4]
-   0x00000000004005b3 <+43>:	mov    esi,eax
-   0x00000000004005b5 <+45>:	mov    edi,0x400661
-   0x00000000004005ba <+50>:	mov    eax,0x0
-   0x00000000004005bf <+55>:	call   0x400440 <printf@plt>
-   0x00000000004005c4 <+60>:	mov    eax,0x0
-   0x00000000004005c9 <+65>:	leave
-   0x00000000004005ca <+66>:	ret
-End of assembler dump.
-(gdb) disas add
-Dump of assembler code for function add:
-   0x0000000000400566 <+0>:	push   rbp
-   0x0000000000400567 <+1>:	mov    rbp,rsp
-   0x000000000040056a <+4>:	sub    rsp,0x10
-   0x000000000040056e <+8>:	mov    DWORD PTR [rbp-0x4],edi
-   0x0000000000400571 <+11>:	mov    DWORD PTR [rbp-0x8],esi
-   0x0000000000400574 <+14>:	mov    edi,0x400654
-   0x0000000000400579 <+19>:	call   0x400430 <puts@plt>
-   0x000000000040057e <+24>:	mov    edx,DWORD PTR [rbp-0x4]
-   0x0000000000400581 <+27>:	mov    eax,DWORD PTR [rbp-0x8]
-   0x0000000000400584 <+30>:	add    eax,edx
-   0x0000000000400586 <+32>:	leave
-   0x0000000000400587 <+33>:	ret
-End of assembler dump.
-```
+  - 스택에 저장된 "**`call` 의 다음 명령어의 주소값**" 을 *부모 함수의 실행흐름으로 되돌아갈 수 있는 표지판 역할*을 하기에 "**리턴 주소값**" 이라 부른다.
+  
+  - **이 리턴주소값을 어떻게 조작하느냐에 따라 프로그램의 흐름도 조작하여 해커가 원하는대로 실행시킬 수 있기 때문에** 컴퓨터 해킹에서 아주 중요하게 다뤄진다.
 
-`main` 함수에서 내부적으로 `call` 을 사용해서 `add` 함수로 뛰고 `add` 함수가 끝나면 ret 명령어로 다시 main 함수로 되돌아오게 된다. 
-
-- `call <location>` : `call` 은 "**`call` 의 다음 명령어의 주소값**"을 스택에 `push` 하고 `<location>` 으로 점프한다. 
-
-  - 스택에 저장된 "**`call` 의 다음 명령어의 주소값**" 을 *함수가 부모 함수의 실행흐름으로 되돌아갈 수 있도록 한다*고 해서 "**리턴 주소값**" 이라 부르며, **이 주소값을 어떻게 조작하느냐에 따라 프로그램의 흐름도 조작하여 해커가 원하는대로 실행시킬 수 있기 때문에 컴퓨터 해킹에서 아주 중요하게** 다뤄진다.
-
-  - 다시 말해서 원론적으로 해커가 원하는 것은 해당 프로세스의 권한으로 해커가 실행하고 싶은 어셈블리어들을 실행하는 것이다. 그렇게 하기 위하여 프로세스의 실행을 조작해야 하는데 그 프로세스의 실행 흐름의 실체가 무엇인지 이해하여야 한다. 프로세스 실행 흐름의 실체는 현재 `rip` 레지스터의(`32` 비트 시스템에서는 `eip`)(**Program Counter**) 값이 가르키고 있는 명령어이다. 
-
-  - 물리적으로(하드웨어적으로)나 소프트웨어적으로나 `rip` 를 바꿀 수 있겠지만 통상적인 해킹은 소프트웨어적인 접근만 생각하기 때문에 소프트웨어적으로 `rip` 를 바꿀 수 있는 기능을 제공하는 것은 `ret` 명령어이다. 
-
-  ```assembly
-  call printf
-  call 0x400421
-  ```
+  - 해커가 원하는 것은 해당 프로세스의 권한으로 실행하고 싶은 어셈블리어들을 실행하는 것이다. 때문에 프로세스의 실행을 조작해야 하는데 그 프로세스의 실행 흐름의 실체는 `rip` 레지스터의(**PC**) 값이 가르키고 있는 명령어이다. 그리고 `rip` 를 바꿀 수 있는 방법 중 하나가 `ret` 명령어를 악용하는 것이다. 
 
 - `ret` : 스택 맨 위(`rsp`)에 있는 값을 `pop` 해서 `rip` 레지스터에 덮어쓴다. 
 
-  - 통상적으로 `call` 명령어가 스택에 저장해놓은 **리턴 주소값**을 `pop` 해서 `rip` 레지스터에 덮어쓴다. 한 마디로 프로그램의 실행 흐름을 이전에 실행되던 부모 함수의 실행 흐름으로 바꾸어서 되돌아간다는 것이다. 
+  - `call` 명령어가 스택에 저장해놓은 **리턴 주소값**을 `pop` 해서 `rip` 레지스터에 덮어쓴다. 프로그램의 실행 흐름을 부모 함수의 실행 흐름으로 되돌리는 것이다. 
 
-  - 그런데 해커는 해당 프로세스의 권한으로 자신이 원하는 동작을 행동하기 위해서 `rip` 를 바꾸기를 원한다. 때문에 `ret` 명령어가 `rsp` 가 가르키고 있는 곳(스택의 맨 위)의 값을 `rip` 로 덮어쓴다는 것을 악용한다.
+  - 해커는 해당 프로세스의 권한으로 자신이 원하는 동작을 행동하기 위해서 `rip` 를 바꾸기를 원한다. 때문에 `call` 명령어가 스택에 저장해두었던 **리턴 주소값** 을 해커가 실행하길 원하는 명령어가 있는 주소값으로 덮어쓴다.
   
-  - 즉, 일반적인 상황에서는 `call` 명령어가 스택에 저장해둬서 이전 함수의 흐름으로 되돌아갈 수 있도록 하는 표지판인 **리턴 주소값** 을 해커는 자신이 실행하기를 원하는 명령어가 있는 주소값으로 덮어쓴다.
-  
-  - 컴퓨터는 단지 표지판이 가르키는대로 이동하고 실행하고 이동하고 실행하기를 반복하기로 인간과 약속하였기 때문에 **리턴 주소값** 을 해커가 조작했다 하더라도 컴퓨터는 단순히 그 주소값으로 이동하고 실행하기를 계속한다. 
+    - ~~컴퓨터는 단지 표지판이 가르키는대로 이동하고 실행하고 이동하고 실행하기 때문에 **리턴 주소값** 을 해커가 조작했다 하더라도 컴퓨터는 단순히 그 주소값으로 이동하고 실행하기를 계속한다.~~
 
-### 함수 호출의 내부적 원리 
-    
-- `64` 비트 시스템에서의 함수 인자 전달의 내부적 원리 : 함수에 인자를 전달할 때 첫번째 인자부터 차례대로 `rdi`, `rsi`, `rdx`, `rcx`, `r8`, `r9` 가 사용된다.
+# 함수 인자와 반환값 전달 원리 
+
+`64` 비트 시스템과  `32` 비트 시스템에서의 함수 인자 전달 방식이 약간 다르기 때문에 `file` 명령어 등을 통해서 디버깅을 할 때 `64` 비트용 프로그램인지 `32` 비트용 프로그램인지 확인해야 한다. 
+
+- `32` 비트 프로그램의 출력:
+
+  ```shell
+  $ file crackme0x00a
+  crackme0x00a: ELF 32-bit LSB executable, Intel 80386, ...
+  ```
+  
+- `64` 비트 프로그램의 출력: 
+
+  ```shell
+  $ file test64
+  test64: ELF 64-bit LSB shared object, x86-64, ...
+  ```
+
+
+## 64 비트 시스템의 함수 인자/리턴값 전달
+
+- 함수 리턴값 전달 : 함수의 반환값은 `rax` 레지스터에 저장되어 반환된다.
+
+- 함수 인자 전달 : 함수 인자가 첫번째 인자부터 차례대로 `rdi`, `rsi`, `rdx`, `rcx`, `r8`, `r9` 에 저장되어 전달된다. 
 
   - 인자가 `7` 개 이상일 경우 `7` 번째 인자부터는 어쩔 수 없이 레지스터보다 좀 더 느린 RAM 을  사용한다.
 
-    ![stack-return](https://user-images.githubusercontent.com/16812446/72771299-d9a27700-3c43-11ea-87c1-0d3f322b6163.PNG)
-
-  - 함수의 반환값은 `rax` 레지스터에 저장된다.
-
-  - 다음의 프로그램 [many-add.c](many-add.c) 를 다시 보자. 
+  - [many-add.c](many-add.c) 를 보자. 이 경우 `rdi` &larr; `1`, `rsi` &larr; `2`, `rdx` &larr; `3`, `rcx` &larr; `4`, `r8` &larr; `5`, `r9` &larr; `6` 이 저장되서 전달되고 `7` 은 메모리에 저장된 채로 `many_add` 함수로 인자가 전달될 것 같다. 정말 그렇게 되는지 확인해보자. 
+  
 
     ```c
     #include <stdio.h>
-    
-    int many_add(int n1, int n2, int n3, int n4, int n5, int n6, int n7)
-    {
+    int many_add(int n1, int n2, int n3, int n4, int n5, int n6, int n7) {
         int result = n1 + n2 + n3 + n4 + n5 + n6 + n7;
         return result;
     }
-    
-    void main()
-    {
-        int result;
-        result = many_add(1, 2, 3, 4, 5, 6, 7);
+    void main() {
+        int result = many_add(1, 2, 3, 4, 5, 6, 7);
         printf("%d\n", result);
     }
     ```
   
-  - 위의 `add` 함수의 경우 `rdi` &larr; `1`, `rsi` &larr; `2`, `rdx` &larr; `3`, `rcx` &larr; `4`, `r8` &larr; `5`, `r9` &larr; `6` 이 저장되서 전달되고 `7` 은 메모리에 저장된 채로 전달된다. `main` 함수를 해부해보자. 
+    - `gcc many-add.c -o many-add` 로 컴파일후 `main` 함수를 해부해보자. 
 
-    ```shell
-    $ objdump -M intel -D many-add | grep \<main\>: -A21
-    0000000000400567 <main>:
-      400567:	55                   	push   rbp
-      400568:	48 89 e5             	mov    rbp,rsp
-      40056b:	48 83 ec 10          	sub    rsp,0x10
-      40056f:	6a 07                	push   0x7
-      400571:	41 b9 06 00 00 00    	mov    r9d,0x6
-      400577:	41 b8 05 00 00 00    	mov    r8d,0x5
-      40057d:	b9 04 00 00 00       	mov    ecx,0x4
-      400582:	ba 03 00 00 00       	mov    edx,0x3
-      400587:	be 02 00 00 00       	mov    esi,0x2
-      40058c:	bf 01 00 00 00       	mov    edi,0x1
-      400591:	e8 90 ff ff ff       	call   400526 <many_add>
-      400596:	48 83 c4 08          	add    rsp,0x8
-      40059a:	89 45 fc             	mov    DWORD PTR [rbp-0x4],eax
-      40059d:	8b 45 fc             	mov    eax,DWORD PTR [rbp-0x4]
-      4005a0:	89 c6                	mov    esi,eax
-      4005a2:	bf 44 06 40 00       	mov    edi,0x400644
-      4005a7:	b8 00 00 00 00       	mov    eax,0x0
-      4005ac:	e8 4f fe ff ff       	call   400400 <printf@plt>
-      4005b1:	90                   	nop
-      4005b2:	c9                   	leave
-      4005b3:	c3                   	ret
-    ```
+      ```shell
+      $ objdump -M intel -D many-add | grep \<main\>: -A21
+      0000000000400567 <main>:
+        ...
+        40056f:	6a 07                	push   0x7
+        400571:	41 b9 06 00 00 00    	mov    r9d,0x6
+        400577:	41 b8 05 00 00 00    	mov    r8d,0x5
+        40057d:	b9 04 00 00 00       	mov    ecx,0x4
+        400582:	ba 03 00 00 00       	mov    edx,0x3
+        400587:	be 02 00 00 00       	mov    esi,0x2
+        40058c:	bf 01 00 00 00       	mov    edi,0x1
+        400591:	e8 90 ff ff ff       	call   400526 <many_add>
+        400596:	48 83 c4 08          	add    rsp,0x8
+        ...
+        4005a0:	89 c6                	mov    esi,eax
+        4005a2:	bf 44 06 40 00       	mov    edi,0x400644
+        4005ac:	e8 4f fe ff ff       	call   400400 <printf@plt>
+        ...
+      ```
   
-  - `call many_add` 가 실행되기 전에 함수 인자가 차례로 저장되고 있는 것을 관찰하자.
+    - `0x400591` 의 `call many_add` 가 실행되기 전에 함수 인자가 차례로 저장되고 있다.
   
-  - 인자를 초기화한 후 `call` 은 다음 명령어의 주소값(`0x400596`)를 스택에 `push`하고 `add` 함수로 건너 뛴다. `add` 함수가 끝나면 `ret` 명령어가 `call` 이 스택에 저장해놓은 리턴 주소값을 `pop` 해서 `rip` 에 덮어쓴다. 
+    - 인자를 초기화한 후 `call` 은 다음 명령어의 주소값(`0x400596`)를 스택에 `push`하고 `add` 함수를 실행한다.
+    
+    - `add` 함수가 끝나면 `ret` 명령어가 `call` 이 스택에 저장해놓은 리턴 주소값(`0x400596`)을 `pop` 해서 `rip` 에 덮어쓴다. 
 
+## 32 비트 시스템의 함수 인자/리턴값 전달
 
-#### 함수의 시작(스택 메모리 공간 생성하기)
+- 함수 리턴값 전달 : 함수의 반환값은 `eax` 레지스터에 저장되어 반환된다.
 
-- 함수가 호출 될 때 이전 함수의 스택 베이스 주소를 복원하기 위해서 rbp 를 push 해서 스택에 저장해둔다. 위와 같은 경우 main 함수가 add 함수를 호출하고 있는데 add 함수가 스택을 사용하기 전에 main 함수에서 사용하던 스택 베이스 주소, 즉 rbp 에 있던 값을 스택에 저장해서 main 함수의 스택을 복원해야 할 때를 대비한다. 
+- 함수 인자 전달 : 인자를 차례대로 `esp, esp+4, esp+8, ..., esp+4n` 의 위치에 저장한 후 `call` 명령어로 함수를 호출한다. 
 
-  ```assembly
-  push rbp        ; 이전에 있던 함수의 rbp 를 스택에 저장
-  mov rbp, rsp    ; 스택의 베이스 주소를 스택의 탑 주소와 같게 만듦. 이 시점에서 스택의 크기는 최소 단위 8 바이트가 됨
-  sub rsp, 0x60   ; 스택의 크기를 0x60 만큼 늘려줌 
-  ```
+  - [many-add.c](many-add.c) 를 다시 보자. `32` 비트 시스템에서는 그냥 모든 인자들이 스택에 저장되어 `many_add` 함수로 인자가 전달될 것 같다. 정말 그렇게 되는지 확인해보자. 
+  
+    - `gcc many-add.c -o many-add -m32` 로 컴파일후 `main` 함수를 해부해보자. 반드시 `-m32` 옵션을 붙혀야 한다. 
 
-- 그래서 일반적인 함수는 위와 같은 어셈블리 코드로 시작된다. 
-
-### 함수의 끝 (스택 메모리 공간 정리하기)
-
-- 함수가 일을 다 마치고 원래의 함수로 되돌아 가야 할 때는 위와 같은 어셈블리 코드로 늘려 놓은 스택을 되돌린 후 이전 함수의 rbp 를 복원한다. 이를 이해 다음과 같은 명령어를 사용한다.
-
-  ```assembly
-  leave
-  ret
-  ```
-
-- 늘려진 스택을 줄이고 원래 함수의 스택 베이스 주소를 복원하는 용도로 leave 명령어가 사용된다. leave 명령어는 다음의 코드와 같은 기능을 한다.
-
-  ```assembly
-  mov rsp, rbp    ; rsp 에 rbp 를 대입해서 늘어난 스택을 다시 크기가 최소 단위인 8 바이트 스택으로 만든다. 
-  pop rbp         ; pop 명령으로 그곳에 남아있던 원래의 함수의 스택 베이스 주소를 rbp 에 복원시킨다. 
-  ```
-
-### 32 비트 시스템에서의 함수 인자 전달
-
-64 비트 시스템에서는 위와 같이 레지스터로 함수의 인자를 전달하지만 32 비트 시스템에서는 스택을 사용해서 함수의 인자를 전달한다. 그래서 `file` 명령어 등을 통해서 디버깅을 할 때 64 비트용 프로그램인지 32비트용 프로그램인지 확인해야 한다. 만약 32 비트 용 프로그램이라면 다음과 같은 출력을 볼 수 있다.
-
-```shell
-$ file crackme0x00a
-crackme0x00a: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, interpreter /lib/ld-, for GNU/Linux 2.6.15, BuildID[sha1]=a01d6d16a59c7f0d7ec00ab5454eed2eb22bd20d, not stripped
-```
-
-반면 64 비트용 프로그램이라면 다음과 같은 출력이 나타난다.
-
-```shell
-$ file test64
-test64: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/l, for GNU/Linux 3.2.0, BuildID[sha1]=95a71c9bbc3786b1fd05f214d63bce1fc7b3262b, not stripped
-```
-
-32 비트 시스템에서는 인자를 차례대로 `esp, esp+4, esp+8, ..., esp+4n` 의 위치에 저장한 후 `call` 명령어로 함수를 호출한다. 그리고 반환값을 `eax` 에 저장한다. 
-
-```c
-#include <stdio.h>
-
-int add(int n1, int n2, int n3, int n4, int n5, int n6, int n7) {
-    int result = n1 + n2 + n3 + n4 + n5 + n6 + n7;
-    return result;
-}
-
-void main() {
-    int result;
-    result = add(1, 2, 3, 4, 5, 6, 7);
-    printf("%d\n", result);
-}
-```
-
-이 프로그램을 다시 살펴보자. 이 프로그램을 다음 명령어를 참고해서 32 비트 전용 프로그램으로 컴파일 해보자. 
-
-```shell
-$ gcc test.c -m32 -o test
-$ file test
-```
-
-`-m32` 옵션을 붙혀주면 32 비트용 프로그램으로 컴파일 되는데...
-
-# TODO...
+      ```shell
+      $ objdump -M intel -D many-add | grep \<main\>: -A21
+      0804843a <main>:
+      ...
+      804844b:	6a 07                	push   0x7
+      804844d:	6a 06                	push   0x6
+      804844f:	6a 05                	push   0x5
+      8048451:	6a 04                	push   0x4
+      8048453:	6a 03                	push   0x3
+      8048455:	6a 02                	push   0x2
+      8048457:	6a 01                	push   0x1
+      8048459:	e8 ad ff ff ff       	call   804840b <many_add>
+      804845e:	83 c4 1c             	add    esp,0x1c
+      8048461:	89 45 f4             	mov    DWORD PTR [ebp-0xc],eax
+      8048464:	83 ec 08             	sub    esp,0x8
+      8048467:	ff 75 f4             	push   DWORD PTR [ebp-0xc]
+      804846a:	68 00 85 04 08       	push   0x8048500
+      804846f:	e8 6c fe ff ff       	call   80482e0 <printf@plt>
+        ...
+      ```
+  
+    - `0x8048459` 의 `call many_add` 가 실행되기 전에 함수 인자가 차례로 스택에 저장되고 있다.
+  
+    - 인자를 초기화한 후 `call` 은 다음 명령어의 주소값(`0x804845e`)를 스택에 `push`하고 `add` 함수를 실행한다.
+    
+    - `add` 함수가 끝나면 `ret` 명령어가 `call` 이 스택에 저장해놓은 리턴 주소값(`0x804845e`)을 `pop` 해서 `rip` 에 덮어쓴다. 
 
 ---
 

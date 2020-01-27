@@ -350,11 +350,7 @@ Identification 은 누구인지 또는 무엇인지 주장하는 것이다. 예�
 
 - https://github.com/mzet-/ctf-writeups
 
-- 돈을 위해 뭐든 이루어내는 사람 
-
-  - https://www.youtube.com/watch?v=RNt2t2__3SY
-  
-  - 돈을 위해서 별의별 마법같은 기술도 현실로 이루어내는 타짜들 처럼 해커들도 돈을 위해서 상상 속에서만 존재할 것 같은 해킹 기술을 현실로 구현 해버린다는 말입니다. 
+- https://www.win.tue.nl/~aeb/linux/hh/hh.html#toc11
 
 ---
 
