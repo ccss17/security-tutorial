@@ -352,6 +352,10 @@ Identification 은 누구인지 또는 무엇인지 주장하는 것이다. 예�
 
 - https://www.win.tue.nl/~aeb/linux/hh/hh.html#toc11
 
+- https://ctf101.org/
+
+- https://crypto.stanford.edu/~blynn/rop/
+
 ---
 
 ## 과제 
