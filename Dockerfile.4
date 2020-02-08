@@ -1,0 +1,5 @@
+FROM       ccss17/security-tutorial
+MAINTAINER chansol0505@naver.com
+RUN set -x \
+    && echo "LANG=en_US.UTF-8" > /etc/locale.conf 
+CMD zsh

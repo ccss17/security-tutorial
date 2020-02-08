@@ -1,0 +1,7 @@
+FROM       ccss17/security-tutorial
+MAINTAINER chansol0505@naver.com
+RUN set -x \
+    && apt install locales \
+    && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
+    && locale-gen
+CMD zsh
