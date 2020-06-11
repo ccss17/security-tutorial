@@ -4,7 +4,7 @@ This is a repository containing the contents of GBC's 4th course, Security Cours
 
 한동대학교 컴퓨터보안 동아리 **GHOST** 에서 신입기수를 대상으로 진행하는 **GBC** 의 `4` 번째 과정인 **보안** 과정을 진행하기 위한 내용을 담은 레포지토리입니다. 
 
-*과정은 **10일** 과정으로 구성되며 독자가 **C 언어** 를 잘 알고 있다고 가정합니다.*
+*과정은 **10일** 과정으로 구성되며 독자가 **C 언어** 를 알고 있고 **[ProgrammerBase](https://github.com/ccss17/ProgrammerBase)** 를 공부하고 왔다고 가정합니다.*
 
 ## Notice 
 
@@ -164,11 +164,8 @@ GBC 참여자들은 **PASS** 와 **FAIL** 에 관련된 내용이니 [GBC 보안
 
 - Git 설치 Git 초기설정 - git config --global user.name "" git config --global user.email "" Git pull requests 메뉴얼 Git init/status/add/commit/push/remote 의 가장 기초적인 사용법 
 
-- 쉘코드 문제 풀기 전에 ASLR 확실히 OFF 시키도록 리드 
-
 - BOF 로 인해 리턴주소값이 덮어쓰여지는 것도 함수 인자 설명할 때 노트에 적어서 설명한 것처럼 설명해야 이해가 잘 될듯.(shellcode 설명할때 )
 
-- 환경세팅을 가상머신 이미지로 만들어서 편하게 세팅할 수 있도록, Docker 로 만드는건 훨씬더 편하겠지 
 
 - 리턴어드레스 거리 계산법 정리해놓기 
 
@@ -205,3 +202,7 @@ GBC 참여자들은 **PASS** 와 **FAIL** 에 관련된 내용이니 [GBC 보안
   - 포트포워딩 후 putty 나 로컬 터미널에서 가상머신으로 접속 가이드 
 
   - 문제 직접 세팅가이드->가상머신으로
+  
+  - 환경세팅을 가상머신 이미지로 만들어서 편하게 세팅할 수 있도록, Docker 로 만드는건 훨씬더 편하겠지 
+  
+  - 쉘코드 문제 풀기 전에 ASLR 확실히 OFF 시키도록 리드 
