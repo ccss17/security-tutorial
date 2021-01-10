@@ -21,9 +21,9 @@ RUN yes | unminimize
 RUN set -xe \ 
     && apt -qq update --fix-missing && apt -y -qq upgrade
 RUN apt -y -qq install vim tmux perl wget tar man sudo 
-RUN apt -y -qq adduser netstat-nat net-tools curl w3m git build-essential xxd file make 
-RUN apt -y -qq python3-pip zlib1g libjpeg8-dev zlib1g-dev 
-RUN apt -y -qq libcurses-perl nyancat sl python 
+RUN apt -y -qq install adduser netstat-nat net-tools curl w3m git build-essential xxd file make 
+RUN apt -y -qq install python3-pip zlib1g libjpeg8-dev zlib1g-dev 
+RUN apt -y -qq install libcurses-perl nyancat sl python 
 RUN set -xe \ 
     && useradd -m -p "\$6\$ZEHyOJAy\$697kSQRpVsSnvU4oDl6BtR1LDrHltFPoqvdMJd9Bc0Msfz./iExfCcm7fxt7ZBzOKxAFCpdaj7aTzayT1L.pf/" -s /usr/bin/zsh ccsss \
     && usermod -aG sudo ccsss \
