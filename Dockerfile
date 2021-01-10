@@ -82,6 +82,8 @@ RUN cd ~ \
     && ./setup.sh \
     && rm -rf ~/__MACOSX ~/challenges.zip ~/bombs.zip ~/bof \
     && cd ~ \
-    && git clone -q https://github.com/ccss17/security-tutorial
+    && git clone -q https://github.com/ccss17/security-tutorial \
+    && git clone https://github.com/JonathanSalwan/ROPgadget \
+    && sudo cp ROPgadget/ROPgadget.py /usr/local/bin/
 
 CMD /usr/bin/zsh
