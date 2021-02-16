@@ -85,6 +85,8 @@ RUN cd ~ \
     && git clone -q https://github.com/ccss17/security-tutorial \
     && git clone https://github.com/JonathanSalwan/ROPgadget \
     && sed -i 's/python/python3/g' ROPgadget/ROPgadget.py \
-    && sudo cp ROPgadget/ROPgadget.py /usr/local/bin/
+    && sudo cp ROPgadget/ROPgadget.py /usr/local/bin/ 
+RUN sudo python3 -m pip -q install --upgrade pip \
+    && sudo python3 -m pip -q install --upgrade git+https://github.com/Gallopsled/pwntools.git@dev
 
 CMD /usr/bin/zsh
