@@ -1,3 +1,8 @@
+
+# This reposity has been abandoned. Please see 
+
+# 이 레포지토리는 더 이상 관리되지 않습니다. https://ccss17.github.io/security-tutorial 에 방문해주세요.
+
 # 왜 보안을 공부해야 할까? 
 
 ## 주관적으로 생각해본 컴퓨터 보안 공부를 해야 하는 한 가지 이유 

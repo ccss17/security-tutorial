@@ -66,8 +66,8 @@ USER ccsss:ccsss
 WORKDIR /home/ccsss
 
 RUN cd ~ \
-    && git clone -q https://github.com/ccss17/dotfiles-cli \
-    && cd dotfiles-cli \
+    && git clone -q https://github.com/ccss17/dotfiles \
+    && cd dotfiles \
     && ./install.sh \
     && ./install_reversing.sh \
     && cd ~ \

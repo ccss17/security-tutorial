@@ -1,3 +1,8 @@
+
+# This reposity has been abandoned. Please see 
+
+# 이 레포지토리는 더 이상 관리되지 않습니다. https://ccss17.github.io/security-tutorial 에 방문해주세요.
+
 # 어셈블리어 (2)
 
 ## 비트 연산 (`shl`, `shr`)

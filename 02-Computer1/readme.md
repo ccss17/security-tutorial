@@ -1,3 +1,8 @@
+
+# This reposity has been abandoned. Please see 
+
+# 이 레포지토리는 더 이상 관리되지 않습니다. https://ccss17.github.io/security-tutorial 에 방문해주세요.
+
 # 컴퓨터를 밑바닥부터 이해해보자
 
 ## 컴퓨터에 대해 제대로 이해하면 이런 해킹도 할 수 있게 된다 
