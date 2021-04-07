@@ -1,4 +1,4 @@
-# This reposity has been abandoned. Please see 
+# This reposity has been abandoned. Please see https://ccss17.github.io/security-tutorial
 
 # 이 레포지토리는 더 이상 관리되지 않습니다. https://ccss17.github.io/security-tutorial 에 방문해주세요.
 
